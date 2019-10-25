@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ LanguageSpecific
+  ~ Copyright © 2019 Volkhin Nikolay
+  ~ 26.10.2019, 3:02
+  -->
+
+<phpunit bootstrap="vendor/autoload.php"
+
+         backupStaticAttributes="false"
+
+         cacheTokens="false"
+         colors="true"
+
+         processIsolation="false"
+         stopOnError="false"
+         stopOnFailure="false"
+         stopOnIncomplete="false"
+         stopOnSkipped="false"
+
+         verbose="true"
+
+         forceCoversAnnotation="false"
+>
+    <testsuites>
+        <testsuite name="unit">
+            <directory>tests/unit</directory>
+        </testsuite>
+    </testsuites>
+    <filter>
+        <whitelist>
+            <directory suffix=".php">src/LanguageFeatures</directory>
+        </whitelist>
+    </filter>
+</phpunit>
