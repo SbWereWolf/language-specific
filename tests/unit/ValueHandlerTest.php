@@ -2,7 +2,17 @@
 /**
  * LanguageSpecific
  * Copyright © 2019 Volkhin Nikolay
- * 26.10.2019, 13:15
+ * 26.10.2019, 14:10
+ */
+
+/**
+ * PHP version 5.6
+ *
+ * @category Test
+ * @package  LanguageSpecific
+ * @author   SbWereWolf <ulfnew@gmail.com>
+ * @license  MIT https://github.com/SbWereWolf/language-specific/blob/develop/LICENSE
+ * @link     https://github.com/SbWereWolf/language-specific
  */
 
 use LanguageSpecific\ValueHandler;
@@ -14,8 +24,7 @@ use PHPUnit\Framework\TestCase;
  * @category Test
  * @package  LanguageSpecific
  * @author   SbWereWolf <ulfnew@gmail.com>
- * @license  MIT
- *           https://github.com/SbWereWolf/language-specific/blob/develop/LICENSE
+ * @license  MIT https://github.com/SbWereWolf/language-specific/blob/develop/LICENSE
  * @link     https://github.com/SbWereWolf/language-specific
  */
 class ValueHandlerTest extends TestCase
@@ -77,7 +86,7 @@ class ValueHandlerTest extends TestCase
             'int() for NULL value MUST BE zero'
         );
         self::assertTrue(
-            $value->_isNull() === true,
+            $value->isNull() === true,
             'isNull() for NULL value MUST BE true'
         );
 
@@ -87,7 +96,7 @@ class ValueHandlerTest extends TestCase
             'int() MUST BE exact 1'
         );
         self::assertTrue(
-            $value->_isNull() === false,
+            $value->isNull() === false,
             'isNull() for not NULL value MUST BE false'
         );
     }
@@ -105,7 +114,7 @@ class ValueHandlerTest extends TestCase
             ' bool() for NULL value MUST BE false'
         );
         self::assertTrue(
-            $value->_isNull() === true,
+            $value->isNull() === true,
             'isNull() for NULL value MUST BE true'
         );
 
@@ -115,7 +124,7 @@ class ValueHandlerTest extends TestCase
             'bool() MUST BE exact true'
         );
         self::assertTrue(
-            $value->_isNull() === false,
+            $value->isNull() === false,
             'isNull() for not NULL value MUST BE false'
         );
 
@@ -125,7 +134,7 @@ class ValueHandlerTest extends TestCase
             'bool() MUST BE exact false'
         );
         self::assertTrue(
-            $value->_isNull() === false,
+            $value->isNull() === false,
             'isNull() for not NULL value MUST BE false'
         );
     }
@@ -143,7 +152,7 @@ class ValueHandlerTest extends TestCase
             'str() for NULL value MUST BE `` (empty string)'
         );
         self::assertTrue(
-            $value->_isNull() === true,
+            $value->isNull() === true,
             'isNull() for NULL value MUST BE true'
         );
 
@@ -153,7 +162,7 @@ class ValueHandlerTest extends TestCase
             ' str() MUST BE exact `a`'
         );
         self::assertTrue(
-            $value->_isNull() === false,
+            $value->isNull() === false,
             'isNull() for not NULL value MUST BE false'
         );
     }
@@ -171,7 +180,7 @@ class ValueHandlerTest extends TestCase
             'double() for NULL value MUST BE 0.0'
         );
         self::assertTrue(
-            $value->_isNull() === true,
+            $value->isNull() === true,
             'isNull() for NULL value MUST BE true'
         );
 
@@ -181,7 +190,7 @@ class ValueHandlerTest extends TestCase
             'Value of double() MUST BE exact 1.1'
         );
         self::assertTrue(
-            $value->_isNull() === false,
+            $value->isNull() === false,
             'double() for not NULL value MUST BE false'
         );
     }
@@ -195,21 +204,21 @@ class ValueHandlerTest extends TestCase
     {
         $value = new ValueHandler(null);
         self::assertTrue(
-            empty(array_diff($value->array(), [])),
+            empty(array_diff($value->asArray(), [])),
             'For NULL value array() MUST BE []'
         );
         self::assertTrue(
-            $value->_isNull() === true,
+            $value->isNull() === true,
             'For NULL value isNull() MUST BE true'
         );
 
         $value = new ValueHandler(array(false, 1, 'a'));
         self::assertTrue(
-            empty(array_diff($value->array(), [false, 1, 'a'])),
+            empty(array_diff($value->asArray(), [false, 1, 'a'])),
             'MUST BE exact [false,1,`a`]'
         );
         self::assertTrue(
-            $value->_isNull() === false,
+            $value->isNull() === false,
             'For not NULL value MUST BE false'
         );
     }

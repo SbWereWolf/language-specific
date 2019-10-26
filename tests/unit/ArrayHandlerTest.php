@@ -2,7 +2,18 @@
 /**
  * LanguageSpecific
  * Copyright © 2019 Volkhin Nikolay
- * 26.10.2019, 13:15
+ * 26.10.2019, 14:10
+ */
+
+/**
+ * PHP version 5.6
+ *
+ * @category Test
+ * @package  LanguageSpecific
+ * @author   SbWereWolf <ulfnew@gmail.com>
+ * @license  MIT
+ *           https://github.com/SbWereWolf/language-specific/blob/develop/LICENSE
+ * @link     https://github.com/SbWereWolf/language-specific
  */
 
 use LanguageSpecific\ArrayHandler;
@@ -15,8 +26,7 @@ use PHPUnit\Framework\TestCase;
  * @category Test
  * @package  LanguageSpecific
  * @author   SbWereWolf <ulfnew@gmail.com>
- * @license  MIT
- *           https://github.com/SbWereWolf/language-specific/blob/develop/LICENSE
+ * @license  MIT https://github.com/SbWereWolf/language-specific/blob/develop/LICENSE
  * @link     https://github.com/SbWereWolf/language-specific
  */
 class ArrayHandlerTest extends TestCase

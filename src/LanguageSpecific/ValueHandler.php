@@ -2,7 +2,17 @@
 /**
  * LanguageSpecific
  * Copyright © 2019 Volkhin Nikolay
- * 26.10.2019, 13:15
+ * 26.10.2019, 14:10
+ */
+
+/**
+ * PHP version 5.6
+ *
+ * @category Library
+ * @package  LanguageSpecific
+ * @author   SbWereWolf <ulfnew@gmail.com>
+ * @license  MIT https://github.com/SbWereWolf/language-specific/blob/develop/LICENSE
+ * @link     https://github.com/SbWereWolf/language-specific
  */
 
 namespace LanguageSpecific;
@@ -14,8 +24,7 @@ namespace LanguageSpecific;
  * @category Library
  * @package  LanguageSpecific
  * @author   SbWereWolf <ulfnew@gmail.com>
- * @license  MIT
- *           https://github.com/SbWereWolf/language-specific/blob/develop/LICENSE
+ * @license  MIT https://github.com/SbWereWolf/language-specific/blob/develop/LICENSE
  * @link     https://github.com/SbWereWolf/language-specific
  */
 class ValueHandler
@@ -61,7 +70,7 @@ class ValueHandler
      *
      * @return int
      */
-    public function int(): int
+    public function int()
     {
         return (int)($this->_value);
     }
@@ -71,7 +80,7 @@ class ValueHandler
      *
      * @return string
      */
-    public function str(): string
+    public function str()
     {
         return (string)($this->_value);
     }
@@ -81,7 +90,7 @@ class ValueHandler
      *
      * @return bool
      */
-    public function bool(): bool
+    public function bool()
     {
         return (bool)($this->_value);
     }
@@ -91,7 +100,7 @@ class ValueHandler
      *
      * @return float
      */
-    public function double(): float
+    public function double()
     {
         return (float)($this->_value);
     }
@@ -101,7 +110,7 @@ class ValueHandler
      *
      * @return bool
      */
-    public function _isNull(): bool
+    public function isNull()
     {
         return $this->_isNull;
     }
@@ -111,7 +120,7 @@ class ValueHandler
      *
      * @return array
      */
-    public function array(): array
+    public function asArray()
     {
         return (array)($this->_value);
     }
@@ -121,7 +130,7 @@ class ValueHandler
      *
      * @return object
      */
-    public function object(): object
+    public function object()
     {
         return (object)($this->_value);
     }
@@ -133,7 +142,7 @@ class ValueHandler
      *
      * @return string
      */
-    public function type(): string
+    public function type()
     {
         return gettype($this->_value);
     }

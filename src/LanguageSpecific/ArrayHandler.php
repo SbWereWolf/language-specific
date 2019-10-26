@@ -2,7 +2,17 @@
 /**
  * LanguageSpecific
  * Copyright © 2019 Volkhin Nikolay
- * 26.10.2019, 13:15
+ * 26.10.2019, 14:10
+ */
+
+/**
+ * PHP version 5.6
+ *
+ * @category Library
+ * @package  LanguageSpecific
+ * @author   SbWereWolf <ulfnew@gmail.com>
+ * @license  MIT https://github.com/SbWereWolf/language-specific/blob/develop/LICENSE
+ * @link     https://github.com/SbWereWolf/language-specific
  */
 
 namespace LanguageSpecific;
@@ -16,8 +26,7 @@ use Generator;
  * @category Library
  * @package  LanguageSpecific
  * @author   SbWereWolf <ulfnew@gmail.com>
- * @license  MIT
- *           https://github.com/SbWereWolf/language-specific/blob/develop/LICENSE
+ * @license  MIT https://github.com/SbWereWolf/language-specific/blob/develop/LICENSE
  * @link     https://github.com/SbWereWolf/language-specific
  */
 class ArrayHandler
@@ -48,7 +57,7 @@ class ArrayHandler
      *
      * @return ValueHandler
      */
-    public function get($key = null): ValueHandler
+    public function get($key = null)
     {
         $data = $this->_data;
         $isNull = is_null($key);
@@ -71,7 +80,7 @@ class ArrayHandler
      *
      * @return self
      */
-    public function simplify(): self
+    public function simplify()
     {
         $reduced = [];
         foreach ($this->_data as $key => $value) {
