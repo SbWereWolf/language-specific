@@ -132,7 +132,7 @@ $data->get(3)->asIs();
 $data = new ArrayHandler([0, [1,2], [[3,4],[5,6]], null,]);
 var_export($data,true);
 /*
-LanguageFeatures\ArrayHandler::__set_state(array(
+LanguageSpecific\ArrayHandler::__set_state(array(
    'data' => 
   array (
     0 => 0,
@@ -161,7 +161,7 @@ LanguageFeatures\ArrayHandler::__set_state(array(
 $data->simplify();
 var_export($data,true);
 /*
-LanguageFeatures\ArrayHandler::__set_state(array(
+LanguageSpecific\ArrayHandler::__set_state(array(
    'data' => 
   array (
     0 => 0,
@@ -212,7 +212,7 @@ $data = new ArrayHandler(new ArrayHandler());
 $data->get()->object();
 var_export($value,true)
 /*
-LanguageFeatures\ValueHandler::__set_state(array(
+LanguageSpecific\ValueHandler::__set_state(array(
    'value' => NULL,
    'isNull' => true,
 ))
@@ -243,13 +243,13 @@ $data->get()->isNull(); // false
 (new ValueHandler(new ValueHandler()))->type(); // `object`
 ```
 # Detail info
-Refer to [tests/unit/ArrayHandlerTest.php](https://github.com/SbWereWolf/language-features/blob/develop/src/LanguageFeatures/ArrayHandler.php)
-and [tests/unit/ValueHandlerTest.php](https://github.com/SbWereWolf/language-features/blob/develop/src/LanguageFeatures/ValueHandler.php)
+Refer to [tests/unit/ArrayHandlerTest.php](https://github.com/SbWereWolf/language-specific/blob/develop/tests/unit/ArrayHandlerTest.php)
+and [tests/unit/ValueHandlerTest.php](https://github.com/SbWereWolf/language-specific/blob/develop/tests/unit/ValueHandlerTest.php)
 for detail examples of use-cases
 
 # How to install
 ```bash
-composer require sbwerewolf/language-features
+composer require sbwerewolf/language-specific
 ```
 # Unit tests
 ```bash

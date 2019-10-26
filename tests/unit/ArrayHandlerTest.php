@@ -2,15 +2,30 @@
 /**
  * LanguageSpecific
  * Copyright © 2019 Volkhin Nikolay
- * 26.10.2019, 3:02
+ * 26.10.2019, 13:15
  */
 
-use LanguageFeatures\ArrayHandler;
-use LanguageFeatures\ValueHandler;
+use LanguageSpecific\ArrayHandler;
+use LanguageSpecific\ValueHandler;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * Class ArrayHandlerTest
+ *
+ * @category Test
+ * @package  LanguageSpecific
+ * @author   SbWereWolf <ulfnew@gmail.com>
+ * @license  MIT
+ *           https://github.com/SbWereWolf/language-specific/blob/develop/LICENSE
+ * @link     https://github.com/SbWereWolf/language-specific
+ */
 class ArrayHandlerTest extends TestCase
 {
+    /**
+     * Проверяем метод ArrayHandler::next()
+     *
+     * @return void
+     */
     public function testNext()
     {
         $data = new ArrayHandler(['first', 'next', 'last',]);
@@ -28,6 +43,11 @@ class ArrayHandlerTest extends TestCase
         );
     }
 
+    /**
+     * Проверяем метод ArrayHandler::get()
+     *
+     * @return void
+     */
     public function testGet()
     {
         $data = new ArrayHandler(
@@ -74,6 +94,11 @@ class ArrayHandlerTest extends TestCase
         );
     }
 
+    /**
+     * Проверяем метод ArrayHandler::simplify()
+     *
+     * @return void
+     */
     public function testSimplify()
     {
         $data = new ArrayHandler([0, [1, 2], [[3, 4], [5, 6]], null,]);

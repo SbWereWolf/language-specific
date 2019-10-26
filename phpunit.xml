@@ -2,7 +2,7 @@
 <!--
   ~ LanguageSpecific
   ~ Copyright © 2019 Volkhin Nikolay
-  ~ 26.10.2019, 3:02
+  ~ 26.10.2019, 13:15
   -->
 
 <phpunit bootstrap="vendor/autoload.php"
@@ -29,7 +29,7 @@
     </testsuites>
     <filter>
         <whitelist>
-            <directory suffix=".php">src/LanguageFeatures</directory>
+            <directory suffix=".php">src/LanguageSpecific</directory>
         </whitelist>
     </filter>
 </phpunit>

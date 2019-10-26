@@ -2,14 +2,29 @@
 /**
  * LanguageSpecific
  * Copyright © 2019 Volkhin Nikolay
- * 26.10.2019, 3:02
+ * 26.10.2019, 13:15
  */
 
-use LanguageFeatures\ValueHandler;
+use LanguageSpecific\ValueHandler;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * Class ValueHandlerTest
+ *
+ * @category Test
+ * @package  LanguageSpecific
+ * @author   SbWereWolf <ulfnew@gmail.com>
+ * @license  MIT
+ *           https://github.com/SbWereWolf/language-specific/blob/develop/LICENSE
+ * @link     https://github.com/SbWereWolf/language-specific
+ */
 class ValueHandlerTest extends TestCase
 {
+    /**
+     * Проверяем метод ValueHandler::asIs()
+     *
+     * @return void
+     */
     public function testAsIs()
     {
         $value = new ValueHandler(null);
@@ -49,6 +64,11 @@ class ValueHandlerTest extends TestCase
         );
     }
 
+    /**
+     * Проверяем метод ValueHandler::int()
+     *
+     * @return void
+     */
     public function testInt()
     {
         $value = new ValueHandler(null);
@@ -57,7 +77,7 @@ class ValueHandlerTest extends TestCase
             'int() for NULL value MUST BE zero'
         );
         self::assertTrue(
-            $value->isNull() === true,
+            $value->_isNull() === true,
             'isNull() for NULL value MUST BE true'
         );
 
@@ -67,11 +87,16 @@ class ValueHandlerTest extends TestCase
             'int() MUST BE exact 1'
         );
         self::assertTrue(
-            $value->isNull() === false,
+            $value->_isNull() === false,
             'isNull() for not NULL value MUST BE false'
         );
     }
 
+    /**
+     * Проверяем метод ValueHandler::bool()
+     *
+     * @return void
+     */
     public function testBool()
     {
         $value = new ValueHandler(null);
@@ -80,7 +105,7 @@ class ValueHandlerTest extends TestCase
             ' bool() for NULL value MUST BE false'
         );
         self::assertTrue(
-            $value->isNull() === true,
+            $value->_isNull() === true,
             'isNull() for NULL value MUST BE true'
         );
 
@@ -90,7 +115,7 @@ class ValueHandlerTest extends TestCase
             'bool() MUST BE exact true'
         );
         self::assertTrue(
-            $value->isNull() === false,
+            $value->_isNull() === false,
             'isNull() for not NULL value MUST BE false'
         );
 
@@ -100,11 +125,16 @@ class ValueHandlerTest extends TestCase
             'bool() MUST BE exact false'
         );
         self::assertTrue(
-            $value->isNull() === false,
+            $value->_isNull() === false,
             'isNull() for not NULL value MUST BE false'
         );
     }
 
+    /**
+     * Проверяем метод ValueHandler::str()
+     *
+     * @return void
+     */
     public function testStr()
     {
         $value = new ValueHandler(null);
@@ -113,7 +143,7 @@ class ValueHandlerTest extends TestCase
             'str() for NULL value MUST BE `` (empty string)'
         );
         self::assertTrue(
-            $value->isNull() === true,
+            $value->_isNull() === true,
             'isNull() for NULL value MUST BE true'
         );
 
@@ -123,11 +153,16 @@ class ValueHandlerTest extends TestCase
             ' str() MUST BE exact `a`'
         );
         self::assertTrue(
-            $value->isNull() === false,
+            $value->_isNull() === false,
             'isNull() for not NULL value MUST BE false'
         );
     }
 
+    /**
+     * Проверяем метод ValueHandler::double()
+     *
+     * @return void
+     */
     public function testDouble()
     {
         $value = new ValueHandler(null);
@@ -136,7 +171,7 @@ class ValueHandlerTest extends TestCase
             'double() for NULL value MUST BE 0.0'
         );
         self::assertTrue(
-            $value->isNull() === true,
+            $value->_isNull() === true,
             'isNull() for NULL value MUST BE true'
         );
 
@@ -146,11 +181,16 @@ class ValueHandlerTest extends TestCase
             'Value of double() MUST BE exact 1.1'
         );
         self::assertTrue(
-            $value->isNull() === false,
+            $value->_isNull() === false,
             'double() for not NULL value MUST BE false'
         );
     }
 
+    /**
+     * Проверяем метод ValueHandler::array()
+     *
+     * @return void
+     */
     public function testArray()
     {
         $value = new ValueHandler(null);
@@ -159,7 +199,7 @@ class ValueHandlerTest extends TestCase
             'For NULL value array() MUST BE []'
         );
         self::assertTrue(
-            $value->isNull() === true,
+            $value->_isNull() === true,
             'For NULL value isNull() MUST BE true'
         );
 
@@ -169,11 +209,16 @@ class ValueHandlerTest extends TestCase
             'MUST BE exact [false,1,`a`]'
         );
         self::assertTrue(
-            $value->isNull() === false,
+            $value->_isNull() === false,
             'For not NULL value MUST BE false'
         );
     }
 
+    /**
+     * Проверяем метод ValueHandler::type()
+     *
+     * @return void
+     */
     public function testType()
     {
         $type = (new ValueHandler(null))->type();
@@ -226,6 +271,11 @@ class ValueHandlerTest extends TestCase
         );
     }
 
+    /**
+     * Проверяем метод ValueHandler::object()
+     *
+     * @return void
+     */
     public function testObject()
     {
         $value = (new ValueHandler(new ValueHandler()))->object();

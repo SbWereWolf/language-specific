@@ -2,33 +2,43 @@
 /**
  * LanguageSpecific
  * Copyright © 2019 Volkhin Nikolay
- * 26.10.2019, 3:02
+ * 26.10.2019, 13:15
  */
 
-namespace LanguageFeatures;
+namespace LanguageSpecific;
 
 
 use Generator;
 
+/**
+ * Class ArrayHandler
+ *
+ * @category Library
+ * @package  LanguageSpecific
+ * @author   SbWereWolf <ulfnew@gmail.com>
+ * @license  MIT
+ *           https://github.com/SbWereWolf/language-specific/blob/develop/LICENSE
+ * @link     https://github.com/SbWereWolf/language-specific
+ */
 class ArrayHandler
 {
     /**
-     * МАссив с данными
+     * Массив с данными
      *
-     * @var $data
+     * @var $_data
      */
-    private $data = array();
+    private $_data = array();
 
     /**
      * ArrayHandler constructor.
      * Принимает масив,
      * либо значение которое можно привести к массиву
      *
-     * @param $data
+     * @param $data array|object набор данных, массив или объект
      */
     public function __construct($data)
     {
-        $this->data = (array)$data;
+        $this->_data = (array)$data;
     }
 
     /**
@@ -40,13 +50,14 @@ class ArrayHandler
      */
     public function get($key = null): ValueHandler
     {
-        $data = $this->data;
+        $data = $this->_data;
         $isNull = is_null($key);
+        $value = null;
         if ($isNull) {
             $value = new ValueHandler(current($data));
         }
         if (!$isNull) {
-            $value = array_key_exists($key, $data)
+            $value = key_exists($key, $data)
                 ? new ValueHandler($data[$key])
                 : new ValueHandler();
         }
@@ -63,35 +74,35 @@ class ArrayHandler
     public function simplify(): self
     {
         $reduced = [];
-        foreach ($this->data as $key => $value) {
+        foreach ($this->_data as $key => $value) {
             $isNested = is_array($value);
             if (!$isNested) {
                 $reduced[$key] = $value;
             }
         }
-        foreach ($this->data as $nested) {
+        foreach ($this->_data as $nested) {
             $isNested = is_array($nested);
             if ($isNested) {
                 $reduced[] = current($nested);
             }
         }
-        $this->data = $reduced;
+        $this->_data = $reduced;
 
         return $this;
     }
 
     /**
      * Извлекает следующий элемент массива
-     * Значение будет экземпляром класса LanguageFeatures\ValueHandler
+     * Значение будет экземпляром класса LanguageSpecific\ValueHandler
      *
      * @return Generator
      */
     public function next()
     {
-        foreach ($this->data as $value) {
+        foreach ($this->_data as $value) {
             $content = new ValueHandler($value);
             yield $content;
         }
-        reset($this->data);
+        reset($this->_data);
     }
 }

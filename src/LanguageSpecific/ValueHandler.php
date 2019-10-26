@@ -2,38 +2,48 @@
 /**
  * LanguageSpecific
  * Copyright © 2019 Volkhin Nikolay
- * 26.10.2019, 3:02
+ * 26.10.2019, 13:15
  */
 
-namespace LanguageFeatures;
+namespace LanguageSpecific;
 
 
+/**
+ * Class ValueHandler
+ *
+ * @category Library
+ * @package  LanguageSpecific
+ * @author   SbWereWolf <ulfnew@gmail.com>
+ * @license  MIT
+ *           https://github.com/SbWereWolf/language-specific/blob/develop/LICENSE
+ * @link     https://github.com/SbWereWolf/language-specific
+ */
 class ValueHandler
 {
     /**
      * Собственно значение
      *
-     * @var $value mixed
+     * @var $_value mixed
      */
-    private $value;
+    private $_value;
 
     /**
      * Флаг "Значение является пустым"
      *
-     * @var $isNull bool
+     * @var $_isNull bool
      */
-    private $isNull = true;
+    private $_isNull = true;
 
     /**
      * ValueHandler constructor.
      * Принимает произвольное значение
      *
-     * @param $value
+     * @param $value mixed произволное значение
      */
     public function __construct($value = null)
     {
-        $this->value = $value;
-        $this->isNull = is_null($value);
+        $this->_value = $value;
+        $this->_isNull = is_null($value);
     }
 
     /**
@@ -43,7 +53,7 @@ class ValueHandler
      */
     public function asIs()
     {
-        return $this->value;
+        return $this->_value;
     }
 
     /**
@@ -53,7 +63,7 @@ class ValueHandler
      */
     public function int(): int
     {
-        return (int)($this->value);
+        return (int)($this->_value);
     }
 
     /**
@@ -63,7 +73,7 @@ class ValueHandler
      */
     public function str(): string
     {
-        return (string)($this->value);
+        return (string)($this->_value);
     }
 
     /**
@@ -73,7 +83,7 @@ class ValueHandler
      */
     public function bool(): bool
     {
-        return (bool)($this->value);
+        return (bool)($this->_value);
     }
 
     /**
@@ -83,7 +93,7 @@ class ValueHandler
      */
     public function double(): float
     {
-        return (float)($this->value);
+        return (float)($this->_value);
     }
 
     /**
@@ -91,9 +101,9 @@ class ValueHandler
      *
      * @return bool
      */
-    public function isNull(): bool
+    public function _isNull(): bool
     {
-        return $this->isNull;
+        return $this->_isNull;
     }
 
     /**
@@ -103,7 +113,7 @@ class ValueHandler
      */
     public function array(): array
     {
-        return (array)($this->value);
+        return (array)($this->_value);
     }
 
     /**
@@ -113,7 +123,7 @@ class ValueHandler
      */
     public function object(): object
     {
-        return (object)($this->value);
+        return (object)($this->_value);
     }
 
     /**
@@ -125,6 +135,6 @@ class ValueHandler
      */
     public function type(): string
     {
-        return gettype($this->value);
+        return gettype($this->_value);
     }
 }

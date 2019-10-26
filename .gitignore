@@ -1,6 +1,7 @@
-.idea/**
+/.idea/**
 /vendor/
 /.phpunit.result.cache
 /build/**
-tests/developing/**
-.php_cs.cache
+/tests/developing/**
+/.php_cs.cache
+/*.tmp
