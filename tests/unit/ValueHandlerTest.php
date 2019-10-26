@@ -2,7 +2,7 @@
 /**
  * LanguageSpecific
  * Copyright © 2019 Volkhin Nikolay
- * 26.10.2019, 14:10
+ * 26.10.2019, 14:23
  */
 
 /**

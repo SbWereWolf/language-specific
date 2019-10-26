@@ -2,7 +2,7 @@
 /**
  * LanguageSpecific
  * Copyright © 2019 Volkhin Nikolay
- * 26.10.2019, 14:10
+ * 26.10.2019, 14:23
  */
 
 /**
@@ -11,7 +11,8 @@
  * @category Library
  * @package  LanguageSpecific
  * @author   SbWereWolf <ulfnew@gmail.com>
- * @license  MIT https://github.com/SbWereWolf/language-specific/blob/develop/LICENSE
+ * @license  MIT
+ *           https://github.com/SbWereWolf/language-specific/blob/develop/LICENSE
  * @link     https://github.com/SbWereWolf/language-specific
  */
 
