@@ -9,7 +9,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2019 Volkhin Nikolay
- * 27.10.2019, 5:16
+ * 27.10.2019, 21:23
  */
 
 namespace LanguageSpecific;
@@ -40,7 +40,20 @@ class ValueHandler
      */
     private $_has = false;
 
+    /**
+     * Синглтон для неопределённого значения (значение не задано)
+     *
+     * @var $_undefined null|ValueHandler
+     */
     private static $_undefined = null;
+
+    /**
+     * Значение по умолчанию для неопределённого значения,
+     * используется когда значение не задано
+     *
+     * @var $_default null|ValueHandler
+     */
+    private $_default = null;
 
     /**
      * Создать экземпляр с заданным значением
@@ -49,8 +62,8 @@ class ValueHandler
      */
     public function __construct($value = null)
     {
-        $this->_value = $value;
-        $this->_has = true;
+        $this->setValue($value);
+        $this->setHas(true);
     }
 
     /**
@@ -81,8 +94,8 @@ class ValueHandler
      */
     private function _setUndefined()
     {
-        $this->_has = false;
-        $this->_value = null;
+        $this->setHas(false);
+        $this->setValue(null);
 
         return $this;
     }
@@ -94,7 +107,9 @@ class ValueHandler
      */
     public function asIs()
     {
-        return $this->_value;
+        $result = $this->has() ? $this->_value : $this->_default;
+
+        return $result;
     }
 
     /**
@@ -104,7 +119,7 @@ class ValueHandler
      */
     public function int()
     {
-        return (int)($this->_value);
+        return (int)($this->asIs());
     }
 
     /**
@@ -114,7 +129,7 @@ class ValueHandler
      */
     public function str()
     {
-        return (string)($this->_value);
+        return (string)($this->asIs());
     }
 
     /**
@@ -124,17 +139,17 @@ class ValueHandler
      */
     public function bool()
     {
-        return (bool)($this->_value);
+        return (bool)($this->asIs());
     }
 
     /**
-     * Возвращает значение приведённое к double
+     * Возвращает значение приведённое к double (float)
      *
      * @return float
      */
     public function double()
     {
-        return (float)($this->_value);
+        return (float)($this->asIs());
     }
 
     /**
@@ -154,7 +169,7 @@ class ValueHandler
      */
     public function asArray()
     {
-        return (array)($this->_value);
+        return (array)($this->asIs());
     }
 
     /**
@@ -164,7 +179,7 @@ class ValueHandler
      */
     public function object()
     {
-        return (object)($this->_value);
+        return (object)($this->asIs());
     }
 
     /**
@@ -176,6 +191,37 @@ class ValueHandler
      */
     public function type()
     {
-        return gettype($this->_value);
+        return gettype($this->asIs());
+    }
+
+    /**
+     * Использовать зданное значение в качестве значения по умолчанию
+     *
+     * @param $value mixed значение по умолчанию, будет присвоено
+     *               если значение незаданное
+     *
+     * @return self
+     */
+    public function with($value = null)
+    {
+        $this->_default = $value;
+
+        return $this;
+    }
+
+    /**
+     * @param mixed $value
+     */
+    private function setValue($value)
+    {
+        $this->_value = $value;
+    }
+
+    /**
+     * @param bool $has
+     */
+    private function setHas($has)
+    {
+        $this->_has = $has;
     }
 }
