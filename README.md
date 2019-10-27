@@ -228,13 +228,14 @@ $data->get()->array(); // [1.1]
 ```
 ## object() - to object
 ```php
-$data = new ArrayHandler(new ArrayHandler());
-$data->get()->object();
+$data = new ArrayHandler(new ValueHandler());
+$value = $data->get()->object();
 var_export($value,true);
 /*
 LanguageSpecific\ValueHandler::__set_state(array(
    '_value' => NULL,
    '_has' => true,
+   '_default' => NULL,
 ))
 */
 ```
@@ -264,14 +265,33 @@ $data->get('4')->has(); // false
 
 (new ValueHandler(new ValueHandler()))->type(); // `object`
 ```
+## asUndefined() - value handler with undefined value (it is singleton)
+```php
+$value = ValueHandler::asUndefined();
+var_export($value,true);
+/*
+LanguageSpecific\ValueHandler::__set_state(array(
+   '_value' => NULL,
+   '_has' => false,
+   '_default' => NULL,
+))
+*/
+```
+## with() - define default value that will be used with undefined value
+```php
+ValueHandler::asUndefined()->with('default')->str(); // 'default'
+(new ValueHandler('string'))->with('default')->str(); // 'string'
+```
 # Detail info
-Refer to [tests/unit/ArrayHandlerTest.php](https://github.com/SbWereWolf/language-specific/blob/develop/tests/unit/ArrayHandlerTest.php)
-and [tests/unit/ValueHandlerTest.php](https://github.com/SbWereWolf/language-specific/blob/develop/tests/unit/ValueHandlerTest.php)
-for detail examples of use-cases
+Refer to 
+ - [tests/unit/ArrayHandlerTest.php](https://github.com/SbWereWolf/language-specific/blob/feature/php5.6/tests/unit/ArrayHandlerTest.php)
+ - [tests/unit/ValueHandlerTest.php](https://github.com/SbWereWolf/language-specific/blob/master/tests/unit/ValueHandlerTest.php)
+ 
+for detail examples of class methods working
 
 # How to install
 ```bash
-composer require sbwerewolf/language-specific
+composer require sbwerewolf/language-specific ^5.6
 ```
 # Unit tests
 ```bash
@@ -284,4 +304,4 @@ e-mail ulfnew@gmail.com
 phone +7-902-272-65-35
 Telegram @sbwerewolf
 ```
-[Web chat with me](https://t.me/SbWereWolf) 
+[Telegram chat with me](https://t.me/SbWereWolf) 
