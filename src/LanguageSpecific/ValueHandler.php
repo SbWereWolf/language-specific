@@ -1,19 +1,15 @@
 <?php
 /**
- * LanguageSpecific
- * Copyright © 2019 Volkhin Nikolay
- * 26.10.2019, 14:23
- */
-
-/**
  * PHP version 5.6
  *
- * @category Library
+ * @category Test
  * @package  LanguageSpecific
  * @author   SbWereWolf <ulfnew@gmail.com>
- * @license  MIT
- *           https://github.com/SbWereWolf/language-specific/blob/develop/LICENSE
+ * @license  MIT https://github.com/SbWereWolf/language-specific/LICENSE
  * @link     https://github.com/SbWereWolf/language-specific
+ *
+ * Copyright © 2019 Volkhin Nikolay
+ * 27.10.2019, 5:16
  */
 
 namespace LanguageSpecific;
@@ -25,7 +21,7 @@ namespace LanguageSpecific;
  * @category Library
  * @package  LanguageSpecific
  * @author   SbWereWolf <ulfnew@gmail.com>
- * @license  MIT https://github.com/SbWereWolf/language-specific/blob/develop/LICENSE
+ * @license  MIT https://github.com/SbWereWolf/language-specific/LICENSE
  * @link     https://github.com/SbWereWolf/language-specific
  */
 class ValueHandler
@@ -38,22 +34,57 @@ class ValueHandler
     private $_value;
 
     /**
-     * Флаг "Значение является пустым"
+     * Флаг "Значение задано"
      *
-     * @var $_isNull bool
+     * @var $_has bool
      */
-    private $_isNull = true;
+    private $_has = false;
+
+    private static $_undefined = null;
 
     /**
-     * ValueHandler constructor.
-     * Принимает произвольное значение
+     * Создать экземпляр с заданным значением
      *
-     * @param $value mixed произволное значение
+     * @param $value mixed произвольное значение
      */
     public function __construct($value = null)
     {
         $this->_value = $value;
-        $this->_isNull = is_null($value);
+        $this->_has = true;
+    }
+
+    /**
+     * Создать экземпляр с незаданным значением
+     *
+     * @return ValueHandler
+     */
+    public static function asUndefined()
+    {
+        $handler = null;
+        $wasInit = !is_null(ValueHandler::$_undefined);
+        if (!$wasInit) {
+            $handler = new ValueHandler();
+            $handler->_setUndefined();
+            ValueHandler::$_undefined = $handler;
+        }
+        if ($wasInit) {
+            $handler = ValueHandler::$_undefined;
+        }
+
+        return $handler;
+    }
+
+    /**
+     * Установить значение незаданным
+     *
+     * @return self
+     */
+    private function _setUndefined()
+    {
+        $this->_has = false;
+        $this->_value = null;
+
+        return $this;
     }
 
     /**
@@ -107,13 +138,13 @@ class ValueHandler
     }
 
     /**
-     * Флаг "Значение является пустым"
+     * Возвращает флаг "Имеет значение"
      *
      * @return bool
      */
-    public function isNull()
+    public function has()
     {
-        return $this->_isNull;
+        return $this->_has;
     }
 
     /**

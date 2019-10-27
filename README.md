@@ -5,6 +5,11 @@ ArrayHandler with ValueHandler are purpose to **safe access** to array
 With ArrayHandler class you do not need to use 
 ```php 
 array_key_exists()
+intval()
+boolval()
+floatval()
+
+and others
 ```
 With ValueHandler class you get that type exact you want.
 # Use-cases
@@ -17,38 +22,42 @@ $command = $connection->
 $command->execute();
 $data = $command->fetchAll(PDO::FETCH_ASSOC);
 /*
-   'data' => 
-  array (
-    0 => 
-        array (
-          'name' => 'Mike',
-        ),
-    1 => 
-        array (
-          'name' => 'Tom',
-        ),
-    2 => 
-        array (
-          'name' => 'Jerry',
-        ),
-    3 => 
-        array (
-          'name' => 'Mary',
-        )
-  )
+$data =
+    array (
+        0 =>
+            array (
+                'name' => 'Mike',
+            ),
+        1 =>
+            array (
+                'name' => 'Tom',
+            ),
+        2 =>
+            array (
+                'name' => 'Jerry',
+            ),
+        3 =>
+            array (
+                'name' => 'Mary',
+            )
+    );
 */
 $names = new ArrayHandler($data);
-$names->simplify();
+$result = $names->simplify();
+
+echo var_export($result,true);
 /*
-   $names->data => 
+LanguageSpecific\ArrayHandler::__set_state(array(
+   '_data' => 
   array (
     0 => 'Mike',
     1 => 'Tom',
     2 => 'Jerry',
-    3 => 'Mary'
-  )
+    3 => 'Mary',
+  ),
+))
 */
-echo 'Employes with salary greater than 10000$:' . PHP_EOF;
+echo 'Employes with salary greater than 10000$:' . PHP_EOL;
 foreach ($names->next() as $employee) {
     echo $employee->asIs() . PHP_EOL;
 }
@@ -70,17 +79,18 @@ $command = $connection->
 $command->execute();
 $data = $command->fetch(PDO::FETCH_ASSOC);
 /*
-   $data => 
-  array (
-    'name' => 'Jerry',
-    'salary' => 19999.99
-  )
+$data =
+    array (
+        'name' => 'Mike',
+        'salary'=> 19999.99
+    );
 */
+
 $employee = new ArrayHandler($data);
 echo "The highest paid employee is {$employee->get('name')->str()}"
-   . ", with salary of {$employee->get('salary')->int()}$"
+    . ", with salary of {$employee->get('salary')->int()}$";
 /*
-The highest paid employee is Jerry, with salary of 19999$
+The highest paid employee is Mike, with salary of 19999$
 */
 ```
 # Library methods
@@ -111,18 +121,18 @@ $data->get()->asIs();
 
 $data->get('no-exists')->asIs();
 /* NULL */
-$data->get('no-exists')->isNull();
-/* true */
+$data->get('no-exists')->has();
+/* false */
 
 $data->get('index')->asIs();
 /* 20 */
-$data->get('index')->isNull();
-/* false */
+$data->get('index')->has();
+/* true */
 
 $data->get(99)->asIs();
 /* NULL */
-$data->get(99)->isNull();
-/* true */
+$data->get(99)->has();
+/* false */
 
 $data->get(3)->asIs();
 /* 'last' */
@@ -133,7 +143,7 @@ $data = new ArrayHandler([0, [1,2], [[3,4],[5,6]], null,]);
 var_export($data,true);
 /*
 LanguageSpecific\ArrayHandler::__set_state(array(
-   'data' => 
+   '_data' => 
   array (
     0 => 0,
     1 => 
@@ -162,7 +172,7 @@ $data->simplify();
 var_export($data,true);
 /*
 LanguageSpecific\ArrayHandler::__set_state(array(
-   'data' => 
+   '_data' => 
   array (
     0 => 0,
     3 => NULL,
@@ -175,6 +185,16 @@ LanguageSpecific\ArrayHandler::__set_state(array(
   ),
 ))
 */
+```
+## has() - flag that array has the index (key)
+```php
+$data = new ArrayHandler([0=>1]);
+$data->has(0); // true
+// array has index 0
+
+$data = new ArrayHandler([2=>3]);
+$data->has('4'); // false
+// array not has index '4'
 ```
 ## asIs() - Get value as it is
 ```php
@@ -210,21 +230,23 @@ $data->get()->array(); // [1.1]
 ```php
 $data = new ArrayHandler(new ArrayHandler());
 $data->get()->object();
-var_export($value,true)
+var_export($value,true);
 /*
 LanguageSpecific\ValueHandler::__set_state(array(
-   'value' => NULL,
-   'isNull' => true,
+   '_value' => NULL,
+   '_has' => true,
 ))
 */
 ```
-## isNull() - check value is NULL
+## has() - flag that value of element was defined on exemplar construction
 ```php
-$data = new ArrayHandler(null);
-$data->get()->isNull(); // true
+$data = new ArrayHandler([0=>1]);
+$data->get(0)->has(); // true
+// array element with index 0 has value
 
-$data = new ArrayHandler(1);
-$data->get()->isNull(); // false
+$data = new ArrayHandler([2=>3]);
+$data->get('4')->has(); // false
+// array element with index '4' not has value
 ```
 ## type() - get type of value
 ```php
