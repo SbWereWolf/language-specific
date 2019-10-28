@@ -5,11 +5,11 @@
  * @category Test
  * @package  LanguageSpecific
  * @author   SbWereWolf <ulfnew@gmail.com>
- * @license  MIT https://github.com/SbWereWolf/language-specific/blob/feature/php5.6/LICENSE
+ * @license  MIT https://github.com/SbWereWolf/language-specific/LICENSE
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2019 Volkhin Nikolay
- * 27.10.2019, 21:23
+ * 28.10.2019, 22:34
  */
 
 namespace LanguageSpecific;
@@ -73,18 +73,14 @@ class ValueHandler
      */
     public static function asUndefined()
     {
-        $handler = null;
         $wasInit = !is_null(ValueHandler::$_undefined);
         if (!$wasInit) {
             $handler = new ValueHandler();
             $handler->_setUndefined();
             ValueHandler::$_undefined = $handler;
         }
-        if ($wasInit) {
-            $handler = ValueHandler::$_undefined;
-        }
 
-        return $handler;
+        return ValueHandler::$_undefined;
     }
 
     /**

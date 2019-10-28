@@ -118,6 +118,8 @@ $data = new ArrayHandler(
 
 $data->get()->asIs();
 /* 'first' */
+$data->get()->has();
+/* true */
 
 $data->get('no-exists')->asIs();
 /* NULL */
@@ -136,8 +138,11 @@ $data->get(99)->has();
 
 $data->get(3)->asIs();
 /* 'last' */
+$data->get(3)->has();
+/* true */
 ```
 ## simplify() - reduce array nesting
+If element is array then only first array element will remain present
 ```php
 $data = new ArrayHandler([0, [1,2], [[3,4],[5,6]], null,]);
 var_export($data,true);
@@ -188,6 +193,10 @@ LanguageSpecific\ArrayHandler::__set_state(array(
 ```
 ## has() - flag that array has the index (key)
 ```php
+$data = new ArrayHandler([0=>1]);
+$data->has(); // true
+// array has at least one index (element)
+
 $data = new ArrayHandler([0=>1]);
 $data->has(0); // true
 // array has index 0
