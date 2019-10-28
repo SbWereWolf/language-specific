@@ -9,7 +9,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2019 Volkhin Nikolay
- * 28.10.2019, 22:34
+ * 29.10.2019, 2:58
  */
 
 namespace LanguageSpecific;
@@ -24,7 +24,7 @@ namespace LanguageSpecific;
  * @license  MIT https://github.com/SbWereWolf/language-specific/blob/feature/php5.6/LICENSE
  * @link     https://github.com/SbWereWolf/language-specific
  */
-class ValueHandler
+class ValueHandler implements IValueHandler
 {
     /**
      * Собственно значение
@@ -62,16 +62,15 @@ class ValueHandler
      */
     public function __construct($value = null)
     {
-        $this->setValue($value);
-        $this->setHas(true);
+        $this->setValue($value)->setHas(true);
     }
 
     /**
      * Создать экземпляр с незаданным значением
      *
-     * @return ValueHandler
+     * @return IValueHandler
      */
-    public static function asUndefined()
+    public static function asUndefined(): IValueHandler
     {
         $wasInit = !is_null(ValueHandler::$_undefined);
         if (!$wasInit) {
@@ -88,10 +87,9 @@ class ValueHandler
      *
      * @return self
      */
-    private function _setUndefined()
+    private function _setUndefined(): self
     {
-        $this->setHas(false);
-        $this->setValue(null);
+        $this->setValue(null)->setHas(false);
 
         return $this;
     }
@@ -113,7 +111,7 @@ class ValueHandler
      *
      * @return int
      */
-    public function int()
+    public function int(): int
     {
         return (int)($this->asIs());
     }
@@ -123,7 +121,7 @@ class ValueHandler
      *
      * @return string
      */
-    public function str()
+    public function str(): string
     {
         return (string)($this->asIs());
     }
@@ -133,7 +131,7 @@ class ValueHandler
      *
      * @return bool
      */
-    public function bool()
+    public function bool(): bool
     {
         return (bool)($this->asIs());
     }
@@ -143,7 +141,7 @@ class ValueHandler
      *
      * @return float
      */
-    public function double()
+    public function double(): float
     {
         return (float)($this->asIs());
     }
@@ -153,7 +151,7 @@ class ValueHandler
      *
      * @return bool
      */
-    public function has()
+    public function has(): bool
     {
         return $this->_has;
     }
@@ -163,7 +161,7 @@ class ValueHandler
      *
      * @return array
      */
-    public function asArray()
+    public function array(): array
     {
         return (array)($this->asIs());
     }
@@ -185,7 +183,7 @@ class ValueHandler
      *
      * @return string
      */
-    public function type()
+    public function type(): string
     {
         return gettype($this->asIs());
     }
@@ -196,9 +194,9 @@ class ValueHandler
      * @param $value mixed значение по умолчанию, будет присвоено
      *               если значение незаданное
      *
-     * @return self
+     * @return IValueHandler
      */
-    public function with($value = null)
+    public function default($value = null): IValueHandler
     {
         $this->_default = $value;
 
@@ -206,18 +204,26 @@ class ValueHandler
     }
 
     /**
-     * @param mixed $value
+     * @param mixed $value of any type
+     *
+     * @return self
      */
-    private function setValue($value)
+    private function setValue($value): self
     {
         $this->_value = $value;
+
+        return $this;
     }
 
     /**
      * @param bool $has
+     *
+     * @return self
      */
-    private function setHas($has)
+    private function setHas(bool $has): self
     {
         $this->_has = $has;
+
+        return $this;
     }
 }

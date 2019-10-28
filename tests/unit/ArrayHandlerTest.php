@@ -9,7 +9,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2019 Volkhin Nikolay
- * 29.10.2019, 1:46
+ * 29.10.2019, 2:58
  */
 
 use LanguageSpecific\ArrayHandler;
@@ -80,7 +80,7 @@ class ArrayHandlerTest extends TestCase
         self::assertTrue(
             $handler instanceof ArrayHandler,
             'MUST BE possible create ArrayHandler from'
-            . ' array'
+            . ' object'
         );
     }
 

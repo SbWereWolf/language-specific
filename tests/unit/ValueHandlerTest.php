@@ -5,13 +5,14 @@
  * @category Test
  * @package  LanguageSpecific
  * @author   SbWereWolf <ulfnew@gmail.com>
- * @license  MIT https://github.com/SbWereWolf/language-specific/blob/feature/php5.6/LICENSE
+ * @license  MIT https://github.com/SbWereWolf/language-specific/LICENSE
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2019 Volkhin Nikolay
- * 27.10.2019, 21:23
+ * 29.10.2019, 2:58
  */
 
+use LanguageSpecific\IValueHandler;
 use LanguageSpecific\ValueHandler;
 use PHPUnit\Framework\TestCase;
 
@@ -245,7 +246,7 @@ class ValueHandlerTest extends TestCase
     {
         $value = new ValueHandler(null);
         self::assertTrue(
-            empty(array_diff($value->asArray(), [])),
+            empty(array_diff($value->array(), [])),
             'For NULL value array() MUST BE []'
         );
         self::assertTrue(
@@ -255,7 +256,7 @@ class ValueHandlerTest extends TestCase
 
         $value = new ValueHandler(array(false, 1, 'a'));
         self::assertTrue(
-            empty(array_diff($value->asArray(), [false, 1, 'a'])),
+            empty(array_diff($value->array(), [false, 1, 'a'])),
             'MUST BE exact [false,1,`a`]'
         );
         self::assertTrue(
@@ -391,11 +392,11 @@ class ValueHandlerTest extends TestCase
     }
 
     /**
-     * @return ValueHandler
+     * @return IValueHandler
      */
     private function checkWithInt()
     {
-        $value = ValueHandler::asUndefined()->with(1);
+        $value = ValueHandler::asUndefined()->default(1);
         self::assertTrue(
             $value->int() === 1,
             'For undefined with(1) value of int() MUST BE exact 1'
@@ -404,7 +405,7 @@ class ValueHandlerTest extends TestCase
             $value->has(),
             'For undefined with(1) has() MUST BE false'
         );
-        $value = (new ValueHandler(3))->with(1);
+        $value = (new ValueHandler(3))->default(1);
         self::assertTrue(
             $value->int() === 3,
             'For Value(3) with(1) value of int() MUST BE exact 3'
@@ -418,11 +419,11 @@ class ValueHandlerTest extends TestCase
     }
 
     /**
-     * @return ValueHandler
+     * @return IValueHandler
      */
     private function checkWithDouble()
     {
-        $value = ValueHandler::asUndefined()->with(0.9);
+        $value = ValueHandler::asUndefined()->default(0.9);
         self::assertTrue(
             $value->double() === 0.9,
             'For undefined with(0.9) value of double()'
@@ -432,7 +433,7 @@ class ValueHandlerTest extends TestCase
             $value->has(),
             'For undefined with(0.9) has() MUST BE false'
         );
-        $value = (new ValueHandler(1.1))->with(0.9);
+        $value = (new ValueHandler(1.1))->default(0.9);
         self::assertTrue(
             $value->double() === 1.1,
             'For Value(1.1) with(0.9) value of double()'
@@ -447,11 +448,11 @@ class ValueHandlerTest extends TestCase
     }
 
     /**
-     * @return ValueHandler
+     * @return IValueHandler
      */
     private function checkWithBool()
     {
-        $value = ValueHandler::asUndefined()->with(true);
+        $value = ValueHandler::asUndefined()->default(true);
         self::assertTrue(
             $value->bool() === true,
             'For undefined with(true) value of bool()'
@@ -461,7 +462,7 @@ class ValueHandlerTest extends TestCase
             $value->has(),
             'For undefined with(true) has() MUST BE false'
         );
-        $value = (new ValueHandler(false))->with(true);
+        $value = (new ValueHandler(false))->default(true);
         self::assertTrue(
             $value->bool() === false,
             'For Value(false) with(true) value of bool()'
@@ -476,11 +477,11 @@ class ValueHandlerTest extends TestCase
     }
 
     /**
-     * @return ValueHandler
+     * @return IValueHandler
      */
     private function checkWithStr()
     {
-        $value = ValueHandler::asUndefined()->with('a');
+        $value = ValueHandler::asUndefined()->default('a');
         self::assertTrue(
             $value->str() === 'a',
             'For undefined with(`a`) value of str()'
@@ -490,7 +491,7 @@ class ValueHandlerTest extends TestCase
             $value->has(),
             'For undefined with(`a`) has() MUST BE false'
         );
-        $value = (new ValueHandler('b'))->with('a');
+        $value = (new ValueHandler('b'))->default('a');
         self::assertTrue(
             $value->str() === 'b',
             'For Value(`b`) with(`a`) value of str()'
@@ -505,13 +506,13 @@ class ValueHandlerTest extends TestCase
     }
 
     /**
-     * @return ValueHandler
+     * @return IValueHandler
      */
     private function checkWithArray()
     {
-        $value = ValueHandler::asUndefined()->with([0 => 1]);
+        $value = ValueHandler::asUndefined()->default([0 => 1]);
         self::assertTrue(
-            $value->asArray()[0] === 1,
+            $value->array()[0] === 1,
             'For undefined with([0 => 1]) value of asArray()[0]'
             . ' MUST BE exact 1'
         );
@@ -519,9 +520,9 @@ class ValueHandlerTest extends TestCase
             $value->has(),
             'For undefined with([0 => 1]) has() MUST BE false'
         );
-        $value = (new ValueHandler([2 => 3]))->with([0 => 1]);
+        $value = (new ValueHandler([2 => 3]))->default([0 => 1]);
         self::assertTrue(
-            $value->asArray()[2] === 3,
+            $value->array()[2] === 3,
             'For Value([2 => 3]) with([0 => 1])'
             . 'value of asArray()[2] MUST BE exact 3'
         );
@@ -534,11 +535,11 @@ class ValueHandlerTest extends TestCase
     }
 
     /**
-     * @return ValueHandler
+     * @return IValueHandler
      */
     private function checkWithObject()
     {
-        $value = ValueHandler::asUndefined()->with(new ValueHandler(1));
+        $value = ValueHandler::asUndefined()->default(new ValueHandler(1));
         self::assertTrue(
             $value->object()->int() === 1,
             'For undefined with() (new ValueHandler(1))'
@@ -550,7 +551,7 @@ class ValueHandlerTest extends TestCase
             . ' has() MUST BE false'
         );
         $value = (new ValueHandler(new ValueHandler(2)))
-            ->with(new ValueHandler(1));
+            ->default(new ValueHandler(1));
         self::assertTrue(
             $value->object()->int() === 2,
             'For Value(ValueHandler(2)) with(ValueHandler(1))'

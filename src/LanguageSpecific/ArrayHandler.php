@@ -9,7 +9,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2019 Volkhin Nikolay
- * 29.10.2019, 1:46
+ * 29.10.2019, 2:58
  */
 
 namespace LanguageSpecific;
@@ -26,7 +26,7 @@ use Generator;
  * @license  MIT https://github.com/SbWereWolf/language-specific/blob/feature/php5.6/LICENSE
  * @link     https://github.com/SbWereWolf/language-specific
  */
-class ArrayHandler
+class ArrayHandler implements IArrayHandler
 {
     /**
      * Массив с данными
@@ -56,11 +56,11 @@ class ArrayHandler
     /**
      * Получить элемент массива
      *
-     * @param $key mixed индекс элемента
+     * @param $key int|float|bool|string|null индекс элемента
      *
-     * @return ValueHandler
+     * @return IValueHandler
      */
-    public function get($key = null)
+    public function get($key = null): IValueHandler
     {
         $value = ValueHandler::asUndefined();
         $payload = (new KeySearcher($this->_data))->search($key);
@@ -76,9 +76,9 @@ class ArrayHandler
      * Если элемент массива является массивом, то
      * элементу присваивает значение первого элемента вложенного массива
      *
-     * @return self
+     * @return IArrayHandler
      */
-    public function simplify()
+    public function simplify(): IArrayHandler
     {
         $reduced = [];
         foreach ($this->_data as $key => $value) {
@@ -100,7 +100,7 @@ class ArrayHandler
 
     /**
      * Извлекает следующий элемент массива
-     * Значение будет экземпляром класса LanguageSpecific\ValueHandler
+     * Значение будет экземпляром класса \LanguageSpecific\ValueHandler
      *
      * @return Generator
      */
@@ -117,11 +117,11 @@ class ArrayHandler
     /**
      * Проверяет имеет ли массив заданных индекс
      *
-     * @param $key mixed индекс искомого элемента
+     * @param $key int|float|bool|string|null индекс искомого элемента
      *
      * @return bool
      */
-    public function has($key = null)
+    public function has($key = null): bool
     {
         $output = (new KeySearcher($this->_data))->search($key);
         $result = $output->has();
