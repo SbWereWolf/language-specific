@@ -5,11 +5,11 @@
  * @category Test
  * @package  LanguageSpecific
  * @author   SbWereWolf <ulfnew@gmail.com>
- * @license  MIT https://github.com/SbWereWolf/language-specific/blob/feature/php5.6/LICENSE
+ * @license  MIT https://github.com/SbWereWolf/language-specific/LICENSE
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2019 Volkhin Nikolay
- * 27.10.2019, 5:16
+ * 29.10.2019, 1:46
  */
 
 namespace LanguageSpecific;
@@ -40,17 +40,15 @@ class ArrayHandler
      * Принимает масив,
      * либо значение которое можно привести к массиву
      *
-     * @param $data array|int|float|bool|string массив или значимый тип
+     * @param $data array|int|float|bool|string|object массив или
+     *              значимый тип
      */
-    public function __construct($data)
+    public function __construct($data = null)
     {
+        $source = $data;
         $isArray = is_array($data);
-        $source = [];
-        if ($isArray) {
-            $source = $data;
-        }
         if (!$isArray) {
-            $source[] = $data;
+            $source = [$data];
         }
         $this->_data = $source;
     }

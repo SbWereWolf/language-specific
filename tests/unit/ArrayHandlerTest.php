@@ -5,11 +5,11 @@
  * @category Test
  * @package  LanguageSpecific
  * @author   SbWereWolf <ulfnew@gmail.com>
- * @license  MIT https://github.com/SbWereWolf/language-specific/blob/feature/php5.6/LICENSE
+ * @license  MIT https://github.com/SbWereWolf/language-specific/LICENSE
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2019 Volkhin Nikolay
- * 27.10.2019, 5:16
+ * 29.10.2019, 1:46
  */
 
 use LanguageSpecific\ArrayHandler;
@@ -69,7 +69,14 @@ class ArrayHandlerTest extends TestCase
             . ' NULL'
         );
 
-        $handler = new ArrayHandler([]);
+        $handler = new ArrayHandler();
+        self::assertTrue(
+            $handler instanceof ArrayHandler,
+            'MUST BE possible create ArrayHandler from'
+            . ' array'
+        );
+
+        $handler = new ArrayHandler(new ArrayHandler());
         self::assertTrue(
             $handler instanceof ArrayHandler,
             'MUST BE possible create ArrayHandler from'
