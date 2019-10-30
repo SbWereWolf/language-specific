@@ -9,7 +9,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2019 Volkhin Nikolay
- * 29.10.2019, 2:58
+ * 31.10.2019, 3:37
  */
 
 namespace LanguageSpecific;
@@ -33,7 +33,16 @@ class ArrayHandler implements IArrayHandler
      *
      * @var $_data array массив с которым работает класс
      */
-    private $_data = array();
+    private $_data = [];
+
+    /**
+     * Синглтон для неопределённого значения (значение не задано)
+     *
+     * @var $_undefined null|ArrayHandler
+     */
+    private static $_undefined = null;
+
+    private $isUndefined = true;
 
     /**
      * ArrayHandler constructor.
@@ -51,6 +60,7 @@ class ArrayHandler implements IArrayHandler
             $source = [$data];
         }
         $this->_data = $source;
+        $this->isUndefined = false;
     }
 
     /**
@@ -127,5 +137,68 @@ class ArrayHandler implements IArrayHandler
         $result = $output->has();
 
         return $result;
+    }
+
+    /**
+     * Возвращает IArrayHandler для вложенного массива
+     *
+     * @param $key mixed индекс элемента с вложенным массивом
+     *
+     * @return IArrayHandler
+     */
+    public function pull($key = null): IArrayHandler
+    {
+        $nested = $this->get($key);
+        $isDefined = $nested->has();
+        $isArray = false;
+        if ($isDefined) {
+            $isArray = $nested->type() === 'array';
+        }
+        $pulled = ArrayHandler::asUndefined();
+        if ($isDefined && $isArray) {
+            $pulled = new ArrayHandler($nested->asIs());
+        }
+
+        return $pulled;
+    }
+
+    /**
+     * возвращает флаг "Массив не задан"
+     *
+     * @return bool
+     */
+    public function isUndefined(): bool
+    {
+        return $this->isUndefined;
+    }
+
+    /**
+     * Возвращает с незаданным значением
+     *
+     * @return self
+     */
+    private static function asUndefined(): self
+    {
+        $wasInit = !is_null(ArrayHandler::$_undefined);
+        if (!$wasInit) {
+            $handler = new ArrayHandler();
+            $handler->_setUndefined();
+            ArrayHandler::$_undefined = $handler;
+        }
+
+        return ArrayHandler::$_undefined;
+    }
+
+    /**
+     * Установить значение незаданным
+     *
+     * @return self
+     */
+    private function _setUndefined(): self
+    {
+        $this->isUndefined = true;
+        $this->_data = [];
+
+        return $this;
     }
 }

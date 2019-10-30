@@ -205,6 +205,31 @@ $data = new ArrayHandler([2=>3]);
 $data->has('4'); // false
 // array not has index '4'
 ```
+## pull($key = null) - get array handler for nested array
+```php
+$level4 = [-4 =>
+    ['over' => ['and' => ['over' => ['again' => [true]]]]]];
+$level3 = [-3 => $level4, 'some' => 'other',];
+$level2 = [-2 => $level3];
+$level1 = [-1 => $level2, 'other' => ['content'], 'any'];
+$level0 = [$level1];
+
+$data = new ArrayHandler($level0);
+
+$data->pull(0)->pull(-1)->pull(-2)
+                ->pull(-3)->pull(-4)->pull('over')
+                ->pull('and')->pull('over')->pull('again')
+                ->isUndefined(); // true
+
+$data->pull(0)->pull(-1)->pull(-2)
+                ->pull(-3)->pull(-4)->pull('over')
+                ->pull('and')->pull('over')->pull('again')
+                ->get()->bool(); // true
+
+$data->pull(0)->pull(-1)->pull(-2)
+                ->pull(-3)->pull(-4
+                )->pull(-5)->isUndefined(); // false
+```
 ## asIs() - Get value as it is
 ```php
 $data = new ArrayHandler('1.1');

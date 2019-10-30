@@ -9,7 +9,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2019 Volkhin Nikolay
- * 29.10.2019, 2:58
+ * 31.10.2019, 3:37
  */
 
 namespace LanguageSpecific;
@@ -62,4 +62,20 @@ interface IArrayHandler
      * @return bool
      */
     public function has($key = null): bool;
+
+    /**
+     * Возвращает хэндлер для вложенного массива
+     *
+     * @param $key mixed индекс элемента с вложенным массивом
+     *
+     * @return self
+     */
+    public function pull($key = null): self;
+
+    /**
+     * возвращает флаг "Массив не задан"
+     *
+     * @return bool
+     */
+    public function isUndefined(): bool;
 }
