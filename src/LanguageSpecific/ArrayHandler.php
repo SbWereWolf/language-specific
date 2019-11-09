@@ -9,7 +9,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2019 Volkhin Nikolay
- * 31.10.2019, 3:37
+ * 09.11.19 23:58
  */
 
 namespace LanguageSpecific;
@@ -86,10 +86,19 @@ class ArrayHandler implements IArrayHandler
      * Если элемент массива является массивом, то
      * элементу присваивает значение первого элемента вложенного массива
      *
+     * @param array $needful = [] необходимые индексы, если аргумент
+     *                            задан, то для вложенных массивов
+     *                            будут возвращены элементы только с
+     *                            заданными индексами
+     *
      * @return IArrayHandler
      */
-    public function simplify(): IArrayHandler
+    public function simplify(array $needful = []): IArrayHandler
     {
+        $letFilter = !empty($needful);
+        if ($letFilter) {
+            array_flip($needful);
+        }
         $reduced = [];
         foreach ($this->_data as $key => $value) {
             $isNested = is_array($value);
@@ -97,15 +106,29 @@ class ArrayHandler implements IArrayHandler
                 $reduced[$key] = $value;
             }
         }
-        foreach ($this->_data as $nested) {
+        foreach ($this->_data as $key => $nested) {
             $isNested = is_array($nested);
-            if ($isNested) {
+            if ($isNested && !$letFilter) {
                 $reduced[] = current($nested);
             }
-        }
-        $this->_data = $reduced;
+            $pickedUp = [];
+            if ($isNested && $letFilter) {
+                foreach ($needful as $item => $index) {
+                    if (key_exists($index, $nested)) {
+                        $pickedUp[$index] = $nested[$index];
+                    }
+                }
 
-        return $this;
+            }
+            $letObtain = !empty($pickedUp);
+            if ($letObtain) {
+                $reduced[] = $pickedUp;
+            }
+
+        }
+        $result = new ArrayHandler($reduced);
+
+        return $result;
     }
 
     /**

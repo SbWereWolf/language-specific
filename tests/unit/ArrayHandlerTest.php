@@ -9,7 +9,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2019 Volkhin Nikolay
- * 31.10.2019, 3:37
+ * 09.11.19 23:58
  */
 
 use LanguageSpecific\ArrayHandler;
@@ -176,11 +176,12 @@ class ArrayHandlerTest extends TestCase
      */
     public function testSimplify()
     {
-        $data = new ArrayHandler([0, [1, 2], [[3, 4], [5, 6]], null,]);
+        $data = new ArrayHandler([0, [1, 'one' => 2, 'two' => 3],
+            [[3, 4], [5, 6], 'two' => null, 'three' => 'some',], 10]);
 
-        $data->simplify();
+        $result = $data->simplify();
         $nested = 0;
-        foreach ($data->next() as $item) {
+        foreach ($result->next() as $item) {
             if (is_array($item->asIs())) {
                 $nested++;
             }
@@ -190,6 +191,23 @@ class ArrayHandlerTest extends TestCase
             $nested,
             'Nested array after simplify MUST BE only one'
         );
+
+        $needful = [1, 'two'];
+        $result = $data->simplify([1, 'two']);
+        foreach ($result->next() as $item) {
+            $value = $item->asIs();
+            if (is_array($value)) {
+                $keys = array_keys($value);
+                foreach ($keys as $key) {
+                    $isExists = in_array($key, $needful);
+                    self::assertTrue(
+                        $isExists,
+                        'All keys of nested array MUST BE'
+                        . ' equal any needful element'
+                    );
+                }
+            }
+        }
     }
 
     /**

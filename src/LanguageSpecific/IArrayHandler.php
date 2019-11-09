@@ -9,7 +9,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2019 Volkhin Nikolay
- * 31.10.2019, 3:37
+ * 09.11.19 23:58
  */
 
 namespace LanguageSpecific;
@@ -44,7 +44,7 @@ interface IArrayHandler
      *
      * @return self
      */
-    public function simplify(): self;
+    public function simplify(array $needful = []): self;
 
     /**
      * Извлекает следующий элемент массива
