@@ -3,13 +3,13 @@
  * PHP version 5.6
  *
  * @category Test
- * @package  LanguageSpecific
+ * @package  LanguageSpecific5.6
  * @author   SbWereWolf <ulfnew@gmail.com>
- * @license  MIT https://github.com/SbWereWolf/language-specific/blob/feature/php5.6/LICENSE
+ * @license  MIT https://github.com/SbWereWolf/language-specific/LICENSE
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2019 Volkhin Nikolay
- * 27.10.2019, 5:16
+ * 10.11.19 2:16
  */
 
 use LanguageSpecific\ArrayHandler;
@@ -74,6 +74,13 @@ class ArrayHandlerTest extends TestCase
             $handler instanceof ArrayHandler,
             'MUST BE possible create ArrayHandler from'
             . ' array'
+        );
+
+        $handler = new ArrayHandler(new ArrayHandler());
+        self::assertTrue(
+            $handler instanceof ArrayHandler,
+            'MUST BE possible create ArrayHandler from'
+            . ' object'
         );
     }
 
@@ -169,11 +176,12 @@ class ArrayHandlerTest extends TestCase
      */
     public function testSimplify()
     {
-        $data = new ArrayHandler([0, [1, 2], [[3, 4], [5, 6]], null,]);
+        $data = new ArrayHandler([0, [1, 'one' => 2, 'two' => 3],
+            [[3, 4], [5, 6], 'two' => null, 'three' => 'some',], 10]);
 
-        $data->simplify();
+        $result = $data->simplify();
         $nested = 0;
-        foreach ($data->next() as $item) {
+        foreach ($result->next() as $item) {
             if (is_array($item->asIs())) {
                 $nested++;
             }
@@ -183,6 +191,23 @@ class ArrayHandlerTest extends TestCase
             $nested,
             'Nested array after simplify MUST BE only one'
         );
+
+        $needful = [1, 'two'];
+        $result = $data->simplify([1, 'two']);
+        foreach ($result->next() as $item) {
+            $value = $item->asIs();
+            if (is_array($value)) {
+                $keys = array_keys($value);
+                foreach ($keys as $key) {
+                    $isExists = in_array($key, $needful);
+                    self::assertTrue(
+                        $isExists,
+                        'All keys of nested array MUST BE'
+                        . ' equal any needful element'
+                    );
+                }
+            }
+        }
     }
 
     /**
@@ -215,6 +240,62 @@ class ArrayHandlerTest extends TestCase
         self::assertFalse(
             $data->has('not-exists'),
             'ArrayHandler MUST NOT contain index `not-exists`'
+        );
+    }
+
+
+    /**
+     * Проверяем метод ArrayHandler::has()
+     *
+     * @return void
+     */
+    public function testPull()
+    {
+        $level4 = [-4 =>
+            ['over' => ['and' => ['over' => ['again' => [true]]]]]];
+        $level3 = [-3 => $level4, 'some' => 'other',];
+        $level2 = [-2 => $level3];
+        $level1 = [-1 => $level2, 'other' => ['content'], 'any'];
+        $level0 = [$level1];
+        $data = new ArrayHandler($level0);
+
+        self::assertTrue(
+            is_array($data->pull()->get()->asIs()),
+            'First pull MUST return array'
+        );
+        self::assertTrue(
+            is_array($data->pull()->pull(-1)->get()->asIs()),
+            'Pull of key `-1` MUST return array'
+        );
+        self::assertTrue(
+            $data->pull()->pull('other')
+                ->get()->str() === 'content',
+            'Pull of key `other` MUST return array'
+        );
+        self::assertTrue(
+            $data->pull()->pull(-1)->pull()->get('some')->str() === 'other',
+            'Index `some` MUST BE equal `other`'
+        );
+        self::assertTrue(
+            $data->pull(0)->pull(-1)->pull(-2)
+                ->pull(-3)->pull(-4)->pull(-5)->isUndefined(),
+            'pull() of non existing index (`-5`) MUST'
+            . ' return undefined ArrayHandler'
+        );
+        self::assertFalse(
+            $data->pull(0)->pull(-1)->pull(-2)
+                ->pull(-3)->pull(-4)->pull('over')
+                ->pull('and')->pull('over')->pull('again')
+                ->isUndefined(),
+            'pull() existing index (`again`) MUST'
+            . ' return not undefined ArrayHandler (defined array)'
+        );
+        self::assertTrue(
+            $data->pull(0)->pull(-1)->pull(-2)
+                ->pull(-3)->pull(-4)->pull('over')
+                ->pull('and')->pull('over')->pull('again')
+                ->get()->bool(),
+            'pull(`again`) MUST contain array with value of true'
         );
     }
 }

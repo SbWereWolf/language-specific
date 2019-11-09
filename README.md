@@ -13,7 +13,7 @@ and others
 ```
 With ValueHandler class you get that type exact you want.
 # Use-cases
-## Simplify data base response and output data as is:
+## Simplify database response and output data as is:
 ```php
 $connection = new PDO ($dsn,$login,$password);
 
@@ -69,7 +69,7 @@ Jerry
 Mary
 */
 ```
-## Get data base response with proper types
+## Get database response with proper types
 ```php
 $connection = new PDO ($dsn,$login,$password);
 
@@ -141,8 +141,11 @@ $data->get(3)->asIs();
 $data->get(3)->has();
 /* true */
 ```
-## simplify() - reduce array nesting
-If element is array then only first array element will remain present
+## simplify(array $needful = []) - reduce array nesting
+If element is array then only first array element will remain present.
+
+If argument $needful is defined then will be returned only these 
+indexes of nested arrays
 ```php
 $data = new ArrayHandler([0, [1,2], [[3,4],[5,6]], null,]);
 var_export($data,true);
@@ -204,6 +207,31 @@ $data->has(0); // true
 $data = new ArrayHandler([2=>3]);
 $data->has('4'); // false
 // array not has index '4'
+```
+## pull($key = null) - get array handler for nested array
+```php
+$level4 = [-4 =>
+    ['over' => ['and' => ['over' => ['again' => [true]]]]]];
+$level3 = [-3 => $level4, 'some' => 'other',];
+$level2 = [-2 => $level3];
+$level1 = [-1 => $level2, 'other' => ['content'], 'any'];
+$level0 = [$level1];
+
+$data = new ArrayHandler($level0);
+
+$data->pull(0)->pull(-1)->pull(-2)
+                ->pull(-3)->pull(-4)->pull('over')
+                ->pull('and')->pull('over')->pull('again')
+                ->isUndefined(); // true
+
+$data->pull(0)->pull(-1)->pull(-2)
+                ->pull(-3)->pull(-4)->pull('over')
+                ->pull('and')->pull('over')->pull('again')
+                ->get()->bool(); // true
+
+$data->pull(0)->pull(-1)->pull(-2)
+                ->pull(-3)->pull(-4
+                )->pull(-5)->isUndefined(); // false
 ```
 ## asIs() - Get value as it is
 ```php
