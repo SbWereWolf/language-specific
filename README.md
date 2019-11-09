@@ -13,7 +13,7 @@ and others
 ```
 With ValueHandler class you get that type exact you want.
 # Use-cases
-## Simplify data base response and output data as is:
+## Simplify database response and output data as is:
 ```php
 $connection = new PDO ($dsn,$login,$password);
 
@@ -69,7 +69,7 @@ Jerry
 Mary
 */
 ```
-## Get data base response with proper types
+## Get database response with proper types
 ```php
 $connection = new PDO ($dsn,$login,$password);
 
@@ -145,7 +145,7 @@ $data->get(3)->has();
 If element is array then only first array element will remain present.
 
 If argument $needful is defined then will be returned only these 
-indexes  of nested arrays
+indexes of nested arrays
 ```php
 $data = new ArrayHandler([0, [1,2], [[3,4],[5,6]], null,]);
 var_export($data,true);
