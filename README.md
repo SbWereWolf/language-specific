@@ -141,8 +141,11 @@ $data->get(3)->asIs();
 $data->get(3)->has();
 /* true */
 ```
-## simplify() - reduce array nesting
-If element is array then only first array element will remain present
+## simplify(array $needful = []) - reduce array nesting
+If element is array then only first array element will remain present.
+
+If argument $needful is defined then will be returned only these 
+indexes  of nested arrays
 ```php
 $data = new ArrayHandler([0, [1,2], [[3,4],[5,6]], null,]);
 var_export($data,true);
