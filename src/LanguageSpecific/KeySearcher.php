@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * @category Test
  * @package  LanguageSpecific
@@ -9,7 +9,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2019 Volkhin Nikolay
- * 29.10.2019, 2:58
+ * 14.11.19 23:44
  */
 
 namespace LanguageSpecific;
@@ -20,7 +20,7 @@ namespace LanguageSpecific;
  * @category Library
  * @package  LanguageSpecific
  * @author   SbWereWolf <ulfnew@gmail.com>
- * @license  MIT https://github.com/SbWereWolf/language-specific/blob/feature/php5.6/LICENSE
+ * @license  MIT https://github.com/SbWereWolf/language-specific/blob/feature/php7.0/LICENSE
  * @link     https://github.com/SbWereWolf/language-specific
  */
 class KeySearcher implements IKeySearcher

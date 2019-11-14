@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 5.6
+ * PHP version 7.0
  *
  * @category Test
  * @package  LanguageSpecific
@@ -9,7 +9,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2019 Volkhin Nikolay
- * 09.11.19 23:58
+ * 14.11.19 23:44
  */
 
 namespace LanguageSpecific;
@@ -22,8 +22,7 @@ use Generator;
  * @category Library
  * @package  LanguageSpecific
  * @author   SbWereWolf <ulfnew@gmail.com>
- * @license  MIT
- *           https://github.com/SbWereWolf/language-specific/blob/feature/php5.6/LICENSE
+ * @license  MIT https://github.com/SbWereWolf/language-specific/blob/feature/php7.0/LICENSE
  * @link     https://github.com/SbWereWolf/language-specific
  */
 interface IArrayHandler
@@ -41,6 +40,8 @@ interface IArrayHandler
     /**
      * Если элемент массива является массивом, то
      * элементу присваивает значение первого элемента вложенного массива
+     * Если задан аргумент $needful, то из вложеного массива берутся
+     * все элменты с индексами из $needful[]
      *
      * @return self
      */
@@ -55,7 +56,7 @@ interface IArrayHandler
     public function next();
 
     /**
-     * Проверяет имеет ли массив заданных индекс
+     * Проверяет имеет ли массив заданный индекс
      *
      * @param $key mixed индекс искомого элемента
      *
