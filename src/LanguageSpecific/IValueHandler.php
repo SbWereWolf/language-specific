@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.2
  *
  * @category Test
  * @package  LanguageSpecific
@@ -21,7 +21,7 @@ namespace LanguageSpecific;
  * @category Library
  * @package  LanguageSpecific
  * @author   SbWereWolf <ulfnew@gmail.com>
- * @license  MIT https://github.com/SbWereWolf/language-specific/blob/feature/php7.0/LICENSE
+ * @license  MIT https://github.com/SbWereWolf/language-specific/blob/feature/php7.2/LICENSE
  * @link     https://github.com/SbWereWolf/language-specific
  */
 interface IValueHandler
@@ -87,7 +87,7 @@ interface IValueHandler
      *
      * @return object
      */
-    public function object();
+    public function object(): object;
 
     /**
      * Возвращает тип значения, одно из:
