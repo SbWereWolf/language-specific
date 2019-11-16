@@ -1,3 +1,7 @@
+# How to install
+```bash
+composer require sbwerewolf/language-specific ^5.6
+```
 # Features
 ArrayHandler with ValueHandler are purpose to **safe access** to array
  elements and **type-safe using** of elements values
@@ -93,7 +97,7 @@ echo "The highest paid employee is {$employee->get('name')->str()}"
 The highest paid employee is Mike, with salary of 19999$
 */
 ```
-# Library methods
+# Library methods of version 5
 ## next() - Iterate through array elements
 ```php
 $data = new ArrayHandler(['first', 'next', 'last',]);
@@ -321,15 +325,11 @@ ValueHandler::asUndefined()->with('default')->str(); // 'default'
 ```
 # Detail info
 Refer to 
- - [tests/unit/ArrayHandlerTest.php](https://github.com/SbWereWolf/language-specific/blob/feature/php5.6/tests/unit/ArrayHandlerTest.php)
- - [tests/unit/ValueHandlerTest.php](https://github.com/SbWereWolf/language-specific/blob/master/tests/unit/ValueHandlerTest.php)
+ - [Array Handler](https://github.com/SbWereWolf/language-specific/blob/feature/php5.6/tests/unit/ArrayHandlerTest.php)
+ - [Value Handler](https://github.com/SbWereWolf/language-specific/blob/feature/php5.6/tests/unit/ValueHandlerTest.php)
  
 for detail examples of class methods working
 
-# How to install
-```bash
-composer require sbwerewolf/language-specific ^5.6
-```
 # Unit tests
 ```bash
 composer test

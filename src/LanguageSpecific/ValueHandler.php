@@ -3,13 +3,13 @@
  * PHP version 5.6
  *
  * @category Test
- * @package  LanguageSpecific5.6
+ * @package  LanguageSpecific
  * @author   SbWereWolf <ulfnew@gmail.com>
- * @license  MIT https://github.com/SbWereWolf/language-specific/LICENSE
+ * MIT https://github.com/SbWereWolf/language-specific/blob/feature/php5.6/LICENSE
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2019 Volkhin Nikolay
- * 10.11.19 2:16
+ * 16.11.19 16:07
  */
 
 namespace LanguageSpecific;
@@ -43,7 +43,7 @@ class ValueHandler implements IValueHandler
     /**
      * Синглтон для неопределённого значения (значение не задано)
      *
-     * @var $_undefined null|ValueHandler
+     * @var $_undefined null|self
      */
     private static $_undefined = null;
 
@@ -51,7 +51,7 @@ class ValueHandler implements IValueHandler
      * Значение по умолчанию для неопределённого значения,
      * используется когда значение не задано
      *
-     * @var $_default null|ValueHandler
+     * @var $_default null|self
      */
     private $_default = null;
 
@@ -62,25 +62,24 @@ class ValueHandler implements IValueHandler
      */
     public function __construct($value = null)
     {
-        $this->setValue($value);
-        $this->setHas(true);
+        $this->setValue($value)->setHas(true);
     }
 
     /**
      * Создать экземпляр с незаданным значением
      *
-     * @return ValueHandler
+     * @return self
      */
     public static function asUndefined()
     {
-        $wasInit = !is_null(ValueHandler::$_undefined);
+        $wasInit = !is_null(static::$_undefined);
         if (!$wasInit) {
-            $handler = new ValueHandler();
+            $handler = new static();
             $handler->_setUndefined();
-            ValueHandler::$_undefined = $handler;
+            static::$_undefined = $handler;
         }
 
-        return ValueHandler::$_undefined;
+        return static::$_undefined;
     }
 
     /**
@@ -90,8 +89,7 @@ class ValueHandler implements IValueHandler
      */
     private function _setUndefined()
     {
-        $this->setHas(false);
-        $this->setValue(null);
+        $this->setHas(false)->setValue(null);
 
         return $this;
     }
@@ -211,6 +209,8 @@ class ValueHandler implements IValueHandler
     private function setValue($value)
     {
         $this->_value = $value;
+
+        return $this;
     }
 
     /**
@@ -219,5 +219,7 @@ class ValueHandler implements IValueHandler
     private function setHas($has)
     {
         $this->_has = $has;
+
+        return $this;
     }
 }
