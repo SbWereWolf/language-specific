@@ -26,23 +26,13 @@ use Generator;
  * @license  MIT https://github.com/SbWereWolf/language-specific/blob/feature/php7.0/LICENSE
  * @link     https://github.com/SbWereWolf/language-specific
  */
-class ArrayHandler implements IArrayHandler
+class ArrayHandler extends ArrayHandlerBase
+    implements IArrayHandler
 {
     /**
-     * Массив с данными
-     *
-     * @var $_data array массив с которым работает класс
+     * @var IFactory
      */
-    private $_data = [];
-
-    /**
-     * Синглтон для неопределённого значения (значение не задано)
-     *
-     * @var $_undefined null|ArrayHandler
-     */
-    private static $_undefined = null;
-
-    private $isUndefined = true;
+    private $factory = null;
 
     /**
      * ArrayHandler constructor.
@@ -52,7 +42,7 @@ class ArrayHandler implements IArrayHandler
      * @param $data array|int|float|bool|string|object массив или
      *              значимый тип
      */
-    public function __construct($data = null)
+    public function __construct($data = null, $factory = null)
     {
         $source = $data;
         $isArray = is_array($data);
@@ -60,7 +50,14 @@ class ArrayHandler implements IArrayHandler
             $source = [$data];
         }
         $this->_data = $source;
-        $this->isUndefined = false;
+        $this->setAsDefined();
+
+        if ($factory instanceof IFactory) {
+            $this->factory = $factory;
+        }
+        if(is_null($factory)){
+            $this->factory = new Factory();
+        }
     }
 
     /**
@@ -72,11 +69,11 @@ class ArrayHandler implements IArrayHandler
      */
     public function get($key = null): IValueHandler
     {
-        $value = ValueHandler::asUndefined();
+        $value = $this->factory->getUndefinedValue();
         $payload = (new KeySearcher($this->_data))->search($key);
         if ($payload->has()) {
             $key = $payload->key();
-            $value = new ValueHandler($this->_data[$key]);
+            $value = $this->factory->getValueHandler($this->_data[$key]);
         }
 
         return $value;
@@ -126,21 +123,21 @@ class ArrayHandler implements IArrayHandler
             }
 
         }
-        $result = new ArrayHandler($reduced);
+        $result = new static($reduced);
 
         return $result;
     }
 
     /**
      * Извлекает следующий элемент массива
-     * Значение будет экземпляром класса \LanguageSpecific\ValueHandler
+     * Значение будет экземпляром класса IValueHandler
      *
      * @return Generator
      */
     public function next()
     {
         foreach ($this->_data as $value) {
-            $content = new ValueHandler($value);
+            $content = $this->factory->getValueHandler($value);
             yield $content;
         }
 
@@ -177,51 +174,11 @@ class ArrayHandler implements IArrayHandler
         if ($isDefined) {
             $isArray = $nested->type() === 'array';
         }
-        $pulled = ArrayHandler::asUndefined();
+        $pulled = static::asUndefined();
         if ($isDefined && $isArray) {
-            $pulled = new ArrayHandler($nested->asIs());
+            $pulled = new static($nested->asIs());
         }
 
         return $pulled;
-    }
-
-    /**
-     * возвращает флаг "Массив не задан"
-     *
-     * @return bool
-     */
-    public function isUndefined(): bool
-    {
-        return $this->isUndefined;
-    }
-
-    /**
-     * Возвращает с незаданным значением
-     *
-     * @return self
-     */
-    private static function asUndefined(): self
-    {
-        $wasInit = !is_null(ArrayHandler::$_undefined);
-        if (!$wasInit) {
-            $handler = new ArrayHandler();
-            $handler->_setUndefined();
-            ArrayHandler::$_undefined = $handler;
-        }
-
-        return ArrayHandler::$_undefined;
-    }
-
-    /**
-     * Установить значение незаданным
-     *
-     * @return self
-     */
-    private function _setUndefined(): self
-    {
-        $this->isUndefined = true;
-        $this->_data = [];
-
-        return $this;
     }
 }

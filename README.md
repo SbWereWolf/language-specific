@@ -1,3 +1,7 @@
+# How to install
+```bash
+composer require sbwerewolf/language-specific ^7.2
+```
 # Features
 ArrayHandler with ValueHandler are purpose to **safe access** to array
  elements and **type-safe using** of elements values
@@ -93,7 +97,7 @@ echo "The highest paid employee is {$employee->get('name')->str()}"
 The highest paid employee is Mike, with salary of 19999$
 */
 ```
-# Library methods
+# Library methods of version 7.2
 ## next() - Iterate through array elements
 ```php
 $data = new ArrayHandler(['first', 'next', 'last',]);
@@ -314,22 +318,18 @@ LanguageSpecific\ValueHandler::__set_state(array(
 ))
 */
 ```
-## with() - define default value that will be used with undefined value
+## default($value = null) - define default value that will be used with undefined value
 ```php
-ValueHandler::asUndefined()->with('default')->str(); // 'default'
-(new ValueHandler('string'))->with('default')->str(); // 'string'
+ValueHandler::asUndefined()->default('default')->str(); // 'default'
+(new ValueHandler('string'))->default('default')->str(); // 'string'
 ```
 # Detail info
 Refer to 
- - [tests/unit/ArrayHandlerTest.php](https://github.com/SbWereWolf/language-specific/blob/feature/php5.6/tests/unit/ArrayHandlerTest.php)
- - [tests/unit/ValueHandlerTest.php](https://github.com/SbWereWolf/language-specific/blob/master/tests/unit/ValueHandlerTest.php)
+ - [Array Handler](https://github.com/SbWereWolf/language-specific/blob/feature/php7.2/tests/unit/ArrayHandlerTest.php)
+ - [Value Handler](https://github.com/SbWereWolf/language-specific/blob/feature/php7.2/tests/unit/ValueHandlerTest.php)
  
 for detail examples of class methods working
 
-# How to install
-```bash
-composer require sbwerewolf/language-specific ^5.6
-```
 # Unit tests
 ```bash
 composer test

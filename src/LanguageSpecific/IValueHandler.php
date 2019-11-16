@@ -29,7 +29,7 @@ interface IValueHandler
     /**
      * Создать экземпляр с незаданным значением
      *
-     * @return ValueHandler
+     * @return self
      */
     public static function asUndefined(): IValueHandler;
 

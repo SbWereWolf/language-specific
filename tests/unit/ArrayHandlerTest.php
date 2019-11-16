@@ -13,7 +13,8 @@
  */
 
 use LanguageSpecific\ArrayHandler;
-use LanguageSpecific\ValueHandler;
+use LanguageSpecific\Factory;
+use LanguageSpecific\IValueHandler;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -34,42 +35,42 @@ class ArrayHandlerTest extends TestCase
      */
     public function testConstructor()
     {
-        $handler = new ArrayHandler(0);
+        $handler = new ArrayHandler(0, new Factory());
         self::assertTrue(
             $handler instanceof ArrayHandler,
             'MUST BE possible create ArrayHandler from'
             . ' int'
         );
 
-        $handler = new ArrayHandler(0.1);
+        $handler = new ArrayHandler(0.1, new Factory());
         self::assertTrue(
             $handler instanceof ArrayHandler,
             'MUST BE possible create ArrayHandler from'
             . ' float'
         );
 
-        $handler = new ArrayHandler(false);
+        $handler = new ArrayHandler(false, new Factory());
         self::assertTrue(
             $handler instanceof ArrayHandler,
             'MUST BE possible create ArrayHandler from'
             . ' boolean'
         );
 
-        $handler = new ArrayHandler(' ');
+        $handler = new ArrayHandler(' ', new Factory());
         self::assertTrue(
             $handler instanceof ArrayHandler,
             'MUST BE possible create ArrayHandler from'
             . ' string'
         );
 
-        $handler = new ArrayHandler(null);
+        $handler = new ArrayHandler(null, new Factory());
         self::assertTrue(
             $handler instanceof ArrayHandler,
             'MUST BE possible create ArrayHandler from'
             . ' NULL'
         );
 
-        $handler = new ArrayHandler([]);
+        $handler = new ArrayHandler([], new Factory());
         self::assertTrue(
             $handler instanceof ArrayHandler,
             'MUST BE possible create ArrayHandler from'
@@ -95,8 +96,9 @@ class ArrayHandlerTest extends TestCase
 
         $index = 0;
         foreach ($data->next() as $item) {
-            /* @var $item ValueHandler */
-            self::assertTrue(!empty($item->asIs()), 'MUST NOT BE empty');
+            /* @var $item IValueHandler */
+            self::assertTrue(!empty($item->asIs()),
+                'MUST NOT BE empty');
             $index++;
         }
 
@@ -105,7 +107,7 @@ class ArrayHandlerTest extends TestCase
             'All of array elements MUST been iterated'
         );
         $item = $data->get();
-        /* @var $item ValueHandler */
+        /* @var $item IValueHandler */
         self::assertTrue(
             $item->asIs() === 'first',
             'MUST BE equal to first array element'
@@ -121,10 +123,10 @@ class ArrayHandlerTest extends TestCase
     {
         $data = new ArrayHandler(
             [0 => 'first', 'next' => 20, 'last' => 3.01,]
-        );
+            , new Factory());
 
         $item = $data->get();
-        /* @var $item ValueHandler */
+        /* @var $item IValueHandler */
         self::assertTrue(
             $item->asIs() === 'first',
             'Return value of simple get'
@@ -132,18 +134,20 @@ class ArrayHandlerTest extends TestCase
         );
 
         $item = $data->get('no-exists');
-        /* @var $item ValueHandler */
+        /* @var $item IValueHandler */
         self::assertTrue(
             is_null($item->asIs()),
-            'Return value of get() of non existence index MUST BE null'
+            'Return value of get() of non existence index'
+            . ' MUST BE null'
         );
         self::assertFalse(
             $item->has(),
-            'Return value of has() of non existence index MUST BE false'
+            'Return value of has() of non existence index'
+            . ' MUST BE false'
         );
 
         $item = $data->get('next');
-        /* @var $item ValueHandler */
+        /* @var $item IValueHandler */
         self::assertTrue(
             $item->asIs() === 20,
             'Return value of get() for exists index'
@@ -153,15 +157,17 @@ class ArrayHandlerTest extends TestCase
         $item = $data->get(99);
         self::assertTrue(
             is_null($item->asIs()),
-            'Return value of get() of non existence index MUST BE null'
+            'Return value of get() of non existence index'
+            . ' MUST BE null'
         );
         self::assertFalse(
             $item->has(),
-            'Return value of has() of non existence index MUST BE false'
+            'Return value of has() of non existence index'
+            . ' MUST BE false'
         );
 
         $item = $data->get(0);
-        /* @var $item ValueHandler */
+        /* @var $item IValueHandler */
         self::assertTrue(
             $item->asIs() === 'first',
             'Return value of get() for exists index'
@@ -273,12 +279,14 @@ class ArrayHandlerTest extends TestCase
             'Pull of key `other` MUST return array'
         );
         self::assertTrue(
-            $data->pull()->pull(-1)->pull()->get('some')->str() === 'other',
+            $data->pull()->pull(-1)->pull()->get('some')
+                ->str() === 'other',
             'Index `some` MUST BE equal `other`'
         );
         self::assertTrue(
             $data->pull(0)->pull(-1)->pull(-2)
-                ->pull(-3)->pull(-4)->pull(-5)->isUndefined(),
+                ->pull(-3)->pull(-4)->pull(-5)
+                ->isUndefined(),
             'pull() of non existing index (`-5`) MUST'
             . ' return undefined ArrayHandler'
         );
@@ -295,7 +303,8 @@ class ArrayHandlerTest extends TestCase
                 ->pull(-3)->pull(-4)->pull('over')
                 ->pull('and')->pull('over')->pull('again')
                 ->get()->bool(),
-            'pull(`again`) MUST contain array with value of true'
+            'pull(`again`) MUST contain array with value'
+            . ' of true'
         );
     }
 }
