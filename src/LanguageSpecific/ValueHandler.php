@@ -5,11 +5,11 @@
  * @category Test
  * @package  LanguageSpecific
  * @author   SbWereWolf <ulfnew@gmail.com>
- * @license  MIT https://github.com/SbWereWolf/language-specific/LICENSE
+ * MIT https://github.com/SbWereWolf/language-specific/blob/feature/php7.0/LICENSE
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2019 Volkhin Nikolay
- * 14.11.19 23:44
+ * 16.11.19 16:11
  */
 
 namespace LanguageSpecific;
@@ -43,7 +43,7 @@ class ValueHandler implements IValueHandler
     /**
      * Синглтон для неопределённого значения (значение не задано)
      *
-     * @var $_undefined null|ValueHandler
+     * @var $_undefined null|self
      */
     private static $_undefined = null;
 
@@ -51,7 +51,7 @@ class ValueHandler implements IValueHandler
      * Значение по умолчанию для неопределённого значения,
      * используется когда значение не задано
      *
-     * @var $_default null|ValueHandler
+     * @var $_default null|self
      */
     private $_default = null;
 
@@ -72,14 +72,14 @@ class ValueHandler implements IValueHandler
      */
     public static function asUndefined(): IValueHandler
     {
-        $wasInit = !is_null(ValueHandler::$_undefined);
+        $wasInit = !is_null(static::$_undefined);
         if (!$wasInit) {
-            $handler = new ValueHandler();
+            $handler = new static();
             $handler->_setUndefined();
-            ValueHandler::$_undefined = $handler;
+            static::$_undefined = $handler;
         }
 
-        return ValueHandler::$_undefined;
+        return static::$_undefined;
     }
 
     /**
@@ -87,9 +87,9 @@ class ValueHandler implements IValueHandler
      *
      * @return self
      */
-    private function _setUndefined(): self
+    private function _setUndefined()
     {
-        $this->setValue(null)->setHas(false);
+        $this->setHas(false)->setValue(null);
 
         return $this;
     }

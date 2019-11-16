@@ -5,11 +5,11 @@
  * @category Test
  * @package  LanguageSpecific
  * @author   SbWereWolf <ulfnew@gmail.com>
- * @license  MIT https://github.com/SbWereWolf/language-specific/LICENSE
+ * MIT https://github.com/SbWereWolf/language-specific/blob/feature/php7.0/LICENSE
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2019 Volkhin Nikolay
- * 14.11.19 23:44
+ * 16.11.19 16:11
  */
 
 namespace LanguageSpecific;
@@ -29,7 +29,7 @@ interface IValueHandler
     /**
      * Создать экземпляр с незаданным значением
      *
-     * @return ValueHandler
+     * @return self
      */
     public static function asUndefined(): IValueHandler;
 
