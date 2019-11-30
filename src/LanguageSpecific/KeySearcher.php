@@ -3,13 +3,13 @@
  * PHP version 5.6
  *
  * @category Test
- * @package  LanguageSpecific5.6
+ * @package  LanguageSpecific
  * @author   SbWereWolf <ulfnew@gmail.com>
- * @license  MIT https://github.com/SbWereWolf/language-specific/LICENSE
+ * MIT https://github.com/SbWereWolf/language-specific/blob/feature/php5.6/LICENSE
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2019 Volkhin Nikolay
- * 10.11.19 2:16
+ * 30.11.19 21:13
  */
 
 namespace LanguageSpecific;
@@ -61,17 +61,17 @@ class KeySearcher implements IKeySearcher
         if ($keyExists) {
             $result = new SearchResult(true, $key);
         }
-        $isNullValue = false;
+        $isNullKey = false;
         if (!$keyExists) {
-            $isNullValue = is_null($key);
+            $isNullKey = is_null($key);
         }
-        if ($isNullValue) {
+        if ($isNullKey) {
             $key = key($data);
         }
-        if ($isNullValue && !$keyExists) {
+        if ($isNullKey && !$keyExists) {
             $keyExists = array_key_exists($key, $data);
         }
-        if ($isNullValue && $keyExists) {
+        if ($isNullKey && $keyExists) {
             $result = new SearchResult(true, $key);
         }
 

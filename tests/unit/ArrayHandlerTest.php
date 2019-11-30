@@ -9,7 +9,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2019 Volkhin Nikolay
- * 16.11.19 16:07
+ * 30.11.19 21:13
  */
 
 use LanguageSpecific\ArrayHandler;
@@ -86,19 +86,21 @@ class ArrayHandlerTest extends TestCase
     }
 
     /**
-     * Проверяем метод ArrayHandler::next()
+     * Проверяем метод ArrayHandler::pulling()
      *
      * @return void
      */
-    public function testNext()
+    public function testPulling()
     {
-        $data = new ArrayHandler(['first', 'next', 'last',]);
+        $last = ['1', '2', '3',];
+        $data = new ArrayHandler([['first', 'next', 'last',],
+            ['A', 'B', 'C',], $last]);
 
         $index = 0;
-        foreach ($data->next() as $item) {
-            /* @var $item IValueHandler */
-            self::assertTrue(!empty($item->asIs()),
-                'MUST NOT BE empty');
+        foreach ($data->pulling() as $item) {
+            /* @var $item \LanguageSpecific\IArrayHandler */
+            self::assertFalse($item->isUndefined(),
+                'Pulled item MUST BE defined');
             $index++;
         }
 
@@ -106,11 +108,10 @@ class ArrayHandlerTest extends TestCase
             $index === 3,
             'All of array elements MUST been iterated'
         );
-        $item = $data->get();
-        /* @var $item IValueHandler */
+
         self::assertTrue(
-            $item->asIs() === 'first',
-            'MUST BE equal to first array element'
+            empty(array_diff($last, $item->raw())),
+            'Pulled item MUST BE same as last array element'
         );
     }
 
@@ -176,47 +177,6 @@ class ArrayHandlerTest extends TestCase
     }
 
     /**
-     * Проверяем метод ArrayHandler::simplify()
-     *
-     * @return void
-     */
-    public function testSimplify()
-    {
-        $data = new ArrayHandler([0, [1, 'one' => 2, 'two' => 3],
-            [[3, 4], [5, 6], 'two' => null, 'three' => 'some',], 10]);
-
-        $result = $data->simplify();
-        $nested = 0;
-        foreach ($result->next() as $item) {
-            if (is_array($item->asIs())) {
-                $nested++;
-            }
-        }
-        self::assertEquals(
-            1,
-            $nested,
-            'Nested array after simplify MUST BE only one'
-        );
-
-        $needful = [1, 'two'];
-        $result = $data->simplify([1, 'two']);
-        foreach ($result->next() as $item) {
-            $value = $item->asIs();
-            if (is_array($value)) {
-                $keys = array_keys($value);
-                foreach ($keys as $key) {
-                    $isExists = in_array($key, $needful);
-                    self::assertTrue(
-                        $isExists,
-                        'All keys of nested array MUST BE'
-                        . ' equal any needful element'
-                    );
-                }
-            }
-        }
-    }
-
-    /**
      * Проверяем метод ArrayHandler::has()
      *
      * @return void
@@ -251,7 +211,7 @@ class ArrayHandlerTest extends TestCase
 
 
     /**
-     * Проверяем метод ArrayHandler::has()
+     * Проверяем метод ArrayHandler::pull()
      *
      * @return void
      */

@@ -3,13 +3,13 @@
  * PHP version 5.6
  *
  * @category Test
- * @package  LanguageSpecific5.6
+ * @package  LanguageSpecific
  * @author   SbWereWolf <ulfnew@gmail.com>
- * @license  MIT https://github.com/SbWereWolf/language-specific/LICENSE
+ * MIT https://github.com/SbWereWolf/language-specific/blob/feature/php5.6/LICENSE
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2019 Volkhin Nikolay
- * 10.11.19 2:16
+ * 30.11.19 21:13
  */
 
 namespace LanguageSpecific;
@@ -30,9 +30,16 @@ interface IValueHandler
     /**
      * Создать экземпляр с незаданным значением
      *
-     * @return ValueHandler
+     * @return self
      */
     public static function asUndefined();
+
+    /**
+     * Возвращает флаг "Имеет значение"
+     *
+     * @return bool
+     */
+    public function has();
 
     /**
      * Возвращает значение как есть
@@ -68,13 +75,6 @@ interface IValueHandler
      * @return float
      */
     public function double();
-
-    /**
-     * Возвращает флаг "Имеет значение"
-     *
-     * @return bool
-     */
-    public function has();
 
     /**
      * Возвращает значение приведённое к массиву

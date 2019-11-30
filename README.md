@@ -17,62 +17,6 @@ and others
 ```
 With ValueHandler class you get that type exact you want.
 # Use-cases
-## Simplify database response and output data as is:
-```php
-$connection = new PDO ($dsn,$login,$password);
-
-$command = $connection->
-            prepare('select name from employee where salary > 10000');
-$command->execute();
-$data = $command->fetchAll(PDO::FETCH_ASSOC);
-/*
-$data =
-    array (
-        0 =>
-            array (
-                'name' => 'Mike',
-            ),
-        1 =>
-            array (
-                'name' => 'Tom',
-            ),
-        2 =>
-            array (
-                'name' => 'Jerry',
-            ),
-        3 =>
-            array (
-                'name' => 'Mary',
-            )
-    );
-*/
-$names = new ArrayHandler($data);
-$result = $names->simplify();
-
-echo var_export($result,true);
-/*
-LanguageSpecific\ArrayHandler::__set_state(array(
-   '_data' => 
-  array (
-    0 => 'Mike',
-    1 => 'Tom',
-    2 => 'Jerry',
-    3 => 'Mary',
-  ),
-))
-*/
-echo 'Employes with salary greater than 10000$:' . PHP_EOL;
-foreach ($names->next() as $employee) {
-    echo $employee->asIs() . PHP_EOL;
-}
-/*
-Employes with salary greater than 10000$:
-Mike
-Tom
-Jerry
-Mary
-*/
-```
 ## Get database response with proper types
 ```php
 $connection = new PDO ($dsn,$login,$password);
@@ -97,23 +41,40 @@ echo "The highest paid employee is {$employee->get('name')->str()}"
 The highest paid employee is Mike, with salary of 19999$
 */
 ```
-# Library methods of version 5
-## next() - Iterate through array elements
+# Library methods of version 7.2
+## raw() - returns original array
 ```php
-$data = new ArrayHandler(['first', 'next', 'last',]);
+$data = new ArrayHandler(
+    [0 => 'first',
+    'index' => 20, 
+    3 => 'last',]);
+    
+$original = $data->raw();
 
-foreach ($data->next() as $item) {
-    echo $item->asIs() . PHP_EOL;
-}
+var_export($original);
 /*
-output are:
-
-first
-next
-last
+array (
+  0 => 'first',
+  'index' => 20,
+  3 => 'last',
+)
 */
 ```
-## get() - Get element
+## has($key = null) - flag that array has the index (key)
+```php
+$data = new ArrayHandler([0=>1]);
+$data->has(); // true
+// array has at least one index (element)
+
+$data = new ArrayHandler([0=>1]);
+$data->has(0); // true
+// array has index 0
+
+$data = new ArrayHandler([2=>3]);
+$data->has('4'); // false
+// array not has index '4'
+```
+## get($key = null) - Get element by index or without it
 ```php
 $data = new ArrayHandler(
     [0 => 'first',
@@ -145,77 +106,19 @@ $data->get(3)->asIs();
 $data->get(3)->has();
 /* true */
 ```
-## simplify(array $needful = []) - reduce array nesting
-If element is array then only first array element will remain present.
-
-If argument $needful is defined then will be returned only these 
-indexes of nested arrays
+## isUndefined() - flag that exemplar value is undefined
 ```php
-$data = new ArrayHandler([0, [1,2], [[3,4],[5,6]], null,]);
-var_export($data,true);
-/*
-LanguageSpecific\ArrayHandler::__set_state(array(
-   '_data' => 
-  array (
-    0 => 0,
-    1 => 
-    array (
-      0 => 1,
-      1 => 2,
-    ),
-    2 => 
-    array (
-      0 => 
-      array (
-        0 => 3,
-        1 => 4,
-      ),
-      1 => 
-      array (
-        0 => 5,
-        1 => 6,
-      ),
-    ),
-    3 => NULL,
-  ),
-))
-*/
-$data->simplify();
-var_export($data,true);
-/*
-LanguageSpecific\ArrayHandler::__set_state(array(
-   '_data' => 
-  array (
-    0 => 0,
-    3 => NULL,
-    4 => 1,
-    5 => 
-    array (
-      0 => 3,
-      1 => 4,
-    ),
-  ),
-))
-*/
-```
-## has() - flag that array has the index (key)
-```php
-$data = new ArrayHandler([0=>1]);
-$data->has(); // true
-// array has at least one index (element)
+$data = new ArrayHandler(['first' => ['A' => 1], 'next' => ['B'=>2],
+    'last' => ['C'=>3],]);
 
-$data = new ArrayHandler([0=>1]);
-$data->has(0); // true
-// array has index 0
+$data->pull('first')->isUndefined(); // false
+$data->pull('begin')->isUndefined(); // true
 
-$data = new ArrayHandler([2=>3]);
-$data->has('4'); // false
-// array not has index '4'
-```
+``` 
 ## pull($key = null) - get array handler for nested array
 ```php
 $level4 = [-4 =>
-    ['over' => ['and' => ['over' => ['again' => [true]]]]]];
+    ['over' => ['and' => ['over' => ['again' => ['for always']]]]]];
 $level3 = [-3 => $level4, 'some' => 'other',];
 $level2 = [-2 => $level3];
 $level1 = [-1 => $level2, 'other' => ['content'], 'any'];
@@ -231,11 +134,39 @@ $data->pull(0)->pull(-1)->pull(-2)
 $data->pull(0)->pull(-1)->pull(-2)
                 ->pull(-3)->pull(-4)->pull('over')
                 ->pull('and')->pull('over')->pull('again')
-                ->get()->bool(); // true
+                ->get()->str(); // 'for always'
 
 $data->pull(0)->pull(-1)->pull(-2)
                 ->pull(-3)->pull(-4
                 )->pull(-5)->isUndefined(); // true
+```
+## pulling() - iterate through array and get handler for each element
+```php
+$data = new ArrayHandler([['first', 'next', 'last',],
+    ['A','B','C',], ['1','2','3',]]);
+
+foreach ($data->pulling() as $next) {
+    /* @var $next ArrayHandler */
+    echo PHP_EOL. var_export($next->raw());
+}
+
+/*
+array (
+  0 => 'first',
+  1 => 'next',
+  2 => 'last',
+)
+array (
+  0 => 'A',
+  1 => 'B',
+  2 => 'C',
+)
+array (
+  0 => '1',
+  1 => '2',
+  2 => '3',
+)
+*/
 ```
 ## asIs() - Get value as it is
 ```php
