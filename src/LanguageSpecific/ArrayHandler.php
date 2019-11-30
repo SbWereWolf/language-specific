@@ -1,15 +1,15 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.2
  *
  * @category Test
  * @package  LanguageSpecific
  * @author   SbWereWolf <ulfnew@gmail.com>
- * @license  MIT https://github.com/SbWereWolf/language-specific/LICENSE
+ * MIT https://github.com/SbWereWolf/language-specific/blob/feature/php7.2/LICENSE
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2019 Volkhin Nikolay
- * 14.11.19 23:44
+ * 30.11.19 21:13
  */
 
 namespace LanguageSpecific;
@@ -61,9 +61,24 @@ class ArrayHandler extends ArrayHandlerBase
     }
 
     /**
+     * Проверяет имеет ли массив заданный индекс
+     *
+     * @param $key int|bool|string|null индекс искомого элемента
+     *
+     * @return bool
+     */
+    public function has($key = null): bool
+    {
+        $output = (new KeySearcher($this->_data))->search($key);
+        $result = $output->has();
+
+        return $result;
+    }
+
+    /**
      * Получить элемент массива
      *
-     * @param $key int|float|bool|string|null индекс элемента
+     * @param $key int|bool|string|null индекс элемента
      *
      * @return IValueHandler
      */
@@ -80,105 +95,50 @@ class ArrayHandler extends ArrayHandlerBase
     }
 
     /**
-     * Если элемент массива является массивом, то
-     * элементу присваивает значение первого элемента вложенного массива
-     *
-     * @param array $needful = [] необходимые индексы, если аргумент
-     *                            задан, то для вложенных массивов
-     *                            будут возвращены элементы только с
-     *                            заданными индексами
-     *
-     * @return IArrayHandler
-     */
-    public function simplify(array $needful = []): IArrayHandler
-    {
-        $letFilter = !empty($needful);
-        if ($letFilter) {
-            array_flip($needful);
-        }
-        $reduced = [];
-        foreach ($this->_data as $key => $value) {
-            $isNested = is_array($value);
-            if (!$isNested) {
-                $reduced[$key] = $value;
-            }
-        }
-        foreach ($this->_data as $key => $nested) {
-            $isNested = is_array($nested);
-            if ($isNested && !$letFilter) {
-                $reduced[] = current($nested);
-            }
-            $pickedUp = [];
-            if ($isNested && $letFilter) {
-                foreach ($needful as $item => $index) {
-                    if (key_exists($index, $nested)) {
-                        $pickedUp[$index] = $nested[$index];
-                    }
-                }
-
-            }
-            $letObtain = !empty($pickedUp);
-            if ($letObtain) {
-                $reduced[] = $pickedUp;
-            }
-
-        }
-        $result = new static($reduced);
-
-        return $result;
-    }
-
-    /**
-     * Извлекает следующий элемент массива
-     * Значение будет экземпляром класса IValueHandler
-     *
-     * @return Generator
-     */
-    public function next()
-    {
-        foreach ($this->_data as $value) {
-            $content = $this->factory->getValueHandler($value);
-            yield $content;
-        }
-
-        reset($this->_data);
-    }
-
-    /**
-     * Проверяет имеет ли массив заданных индекс
-     *
-     * @param $key int|float|bool|string|null индекс искомого элемента
-     *
-     * @return bool
-     */
-    public function has($key = null): bool
-    {
-        $output = (new KeySearcher($this->_data))->search($key);
-        $result = $output->has();
-
-        return $result;
-    }
-
-    /**
      * Возвращает IArrayHandler для вложенного массива
      *
-     * @param $key mixed индекс элемента с вложенным массивом
+     * @param $key int|bool|string|null индекс элемента с массивом
      *
      * @return IArrayHandler
      */
     public function pull($key = null): IArrayHandler
     {
         $nested = $this->get($key);
-        $isDefined = $nested->has();
+        $isExists = $nested->has();
         $isArray = false;
-        if ($isDefined) {
+        if ($isExists) {
             $isArray = $nested->type() === 'array';
         }
         $pulled = static::asUndefined();
-        if ($isDefined && $isArray) {
-            $pulled = new static($nested->asIs());
+        if ($isArray) {
+            $pulled = new static($nested->asIs(), $this->factory);
         }
 
         return $pulled;
+    }
+
+    /**
+     * Извлекает следующий массив
+     * Значение будет экземпляром интерфейса IArrayHandler
+     *
+     * @return Generator
+     */
+    public function pulling()
+    {
+        $keys = array_keys($this->_data);
+        foreach ($keys as $key) {
+            $nextArray = $this->pull($key);
+            yield $nextArray;
+        }
+    }
+
+    /**
+     * Возвращает исходный массив
+     *
+     * @return array
+     */
+    public function raw(): array
+    {
+        return $this->_data;
     }
 }

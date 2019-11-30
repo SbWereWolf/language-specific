@@ -1,15 +1,15 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.2
  *
  * @category Test
  * @package  LanguageSpecific
  * @author   SbWereWolf <ulfnew@gmail.com>
- * @license  MIT https://github.com/SbWereWolf/language-specific/LICENSE
+ * MIT https://github.com/SbWereWolf/language-specific/blob/feature/php7.2/LICENSE
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2019 Volkhin Nikolay
- * 16.11.19 15:21
+ * 30.11.19 21:13
  */
 
 namespace LanguageSpecific;
@@ -31,14 +31,14 @@ class ArrayHandlerBase
      *
      * @var $_data array массив с которым работает класс
      */
-    protected $_data = array();
+    protected $_data = [];
 
     /**
      * Синглтон для неопределённого значения (значение не задано)
      *
      * @var $_undefined null|static
      */
-    protected static $_undefined = null;
+    private static $_undefined = null;
 
     private $isUndefined = true;
 
@@ -59,14 +59,14 @@ class ArrayHandlerBase
      */
     protected static function asUndefined()
     {
-        $wasInit = !is_null(static::$_undefined);
+        $wasInit = !is_null(self::$_undefined);
         if (!$wasInit) {
             $handler = new static();
             $handler->_setUndefined();
-            static::$_undefined = $handler;
+            self::$_undefined = $handler;
         }
 
-        return static::$_undefined;
+        return self::$_undefined;
     }
 
     /**
@@ -77,13 +77,12 @@ class ArrayHandlerBase
     private function _setUndefined()
     {
         $this->isUndefined = true;
-        $this->_data = [];
 
         return $this;
     }
 
     /**
-     * @param bool $isUndefined
+     * Установить как не заданное
      *
      * @return static
      */

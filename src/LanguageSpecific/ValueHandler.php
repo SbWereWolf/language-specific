@@ -5,11 +5,11 @@
  * @category Test
  * @package  LanguageSpecific
  * @author   SbWereWolf <ulfnew@gmail.com>
- * @license  MIT https://github.com/SbWereWolf/language-specific/LICENSE
+ * MIT https://github.com/SbWereWolf/language-specific/blob/feature/php7.2/LICENSE
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2019 Volkhin Nikolay
- * 14.11.19 23:44
+ * 30.11.19 21:13
  */
 
 namespace LanguageSpecific;
@@ -31,7 +31,7 @@ class ValueHandler implements IValueHandler
      *
      * @var $_value mixed
      */
-    private $_value;
+    private $_value = null;
 
     /**
      * Флаг "Значение задано"
@@ -41,17 +41,10 @@ class ValueHandler implements IValueHandler
     private $_has = false;
 
     /**
-     * Синглтон для неопределённого значения (значение не задано)
-     *
-     * @var $_undefined null|self
-     */
-    private static $_undefined = null;
-
-    /**
      * Значение по умолчанию для неопределённого значения,
      * используется когда значение не задано
      *
-     * @var $_default null|self
+     * @var $_default mixed произвольное значение
      */
     private $_default = null;
 
@@ -72,30 +65,36 @@ class ValueHandler implements IValueHandler
      */
     public static function asUndefined(): IValueHandler
     {
-        $wasInit = !is_null(static::$_undefined);
-        if (!$wasInit) {
-            $handler = new static();
-            $handler->_setUndefined();
-            static::$_undefined = $handler;
-        }
+        $handler = new static();
+        $handler->_setUndefined();
 
-        return static::$_undefined;
+        return $handler;
     }
 
     /**
      * Установить значение незаданным
      *
-     * @return self
+     * @return IValueHandler
      */
-    private function _setUndefined(): self
+    private function _setUndefined(): IValueHandler
     {
-        $this->setHas(false)->setValue(null);
+        $this->setHas(false);
 
         return $this;
     }
 
     /**
-     * Возвращает значение как есть
+     * Возвращает флаг "Имеет значение"
+     *
+     * @return bool
+     */
+    public function has(): bool
+    {
+        return $this->_has;
+    }
+
+    /**
+     * Возвращает значение как оно есть
      *
      * @return mixed
      */
@@ -144,16 +143,6 @@ class ValueHandler implements IValueHandler
     public function double(): float
     {
         return (float)($this->asIs());
-    }
-
-    /**
-     * Возвращает флаг "Имеет значение"
-     *
-     * @return bool
-     */
-    public function has(): bool
-    {
-        return $this->_has;
     }
 
     /**
@@ -218,9 +207,9 @@ class ValueHandler implements IValueHandler
     /**
      * @param bool $has
      *
-     * @return self
+     * @return IValueHandler
      */
-    private function setHas(bool $has): self
+    private function setHas(bool $has): IValueHandler
     {
         $this->_has = $has;
 
