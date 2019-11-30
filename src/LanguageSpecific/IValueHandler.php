@@ -9,7 +9,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2019 Volkhin Nikolay
- * 16.11.19 16:11
+ * 30.11.19 21:14
  */
 
 namespace LanguageSpecific;
@@ -31,7 +31,14 @@ interface IValueHandler
      *
      * @return self
      */
-    public static function asUndefined(): IValueHandler;
+    public static function asUndefined(): self;
+
+    /**
+     * Возвращает флаг "Имеет значение"
+     *
+     * @return bool
+     */
+    public function has(): bool;
 
     /**
      * Возвращает значение как есть
@@ -69,13 +76,6 @@ interface IValueHandler
     public function double(): float;
 
     /**
-     * Возвращает флаг "Имеет значение"
-     *
-     * @return bool
-     */
-    public function has(): bool;
-
-    /**
      * Возвращает значение приведённое к массиву
      *
      * @return array
@@ -106,5 +106,5 @@ interface IValueHandler
      *
      * @return self
      */
-    public function default($value = null): IValueHandler;
+    public function default($value = null): self;
 }
