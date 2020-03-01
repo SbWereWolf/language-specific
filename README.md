@@ -19,6 +19,8 @@ With ValueHandler class you get that type exact you want.
 # Use-cases
 ## Get database response with proper types
 ```php
+use LanguageSpecific\ArrayHandler;
+
 $connection = new PDO ($dsn,$login,$password);
 
 $command = $connection->
@@ -44,6 +46,8 @@ The highest paid employee is Mike, with salary of 19999$
 # Library methods of version 7.2
 ## raw() - returns original array
 ```php
+use LanguageSpecific\ArrayHandler;
+
 $data = new ArrayHandler(
     [0 => 'first',
     'index' => 20, 
@@ -62,6 +66,8 @@ array (
 ```
 ## has($key = null) - flag that array has the index (key)
 ```php
+use LanguageSpecific\ArrayHandler;
+
 $data = new ArrayHandler([0=>1]);
 $data->has(); // true
 // array has at least one index (element)
@@ -76,6 +82,8 @@ $data->has('4'); // false
 ```
 ## get($key = null) - Get element by index or without it
 ```php
+use LanguageSpecific\ArrayHandler;
+
 $data = new ArrayHandler(
     [0 => 'first',
     'index' => 20, 
@@ -108,6 +116,8 @@ $data->get(3)->has();
 ```
 ## isUndefined() - flag that exemplar value is undefined
 ```php
+use LanguageSpecific\ArrayHandler;
+
 $data = new ArrayHandler(['first' => ['A' => 1], 'next' => ['B'=>2],
     'last' => ['C'=>3],]);
 
@@ -117,6 +127,8 @@ $data->pull('begin')->isUndefined(); // true
 ``` 
 ## pull($key = null) - get array handler for nested array
 ```php
+use LanguageSpecific\ArrayHandler;
+
 $level4 = [-4 =>
     ['over' => ['and' => ['over' => ['again' => ['for always']]]]]];
 $level3 = [-3 => $level4, 'some' => 'other',];
@@ -142,6 +154,8 @@ $data->pull(0)->pull(-1)->pull(-2)
 ```
 ## pulling() - iterate through array and get handler for each element
 ```php
+use LanguageSpecific\ArrayHandler;
+
 $data = new ArrayHandler([['first', 'next', 'last',],
     ['A','B','C',], ['1','2','3',]]);
 
@@ -170,36 +184,51 @@ array (
 ```
 ## asIs() - Get value as it is
 ```php
+use LanguageSpecific\ArrayHandler;
+
 $data = new ArrayHandler('1.1');
 $data->get()->asIs(); // '1.1'
 ```
 ## int() - to integer
 ```php
+use LanguageSpecific\ArrayHandler;
+
 $data = new ArrayHandler('1.1');
 $data->get()->int(); // 1
 ```
 ## double() to double
 ```php
+use LanguageSpecific\ArrayHandler;
+
 $data = new ArrayHandler('1.1');
 $data->get()->double(); // 1.1
 ```
 ## str() - to string
 ```php
+use LanguageSpecific\ArrayHandler;
+
 $data = new ArrayHandler('1.1');
 $data->get()->str(); // '1.1'
 ```
 ## bool() - to boolean
 ```php
+use LanguageSpecific\ArrayHandler;
+
 $data = new ArrayHandler('1.1');
 $data->get()->bool(); // true
 ```
 ## array() - to array
 ```php
+use LanguageSpecific\ArrayHandler;
+
 $data = new ArrayHandler([1.1]);
 $data->get()->array(); // [1.1]
 ```
 ## object() - to object
 ```php
+use LanguageSpecific\ArrayHandler;
+use LanguageSpecific\ValueHandler;
+
 $data = new ArrayHandler(new ValueHandler());
 $value = $data->get()->object();
 var_export($value,true);
@@ -213,6 +242,8 @@ LanguageSpecific\ValueHandler::__set_state(array(
 ```
 ## has() - flag that value of element was defined on exemplar construction
 ```php
+use LanguageSpecific\ArrayHandler;
+
 $data = new ArrayHandler([0=>1]);
 $data->get(0)->has(); // true
 // array element with index 0 has value
@@ -223,6 +254,8 @@ $data->get('4')->has(); // false
 ```
 ## type() - get type of value
 ```php
+use LanguageSpecific\ValueHandler;
+
 (new ValueHandler(null))->type(); // `NULL`
 
 (new ValueHandler(false))->type(); // `boolean`
@@ -237,8 +270,10 @@ $data->get('4')->has(); // false
 
 (new ValueHandler(new ValueHandler()))->type(); // `object`
 ```
-## asUndefined() - value handler with undefined value (it is singleton)
+## asUndefined() - value handler with undefined value
 ```php
+use LanguageSpecific\ValueHandler;
+
 $value = ValueHandler::asUndefined();
 var_export($value,true);
 /*
@@ -251,6 +286,8 @@ LanguageSpecific\ValueHandler::__set_state(array(
 ```
 ## default($value = null) - define default value that will be used with undefined value
 ```php
+use LanguageSpecific\ValueHandler;
+
 ValueHandler::asUndefined()->default('default')->str(); // 'default'
 (new ValueHandler('string'))->default('default')->str(); // 'string'
 ```
