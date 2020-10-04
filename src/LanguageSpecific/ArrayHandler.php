@@ -2,7 +2,7 @@
 /**
  * PHP version 7.2
  *
- * @category Test
+ * @category Library
  * @package  LanguageSpecific
  * @author   SbWereWolf <ulfnew@gmail.com>
  * MIT https://github.com/SbWereWolf/language-specific/blob/feature/php7.2/LICENSE
@@ -23,7 +23,7 @@ use Generator;
  * @category Library
  * @package  LanguageSpecific
  * @author   SbWereWolf <ulfnew@gmail.com>
- * @license  MIT https://github.com/SbWereWolf/language-specific/blob/feature/php7.0/LICENSE
+ * @license  MIT https://github.com/SbWereWolf/language-specific/blob/feature/php7.2/LICENSE
  * @link     https://github.com/SbWereWolf/language-specific
  */
 class ArrayHandler extends ArrayHandlerBase
@@ -36,7 +36,7 @@ class ArrayHandler extends ArrayHandlerBase
 
     /**
      * ArrayHandler constructor.
-     * Принимает масив,
+     * Принимает массив,
      * либо значение которое можно привести к массиву
      *
      * @param $data array|int|float|bool|string|object массив или

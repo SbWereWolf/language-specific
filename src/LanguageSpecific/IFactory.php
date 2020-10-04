@@ -1,8 +1,8 @@
 <?php
 /**
- * PHP version 7.0
+ * PHP version 7.2
  *
- * @category Test
+ * @category Library
  * @package  LanguageSpecific
  * @author   SbWereWolf <ulfnew@gmail.com>
  * @license  MIT https://github.com/SbWereWolf/language-specific/LICENSE
