@@ -94,6 +94,19 @@ class ArrayHandler extends ArrayHandlerBase
         return $value;
     }
 
+    public function getting()
+    {
+        $keys = array_keys($this->_data);
+        foreach ($keys as $key) {
+            $value = $this->get($key);
+            $isArray = $value->type() === 'array';
+
+            if (!$isArray) {
+                yield $key => $value;
+            }
+        }
+    }
+
     /**
      * Возвращает IArrayHandler для вложенного массива
      *
@@ -128,7 +141,11 @@ class ArrayHandler extends ArrayHandlerBase
         $keys = array_keys($this->_data);
         foreach ($keys as $key) {
             $nextArray = $this->pull($key);
-            yield $nextArray;
+
+            $isExists = !$nextArray->isUndefined();
+            if ($isExists) {
+                yield $key => $nextArray;
+            }
         }
     }
 
@@ -140,5 +157,30 @@ class ArrayHandler extends ArrayHandlerBase
     public function raw(): array
     {
         return $this->_data;
+    }
+
+    public function rewind()
+    {
+        reset($this->_data);
+    }
+
+    public function current()
+    {
+        return new ValueHandler(current($this->_data));
+    }
+
+    public function key()
+    {
+        return key($this->_data);
+    }
+
+    public function next()
+    {
+        next($this->_data);
+    }
+
+    public function valid()
+    {
+        return key_exists(key($this->_data), $this->_data);
     }
 }

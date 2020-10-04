@@ -15,6 +15,7 @@
 namespace LanguageSpecific;
 
 use Generator;
+use Iterator;
 
 /**
  * Interface IArrayHandler
@@ -25,7 +26,7 @@ use Generator;
  * @license  MIT https://github.com/SbWereWolf/language-specific/blob/feature/php7.2/LICENSE
  * @link     https://github.com/SbWereWolf/language-specific
  */
-interface IArrayHandler
+interface IArrayHandler extends Iterator
 {
     /**
      * Получить элемент массива
@@ -37,12 +38,11 @@ interface IArrayHandler
     public function get($key = null): IValueHandler;
 
     /**
-     * Извлекает следующий массив
-     * Значение будет экземпляром интерфейса IArrayHandler
+     * Извлекает следующее значение, кроме массивов
      *
      * @return Generator
      */
-    public function pulling();
+    public function getting();
 
     /**
      * Проверяет имеет ли массив заданный индекс
@@ -60,7 +60,15 @@ interface IArrayHandler
      *
      * @return IArrayHandler
      */
-    public function pull($key = null): self;
+    public function pull($key = null): IArrayHandler;
+
+    /**
+     * Извлекает следующий массив
+     * Значение будет экземпляром интерфейса IArrayHandler
+     *
+     * @return Generator
+     */
+    public function pulling();
 
     /**
      * возвращает флаг "Массив не задан"
