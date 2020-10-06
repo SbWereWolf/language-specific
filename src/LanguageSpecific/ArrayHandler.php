@@ -94,6 +94,9 @@ class ArrayHandler extends ArrayHandlerBase
         return $value;
     }
 
+    /**
+     * @return Generator
+     */
     public function getting()
     {
         $keys = array_keys($this->_data);
