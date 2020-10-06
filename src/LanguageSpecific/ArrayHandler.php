@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * PHP version 5.6
  *
  * @category Test
@@ -8,8 +8,8 @@
  * MIT https://github.com/SbWereWolf/language-specific/blob/feature/php5.6/LICENSE
  * @link     https://github.com/SbWereWolf/language-specific
  *
- * Copyright © 2019 Volkhin Nikolay
- * 30.11.19 21:13
+ * Copyright © 2020 Volkhin Nikolay
+ * 06.10.2020, 16:31
  */
 
 namespace LanguageSpecific;
@@ -95,6 +95,22 @@ class ArrayHandler extends ArrayHandlerBase
     }
 
     /**
+     * @return Generator
+     */
+    public function getting()
+    {
+        $keys = array_keys($this->_data);
+        foreach ($keys as $key) {
+            $value = $this->get($key);
+            $isArray = $value->type() === 'array';
+
+            if (!$isArray) {
+                yield $key => $value;
+            }
+        }
+    }
+
+    /**
      * Возвращает IArrayHandler для вложенного массива
      *
      * @param $key int|bool|string|null индекс элемента с массивом
@@ -128,7 +144,11 @@ class ArrayHandler extends ArrayHandlerBase
         $keys = array_keys($this->_data);
         foreach ($keys as $key) {
             $nextArray = $this->pull($key);
-            yield $nextArray;
+
+            $isExists = !$nextArray->isUndefined();
+            if ($isExists) {
+                yield $key => $nextArray;
+            }
         }
     }
 
@@ -140,5 +160,30 @@ class ArrayHandler extends ArrayHandlerBase
     public function raw()
     {
         return $this->_data;
+    }
+
+    public function rewind()
+    {
+        reset($this->_data);
+    }
+
+    public function current()
+    {
+        return new ValueHandler(current($this->_data));
+    }
+
+    public function key()
+    {
+        return key($this->_data);
+    }
+
+    public function next()
+    {
+        next($this->_data);
+    }
+
+    public function valid()
+    {
+        return key_exists(key($this->_data), $this->_data);
     }
 }
