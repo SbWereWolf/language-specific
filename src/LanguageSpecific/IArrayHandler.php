@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * PHP version 7.0
  *
  * @category Test
@@ -8,13 +8,14 @@
  * MIT https://github.com/SbWereWolf/language-specific/blob/feature/php7.0/LICENSE
  * @link     https://github.com/SbWereWolf/language-specific
  *
- * Copyright © 2019 Volkhin Nikolay
- * 30.11.19 21:14
+ * Copyright © 2020 Volkhin Nikolay
+ * 06.10.2020, 16:31
  */
 
 namespace LanguageSpecific;
 
 use Generator;
+use Iterator;
 
 /**
  * Interface IArrayHandler
@@ -25,7 +26,7 @@ use Generator;
  * @license  MIT https://github.com/SbWereWolf/language-specific/blob/feature/php7.0/LICENSE
  * @link     https://github.com/SbWereWolf/language-specific
  */
-interface IArrayHandler
+interface IArrayHandler extends Iterator
 {
     /**
      * Получить элемент массива
