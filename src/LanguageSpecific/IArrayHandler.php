@@ -16,6 +16,7 @@ namespace LanguageSpecific;
 
 use Generator;
 use Iterator;
+use JsonSerializable;
 
 /**
  * Interface IArrayHandler
@@ -26,7 +27,7 @@ use Iterator;
  * @license  MIT https://github.com/SbWereWolf/language-specific/blob/feature/php7.2/LICENSE
  * @link     https://github.com/SbWereWolf/language-specific
  */
-interface IArrayHandler extends Iterator
+interface IArrayHandler extends Iterator, JsonSerializable
 {
     /**
      * Получить элемент массива
