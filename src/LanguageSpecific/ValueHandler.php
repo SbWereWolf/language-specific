@@ -1,15 +1,15 @@
 <?php
-/**
+/*
  * PHP version 7.0
  *
- * @category Library
+ * @category Test
  * @package  LanguageSpecific
  * @author   SbWereWolf <ulfnew@gmail.com>
  * MIT https://github.com/SbWereWolf/language-specific/blob/feature/php7.0/LICENSE
  * @link     https://github.com/SbWereWolf/language-specific
  *
- * Copyright © 2019 Volkhin Nikolay
- * 30.11.19 21:14
+ * Copyright © 2020 Volkhin Nikolay
+ * 08.10.2020, 3:09
  */
 
 namespace LanguageSpecific;
@@ -100,6 +100,7 @@ class ValueHandler implements IValueHandler
      */
     public function asIs()
     {
+        /** @noinspection PhpUnnecessaryLocalVariableInspection */
         $result = $this->has() ? $this->_value : $this->_default;
 
         return $result;
@@ -178,7 +179,7 @@ class ValueHandler implements IValueHandler
     }
 
     /**
-     * Использовать зданное значение в качестве значения по умолчанию
+     * Использовать заданное значение в качестве значения по умолчанию
      *
      * @param $value mixed значение по умолчанию, будет присвоено
      *               если значение незаданное

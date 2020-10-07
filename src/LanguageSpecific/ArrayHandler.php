@@ -2,14 +2,14 @@
 /*
  * PHP version 7.0
  *
- * @category Library
+ * @category Test
  * @package  LanguageSpecific
  * @author   SbWereWolf <ulfnew@gmail.com>
  * MIT https://github.com/SbWereWolf/language-specific/blob/feature/php7.0/LICENSE
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2020 Volkhin Nikolay
- * 06.10.2020, 16:31
+ * 08.10.2020, 3:09
  */
 
 namespace LanguageSpecific;
@@ -39,8 +39,9 @@ class ArrayHandler extends ArrayHandlerBase
      * Принимает массив,
      * либо значение которое можно привести к массиву
      *
-     * @param $data array|int|float|bool|string|object массив или
+     * @param null $data array|int|float|bool|string|object массив или
      *              значимый тип
+     * @param null $factory фабрика для IValueHandler
      */
     public function __construct($data = null, $factory = null)
     {
@@ -70,6 +71,7 @@ class ArrayHandler extends ArrayHandlerBase
     public function has($key = null): bool
     {
         $output = (new KeySearcher($this->_data))->search($key);
+        /** @noinspection PhpUnnecessaryLocalVariableInspection */
         $result = $output->has();
 
         return $result;

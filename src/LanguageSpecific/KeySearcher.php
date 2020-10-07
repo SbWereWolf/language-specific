@@ -1,15 +1,15 @@
 <?php
-/**
+/*
  * PHP version 7.0
  *
- * @category Library
+ * @category Test
  * @package  LanguageSpecific
  * @author   SbWereWolf <ulfnew@gmail.com>
  * MIT https://github.com/SbWereWolf/language-specific/blob/feature/php7.0/LICENSE
  * @link     https://github.com/SbWereWolf/language-specific
  *
- * Copyright © 2019 Volkhin Nikolay
- * 30.11.19 21:14
+ * Copyright © 2020 Volkhin Nikolay
+ * 08.10.2020, 3:09
  */
 
 namespace LanguageSpecific;
@@ -30,7 +30,7 @@ class KeySearcher implements IKeySearcher
      *
      * @var array
      */
-    private $_source = [];
+    private $_source;
 
     /**
      * KeySearcher constructor.
@@ -38,6 +38,7 @@ class KeySearcher implements IKeySearcher
      * @param array $data массив для поиска индекса
      *
      * @return void
+     * @noinspection PhpParameterByRefIsNotUsedAsReferenceInspection
      */
     public function __construct(array &$data)
     {

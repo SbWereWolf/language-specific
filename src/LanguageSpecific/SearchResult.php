@@ -1,15 +1,15 @@
 <?php
-/**
+/*
  * PHP version 7.0
  *
- * @category Library
+ * @category Test
  * @package  LanguageSpecific
  * @author   SbWereWolf <ulfnew@gmail.com>
- * @license  MIT https://github.com/SbWereWolf/language-specific/blob/feature/php7.0/LICENSE
+ * MIT https://github.com/SbWereWolf/language-specific/blob/feature/php7.0/LICENSE
  * @link     https://github.com/SbWereWolf/language-specific
  *
- * Copyright © 2019 Volkhin Nikolay
- * 14.11.19 23:44
+ * Copyright © 2020 Volkhin Nikolay
+ * 08.10.2020, 3:09
  */
 
 namespace LanguageSpecific;
@@ -27,8 +27,8 @@ namespace LanguageSpecific;
 class SearchResult implements ISearchResult
 {
 
-    private $_key = null;
-    private $_has = false;
+    private $_key;
+    private $_has;
 
     /**
      * SearchResult constructor.
@@ -36,7 +36,7 @@ class SearchResult implements ISearchResult
      * @param $success bool  успех поиска
      * @param $key     mixed при успехе значение найденного ключа
      */
-    public function __construct($success, $key)
+    public function __construct($success = false, $key = null)
     {
         $this->_key = $key;
         $this->_has = $success;
