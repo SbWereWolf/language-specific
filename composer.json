@@ -14,7 +14,8 @@
     }
   ],
   "require": {
-    "php": "~5 || ~7"
+    "php": "~5 || ~7",
+    "ext-json": "*"
   },
   "autoload": {
     "psr-4": {
