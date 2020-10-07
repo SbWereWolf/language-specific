@@ -14,7 +14,7 @@
 
 use LanguageSpecific\ArrayHandler;
 use LanguageSpecific\Factory;
-use LanguageSpecific\IValueHandler;
+use LanguageSpecific\IArrayHandler;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -97,8 +97,9 @@ class ArrayHandlerTest extends TestCase
             ['A', 'B', 'C',], $last]);
 
         $index = 0;
+        $item = new ArrayHandler();
         foreach ($data->pulling() as $item) {
-            /* @var $item \LanguageSpecific\IArrayHandler */
+            /* @var $item IArrayHandler */
             self::assertFalse($item->isUndefined(),
                 'Pulled item MUST BE defined');
             $index++;
@@ -127,7 +128,6 @@ class ArrayHandlerTest extends TestCase
             , new Factory());
 
         $item = $data->get();
-        /* @var $item IValueHandler */
         self::assertTrue(
             $item->asIs() === 'first',
             'Return value of simple get'
@@ -135,7 +135,6 @@ class ArrayHandlerTest extends TestCase
         );
 
         $item = $data->get('no-exists');
-        /* @var $item IValueHandler */
         self::assertTrue(
             is_null($item->asIs()),
             'Return value of get() of non existence index'
@@ -148,7 +147,6 @@ class ArrayHandlerTest extends TestCase
         );
 
         $item = $data->get('next');
-        /* @var $item IValueHandler */
         self::assertTrue(
             $item->asIs() === 20,
             'Return value of get() for exists index'
@@ -168,7 +166,6 @@ class ArrayHandlerTest extends TestCase
         );
 
         $item = $data->get(0);
-        /* @var $item IValueHandler */
         self::assertTrue(
             $item->asIs() === 'first',
             'Return value of get() for exists index'

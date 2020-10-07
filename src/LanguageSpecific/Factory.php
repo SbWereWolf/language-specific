@@ -19,6 +19,7 @@ class Factory implements IFactory
 {
     public static function getValueHandler($value = null): IValueHandler
     {
+        /** @noinspection PhpUnnecessaryLocalVariableInspection */
         $result = new ValueHandler($value);
 
         return $result;
@@ -26,6 +27,7 @@ class Factory implements IFactory
 
     public static function getUndefinedValue(): IValueHandler
     {
+        /** @noinspection PhpUnnecessaryLocalVariableInspection */
         $result = ValueHandler::asUndefined();
 
         return $result;

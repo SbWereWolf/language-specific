@@ -39,8 +39,9 @@ class ArrayHandler extends ArrayHandlerBase
      * Принимает массив,
      * либо значение которое можно привести к массиву
      *
-     * @param $data array|int|float|bool|string|object массив или
+     * @param null $data array|int|float|bool|string|object массив или
      *              значимый тип
+     * @param null $factory фабрика для IValueHandler
      */
     public function __construct($data = null, $factory = null)
     {
@@ -70,6 +71,7 @@ class ArrayHandler extends ArrayHandlerBase
     public function has($key = null): bool
     {
         $output = (new KeySearcher($this->_data))->search($key);
+        /** @noinspection PhpUnnecessaryLocalVariableInspection */
         $result = $output->has();
 
         return $result;

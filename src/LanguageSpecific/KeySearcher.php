@@ -30,7 +30,7 @@ class KeySearcher implements IKeySearcher
      *
      * @var array
      */
-    private $_source = [];
+    private $_source;
 
     /**
      * KeySearcher constructor.
@@ -38,6 +38,7 @@ class KeySearcher implements IKeySearcher
      * @param array $data массив для поиска индекса
      *
      * @return void
+     * @noinspection PhpParameterByRefIsNotUsedAsReferenceInspection
      */
     public function __construct(array &$data)
     {

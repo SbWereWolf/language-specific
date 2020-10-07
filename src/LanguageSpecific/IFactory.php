@@ -20,6 +20,7 @@ interface IFactory
     /**
      * Возвращает IValueHandler
      *
+     * @param null $value значение элемента
      * @return IValueHandler
      */
     public static function getValueHandler($value = null): IValueHandler;
