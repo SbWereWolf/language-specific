@@ -186,4 +186,9 @@ class ArrayHandler extends ArrayHandlerBase
     {
         return key_exists(key($this->_data), $this->_data);
     }
+
+    public function jsonSerialize()
+    {
+        return $this->raw();
+    }
 }
