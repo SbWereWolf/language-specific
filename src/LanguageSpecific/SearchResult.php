@@ -27,8 +27,8 @@ namespace LanguageSpecific;
 class SearchResult implements ISearchResult
 {
 
-    private $_key = null;
-    private $_has = false;
+    private $_key;
+    private $_has;
 
     /**
      * SearchResult constructor.
@@ -36,7 +36,7 @@ class SearchResult implements ISearchResult
      * @param $success bool  успех поиска
      * @param $key     mixed при успехе значение найденного ключа
      */
-    public function __construct($success, $key)
+    public function __construct($success = false, $key = null)
     {
         $this->_key = $key;
         $this->_has = $success;
