@@ -1,15 +1,18 @@
 <?php
 /*
- * PHP version 5.6
- *
- * @category Library
  * @package  LanguageSpecific
  * @author   SbWereWolf <ulfnew@gmail.com>
  * MIT https://github.com/SbWereWolf/language-specific/blob/feature/php5.6/LICENSE
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2020 Volkhin Nikolay
- * 06.10.2020, 16:31
+ * 08.10.2020, 3:48
+ */
+
+/**
+ * PHP version 5.6
+ *
+ * @category Library
  */
 
 namespace LanguageSpecific;
@@ -41,6 +44,7 @@ class ArrayHandler extends ArrayHandlerBase
      *
      * @param $data array|int|float|bool|string|object массив или
      *              значимый тип
+     * @param null $factory фабрика для IValueHandler
      */
     public function __construct($data = null, $factory = null)
     {
@@ -70,6 +74,7 @@ class ArrayHandler extends ArrayHandlerBase
     public function has($key = null)
     {
         $output = (new KeySearcher($this->_data))->search($key);
+        /** @noinspection PhpUnnecessaryLocalVariableInspection */
         $result = $output->has();
 
         return $result;

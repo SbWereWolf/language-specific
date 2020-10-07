@@ -1,20 +1,22 @@
 <?php
-/**
- * PHP version 5.6
- *
- * @category Test
+/*
  * @package  LanguageSpecific
  * @author   SbWereWolf <ulfnew@gmail.com>
  * MIT https://github.com/SbWereWolf/language-specific/blob/feature/php5.6/LICENSE
  * @link     https://github.com/SbWereWolf/language-specific
  *
- * Copyright © 2019 Volkhin Nikolay
- * 30.11.19 21:13
+ * Copyright © 2020 Volkhin Nikolay
+ * 08.10.2020, 3:48
+ */
+
+/**
+ * PHP version 5.6
+ *
+ * @category Test
  */
 
 use LanguageSpecific\ArrayHandler;
 use LanguageSpecific\Factory;
-use LanguageSpecific\IValueHandler;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -97,8 +99,8 @@ class ArrayHandlerTest extends TestCase
             ['A', 'B', 'C',], $last]);
 
         $index = 0;
+        $item = new ArrayHandler();
         foreach ($data->pulling() as $item) {
-            /* @var $item \LanguageSpecific\IArrayHandler */
             self::assertFalse($item->isUndefined(),
                 'Pulled item MUST BE defined');
             $index++;
@@ -127,7 +129,6 @@ class ArrayHandlerTest extends TestCase
             , new Factory());
 
         $item = $data->get();
-        /* @var $item IValueHandler */
         self::assertTrue(
             $item->asIs() === 'first',
             'Return value of simple get'
@@ -135,7 +136,6 @@ class ArrayHandlerTest extends TestCase
         );
 
         $item = $data->get('no-exists');
-        /* @var $item IValueHandler */
         self::assertTrue(
             is_null($item->asIs()),
             'Return value of get() of non existence index'
@@ -148,7 +148,6 @@ class ArrayHandlerTest extends TestCase
         );
 
         $item = $data->get('next');
-        /* @var $item IValueHandler */
         self::assertTrue(
             $item->asIs() === 20,
             'Return value of get() for exists index'
@@ -168,7 +167,6 @@ class ArrayHandlerTest extends TestCase
         );
 
         $item = $data->get(0);
-        /* @var $item IValueHandler */
         self::assertTrue(
             $item->asIs() === 'first',
             'Return value of get() for exists index'

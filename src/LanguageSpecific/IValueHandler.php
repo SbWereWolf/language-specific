@@ -1,15 +1,18 @@
 <?php
-/**
- * PHP version 5.6
- *
- * @category Library
+/*
  * @package  LanguageSpecific
  * @author   SbWereWolf <ulfnew@gmail.com>
  * MIT https://github.com/SbWereWolf/language-specific/blob/feature/php5.6/LICENSE
  * @link     https://github.com/SbWereWolf/language-specific
  *
- * Copyright © 2019 Volkhin Nikolay
- * 30.11.19 21:13
+ * Copyright © 2020 Volkhin Nikolay
+ * 08.10.2020, 3:48
+ */
+
+/**
+ * PHP version 5.6
+ *
+ * @category Library
  */
 
 namespace LanguageSpecific;
@@ -100,7 +103,7 @@ interface IValueHandler
     public function type();
 
     /**
-     * Использовать зданное значение в качестве значения по умолчанию
+     * Использовать заданное значение в качестве значения по умолчанию
      *
      * @param $value mixed значение по умолчанию, будет присвоено
      *               если значение незаданное
