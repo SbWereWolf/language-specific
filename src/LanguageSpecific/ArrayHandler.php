@@ -2,7 +2,7 @@
 /*
  * PHP version 5.6
  *
- * @category Test
+ * @category Library
  * @package  LanguageSpecific
  * @author   SbWereWolf <ulfnew@gmail.com>
  * MIT https://github.com/SbWereWolf/language-specific/blob/feature/php5.6/LICENSE
@@ -36,7 +36,7 @@ class ArrayHandler extends ArrayHandlerBase
 
     /**
      * ArrayHandler constructor.
-     * Принимает масив,
+     * Принимает массив,
      * либо значение которое можно привести к массиву
      *
      * @param $data array|int|float|bool|string|object массив или
