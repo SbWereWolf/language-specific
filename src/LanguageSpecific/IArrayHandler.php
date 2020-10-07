@@ -1,15 +1,18 @@
 <?php
 /*
- * PHP version 7.0
- *
- * @category Library
  * @package  LanguageSpecific
  * @author   SbWereWolf <ulfnew@gmail.com>
  * MIT https://github.com/SbWereWolf/language-specific/blob/feature/php7.0/LICENSE
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2020 Volkhin Nikolay
- * 06.10.2020, 16:31
+ * 08.10.2020, 3:45
+ */
+
+/**
+ * PHP version 7.0
+ *
+ * @category Library
  */
 
 namespace LanguageSpecific;

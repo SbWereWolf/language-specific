@@ -1,15 +1,18 @@
 <?php
+/*
+ * @package  LanguageSpecific
+ * @author   SbWereWolf <ulfnew@gmail.com>
+ * MIT https://github.com/SbWereWolf/language-specific/blob/feature/php7.0/LICENSE
+ * @link     https://github.com/SbWereWolf/language-specific
+ *
+ * Copyright © 2020 Volkhin Nikolay
+ * 08.10.2020, 3:45
+ */
+
 /**
  * PHP version 7.0
  *
  * @category Test
- * @package  LanguageSpecific
- * @author   SbWereWolf <ulfnew@gmail.com>
- * @license  MIT https://github.com/SbWereWolf/language-specific/blob/feature/php7.0/LICENSE
- * @link     https://github.com/SbWereWolf/language-specific
- *
- * Copyright © 2019 Volkhin Nikolay
- * 14.11.19 23:44
  */
 
 use LanguageSpecific\IValueHandler;

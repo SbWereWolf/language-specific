@@ -6,7 +6,13 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2020 Volkhin Nikolay
- * 08.10.2020, 3:11
+ * 08.10.2020, 3:45
+ */
+
+/**
+ * PHP version 7.0
+ *
+ * @category Library
  */
 
 namespace LanguageSpecific;
