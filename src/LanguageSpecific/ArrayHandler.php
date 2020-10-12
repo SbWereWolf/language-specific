@@ -193,4 +193,30 @@ class ArrayHandler extends ArrayHandlerBase
     {
         return $this->raw();
     }
+
+    public function offsetExists($offset): bool
+    {
+        return $this->has($offset);
+    }
+
+    public function offsetGet($offset)
+    {
+        return $this->get($offset)->asIs();
+    }
+
+    public function offsetSet($offset, $value):
+    ValueIsImmutableException {
+        throw new ValueIsImmutableException(
+            'Value of element is immutable.',
+            -1
+        );
+    }
+
+    public function offsetUnset($offset): ListIsImmutableException
+    {
+        throw new ListIsImmutableException(
+            'List of elements is immutable.',
+            -2
+        );
+    }
 }
