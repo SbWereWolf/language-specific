@@ -5,7 +5,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2024 Volkhin Nikolay
- * 12/26/24, 7:57 AM
+ * 12/26/24, 8:33 AM
  */
 
 namespace SbWereWolf\LanguageSpecific;
@@ -31,7 +31,7 @@ class ArrayHandlerBase implements Iterator, JsonSerializable
      */
     protected array $_data = [];
     protected ValueHandlerFactoryInterface $valueFactory;
-    private bool $wasNotDefined = true;
+    private bool $isDummy = true;
 
     public function __construct(
         array $data,
@@ -52,9 +52,9 @@ class ArrayHandlerBase implements Iterator, JsonSerializable
      *
      * @return bool
      */
-    public function wasNotDefined(): bool
+    public function isDummy(): bool
     {
-        return $this->wasNotDefined;
+        return $this->isDummy;
     }
 
     public function rewind(): void
@@ -102,9 +102,9 @@ class ArrayHandlerBase implements Iterator, JsonSerializable
      *
      * @return static
      */
-    protected function riseWasNotDefined(): static
+    protected function riseIsDummy(): static
     {
-        $this->wasNotDefined = true;
+        $this->isDummy = true;
 
         return $this;
     }
@@ -114,9 +114,9 @@ class ArrayHandlerBase implements Iterator, JsonSerializable
      *
      * @return static
      */
-    protected function dropWasNotDefined(): static
+    protected function dropIsDummy(): static
     {
-        $this->wasNotDefined = false;
+        $this->isDummy = false;
 
         return $this;
     }

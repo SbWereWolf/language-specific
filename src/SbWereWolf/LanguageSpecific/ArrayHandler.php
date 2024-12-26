@@ -5,7 +5,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2024 Volkhin Nikolay
- * 12/26/24, 7:57 AM
+ * 12/26/24, 8:33 AM
  */
 
 namespace SbWereWolf\LanguageSpecific;
@@ -57,11 +57,11 @@ class ArrayHandler extends ArrayHandlerBase
 
         if ($isDummy) {
             $this->_data = [];
-            $this->riseWasNotDefined();
+            $this->riseIsDummy();
         }
         if (!$isDummy) {
             $this->_data = array_replace([], $data);
-            $this->dropWasNotDefined();
+            $this->dropIsDummy();
         }
     }
 
@@ -135,8 +135,8 @@ class ArrayHandler extends ArrayHandlerBase
         foreach ($keys as $key) {
             $nextArray = $this->pull($key);
 
-            $isExists = !$nextArray->wasNotDefined();
-            if ($isExists) {
+            $isReal = !$nextArray->isDummy();
+            if ($isReal) {
                 yield $key => $nextArray;
             }
         }

@@ -5,7 +5,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2024 Volkhin Nikolay
- * 12/26/24, 7:57 AM
+ * 12/26/24, 8:33 AM
  */
 
 use PHPUnit\Framework\TestCase;
@@ -63,7 +63,7 @@ class ArrayHandlerTest extends TestCase
         foreach ($handler->pulling() as $item) {
             /* @var $item ArrayHandlerInterface */
             self::assertFalse(
-                $item->wasNotDefined(),
+                $item->isDummy(),
                 'Pulled item MUST BE defined'
             );
             $index++;
@@ -212,7 +212,7 @@ class ArrayHandlerTest extends TestCase
         self::assertTrue(
             $handler->pull(0)->pull(-1)->pull(-2)
                 ->pull(-3)->pull(-4)->pull(-5)
-                ->wasNotDefined(),
+                ->isDummy(),
             'pull() of non existing index (`-5`) MUST'
             . ' return undefined ArrayHandler'
         );
@@ -220,7 +220,7 @@ class ArrayHandlerTest extends TestCase
             $handler->pull(0)->pull(-1)->pull(-2)
                 ->pull(-3)->pull(-4)->pull('over')
                 ->pull('and')->pull('over')->pull('again')
-                ->wasNotDefined(),
+                ->isDummy(),
             'pull() existing index (`again`) MUST'
             . ' return not undefined ArrayHandler (defined array)'
         );

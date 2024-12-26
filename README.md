@@ -126,8 +126,8 @@ use SbWereWolf\LanguageSpecific\ArrayHandler;
 $data = new ArrayHandler(['first' => ['A' => 1], 'next' => ['B'=>2],
     'last' => ['C'=>3],]);
 
-$data->pull('first')->wasNotDefined(); // false
-$data->pull('begin')->wasNotDefined(); // true
+$data->pull('first')->isDummy(); // false
+$data->pull('begin')->isDummy(); // true
 
 ``` 
 ## pull($key = null) - get array handler for nested array
@@ -147,7 +147,7 @@ $data = new ArrayHandler($level0);
 $data->pull(0)->pull(-1)->pull(-2)
                 ->pull(-3)->pull(-4)->pull('over')
                 ->pull('and')->pull('over')->pull('again')
-                ->wasNotDefined(); // false
+                ->isDummy(); // false
 
 $data->pull(0)->pull(-1)->pull(-2)
                 ->pull(-3)->pull(-4)->pull('over')
@@ -156,7 +156,7 @@ $data->pull(0)->pull(-1)->pull(-2)
 
 $data->pull(0)->pull(-1)->pull(-2)
                 ->pull(-3)->pull(-4
-                )->pull(-5)->wasNotDefined(); // true
+                )->pull(-5)->isDummy(); // true
 ```
 ## pulling() - iterate through array and get handler for each element
 
