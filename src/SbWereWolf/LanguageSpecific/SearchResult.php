@@ -1,18 +1,14 @@
 <?php
-/**
- * PHP version 7.2
- *
- * @category Library
+/*
  * @package  LanguageSpecific
  * @author   SbWereWolf <ulfnew@gmail.com>
- * @license  MIT https://github.com/SbWereWolf/language-specific/blob/feature/php7.2/LICENSE
  * @link     https://github.com/SbWereWolf/language-specific
  *
- * Copyright © 2019 Volkhin Nikolay
- * 14.11.19 23:44
+ * Copyright © 2024 Volkhin Nikolay
+ * 12/26/24, 7:57 AM
  */
 
-namespace LanguageSpecific;
+namespace SbWereWolf\LanguageSpecific;
 
 /**
  * Class SearchResult
@@ -21,23 +17,25 @@ namespace LanguageSpecific;
  * @category Library
  * @package  LanguageSpecific
  * @author   SbWereWolf <ulfnew@gmail.com>
- * @license  MIT https://github.com/SbWereWolf/language-specific/blob/feature/php7.2/LICENSE
  * @link     https://github.com/SbWereWolf/language-specific
  */
-class SearchResult implements ISearchResult
+class SearchResult implements SearchResultInterface
 {
 
-    private $_key;
-    private $_has;
+    private null|int|string|bool|float $_key;
+    private bool $_has;
 
     /**
      * SearchResult constructor.
      *
-     * @param $success bool  успех поиска
-     * @param $key     mixed при успехе значение найденного ключа
+     * @param bool $success успех поиска
+     * @param null|int|string|bool|float $key при успехе значение
+     *                                          найденного ключа
      */
-    public function __construct($success = false, $key = null)
-    {
+    public function __construct(
+        bool $success = false,
+        null|int|string|bool|float $key = null
+    ) {
         $this->_key = $key;
         $this->_has = $success;
     }
@@ -47,7 +45,7 @@ class SearchResult implements ISearchResult
      *
      * @return null|int|string|bool|float
      */
-    public function key()
+    public function key(): float|bool|int|string|null
     {
         return $this->_key;
     }

@@ -18,8 +18,9 @@ and others
 With ValueHandler class you get that type exact you want.
 # Use-cases
 ## Get database response with proper types
+
 ```php
-use LanguageSpecific\ArrayHandler;
+use SbWereWolf\LanguageSpecific\ArrayHandler;
 
 $connection = new PDO ($dsn,$login,$password);
 
@@ -45,8 +46,9 @@ The highest paid employee is Mike, with salary of 19999$
 ```
 # Library methods of version 7.2
 ## raw() - returns original array
+
 ```php
-use LanguageSpecific\ArrayHandler;
+use SbWereWolf\LanguageSpecific\ArrayHandler;
 
 $data = new ArrayHandler(
     [0 => 'first',
@@ -65,8 +67,9 @@ array (
 */
 ```
 ## has($key = null) - flag that array has the index (key)
+
 ```php
-use LanguageSpecific\ArrayHandler;
+use SbWereWolf\LanguageSpecific\ArrayHandler;
 
 $data = new ArrayHandler([0=>1]);
 $data->has(); // true
@@ -81,8 +84,9 @@ $data->has('4'); // false
 // array not has index '4'
 ```
 ## get($key = null) - Get element by index or without it
+
 ```php
-use LanguageSpecific\ArrayHandler;
+use SbWereWolf\LanguageSpecific\ArrayHandler;
 
 $data = new ArrayHandler(
     [0 => 'first',
@@ -91,43 +95,45 @@ $data = new ArrayHandler(
 
 $data->get()->asIs();
 /* 'first' */
-$data->get()->has();
+$data->get()->wasDefined();
 /* true */
 
 $data->get('no-exists')->asIs();
 /* NULL */
-$data->get('no-exists')->has();
+$data->get('no-exists')->wasDefined();
 /* false */
 
 $data->get('index')->asIs();
 /* 20 */
-$data->get('index')->has();
+$data->get('index')->wasDefined();
 /* true */
 
 $data->get(99)->asIs();
 /* NULL */
-$data->get(99)->has();
+$data->get(99)->wasDefined();
 /* false */
 
 $data->get(3)->asIs();
 /* 'last' */
-$data->get(3)->has();
+$data->get(3)->wasDefined();
 /* true */
 ```
 ## isUndefined() - flag that exemplar value is undefined
+
 ```php
-use LanguageSpecific\ArrayHandler;
+use SbWereWolf\LanguageSpecific\ArrayHandler;
 
 $data = new ArrayHandler(['first' => ['A' => 1], 'next' => ['B'=>2],
     'last' => ['C'=>3],]);
 
-$data->pull('first')->isUndefined(); // false
-$data->pull('begin')->isUndefined(); // true
+$data->pull('first')->wasNotDefined(); // false
+$data->pull('begin')->wasNotDefined(); // true
 
 ``` 
 ## pull($key = null) - get array handler for nested array
+
 ```php
-use LanguageSpecific\ArrayHandler;
+use SbWereWolf\LanguageSpecific\ArrayHandler;
 
 $level4 = [-4 =>
     ['over' => ['and' => ['over' => ['again' => ['for always']]]]]];
@@ -141,7 +147,7 @@ $data = new ArrayHandler($level0);
 $data->pull(0)->pull(-1)->pull(-2)
                 ->pull(-3)->pull(-4)->pull('over')
                 ->pull('and')->pull('over')->pull('again')
-                ->isUndefined(); // false
+                ->wasNotDefined(); // false
 
 $data->pull(0)->pull(-1)->pull(-2)
                 ->pull(-3)->pull(-4)->pull('over')
@@ -150,11 +156,12 @@ $data->pull(0)->pull(-1)->pull(-2)
 
 $data->pull(0)->pull(-1)->pull(-2)
                 ->pull(-3)->pull(-4
-                )->pull(-5)->isUndefined(); // true
+                )->pull(-5)->wasNotDefined(); // true
 ```
 ## pulling() - iterate through array and get handler for each element
+
 ```php
-use LanguageSpecific\ArrayHandler;
+use SbWereWolf\LanguageSpecific\ArrayHandler;
 
 $data = new ArrayHandler([['first', 'next', 'last',],
     ['A','B','C',], ['1','2','3',]]);
@@ -183,51 +190,58 @@ array (
 */
 ```
 ## asIs() - Get value as it is
+
 ```php
-use LanguageSpecific\ArrayHandler;
+use SbWereWolf\LanguageSpecific\ArrayHandler;
 
 $data = new ArrayHandler('1.1');
 $data->get()->asIs(); // '1.1'
 ```
 ## int() - to integer
+
 ```php
-use LanguageSpecific\ArrayHandler;
+use SbWereWolf\LanguageSpecific\ArrayHandler;
 
 $data = new ArrayHandler('1.1');
 $data->get()->int(); // 1
 ```
 ## double() to double
+
 ```php
-use LanguageSpecific\ArrayHandler;
+use SbWereWolf\LanguageSpecific\ArrayHandler;
 
 $data = new ArrayHandler('1.1');
 $data->get()->double(); // 1.1
 ```
 ## str() - to string
+
 ```php
-use LanguageSpecific\ArrayHandler;
+use SbWereWolf\LanguageSpecific\ArrayHandler;
 
 $data = new ArrayHandler('1.1');
 $data->get()->str(); // '1.1'
 ```
 ## bool() - to boolean
+
 ```php
-use LanguageSpecific\ArrayHandler;
+use SbWereWolf\LanguageSpecific\ArrayHandler;
 
 $data = new ArrayHandler('1.1');
 $data->get()->bool(); // true
 ```
 ## array() - to array
+
 ```php
-use LanguageSpecific\ArrayHandler;
+use SbWereWolf\LanguageSpecific\ArrayHandler;
 
 $data = new ArrayHandler([1.1]);
 $data->get()->array(); // [1.1]
 ```
 ## object() - to object
+
 ```php
-use LanguageSpecific\ArrayHandler;
-use LanguageSpecific\ValueHandler;
+use SbWereWolf\LanguageSpecific\ArrayHandler;
+use SbWereWolf\LanguageSpecific\ValueHandler;
 
 $data = new ArrayHandler(new ValueHandler());
 $value = $data->get()->object();
@@ -241,20 +255,22 @@ LanguageSpecific\ValueHandler::__set_state(array(
 */
 ```
 ## has() - flag that value of element was defined on exemplar construction
+
 ```php
-use LanguageSpecific\ArrayHandler;
+use SbWereWolf\LanguageSpecific\ArrayHandler;
 
 $data = new ArrayHandler([0=>1]);
-$data->get(0)->has(); // true
+$data->get(0)->wasDefined(); // true
 // array element with index 0 has value
 
 $data = new ArrayHandler([2=>3]);
-$data->get('4')->has(); // false
+$data->get('4')->wasDefined(); // false
 // array element with index '4' not has value
 ```
 ## type() - get type of value
+
 ```php
-use LanguageSpecific\ValueHandler;
+use SbWereWolf\LanguageSpecific\ValueHandler;
 
 (new ValueHandler(null))->type(); // `NULL`
 
@@ -271,8 +287,9 @@ use LanguageSpecific\ValueHandler;
 (new ValueHandler(new ValueHandler()))->type(); // `object`
 ```
 ## asUndefined() - value handler with undefined value
+
 ```php
-use LanguageSpecific\ValueHandler;
+use SbWereWolf\LanguageSpecific\ValueHandler;
 
 $value = ValueHandler::asUndefined();
 var_export($value,true);
@@ -285,8 +302,9 @@ LanguageSpecific\ValueHandler::__set_state(array(
 */
 ```
 ## default($value = null) - define default value that will be used with undefined value
+
 ```php
-use LanguageSpecific\ValueHandler;
+use SbWereWolf\LanguageSpecific\ValueHandler;
 
 ValueHandler::asUndefined()->default('default')->str(); // 'default'
 (new ValueHandler('string'))->default('default')->str(); // 'string'

@@ -1,18 +1,14 @@
 <?php
-/**
- * PHP version 7.2
- *
- * @category Library
+/*
  * @package  LanguageSpecific
  * @author   SbWereWolf <ulfnew@gmail.com>
- * MIT https://github.com/SbWereWolf/language-specific/blob/feature/php7.2/LICENSE
  * @link     https://github.com/SbWereWolf/language-specific
  *
- * Copyright © 2019 Volkhin Nikolay
- * 30.11.19 21:13
+ * Copyright © 2024 Volkhin Nikolay
+ * 12/26/24, 7:57 AM
  */
 
-namespace LanguageSpecific;
+namespace SbWereWolf\LanguageSpecific;
 
 /**
  * Class KeySearcher
@@ -20,10 +16,9 @@ namespace LanguageSpecific;
  * @category Library
  * @package  LanguageSpecific
  * @author   SbWereWolf <ulfnew@gmail.com>
- * @license  MIT https://github.com/SbWereWolf/language-specific/blob/feature/php7.2/LICENSE
  * @link     https://github.com/SbWereWolf/language-specific
  */
-class KeySearcher implements IKeySearcher
+class KeySearcher implements KeySearcherInterface
 {
     /**
      * Источник данных для поиска
@@ -48,13 +43,14 @@ class KeySearcher implements IKeySearcher
     /**
      * Искать заданный индекс
      *
-     * @param null $key искомый индекс, если не задан,
-     *                  то будет использован индекс текущего элемента
+     * @param int|bool|string|null|float $key искомый индекс,
+     * если не задан, то будет использован индекс текущего элемента
      *
-     * @return ISearchResult
+     * @return SearchResultInterface
      */
-    public function search($key = null): ISearchResult
-    {
+    public function search(
+        int|bool|string|null|float $key = null
+    ): SearchResultInterface {
         $result = new SearchResult(false, $key);
 
         $data = $this->_source;

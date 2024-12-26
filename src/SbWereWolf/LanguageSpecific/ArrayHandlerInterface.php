@@ -1,18 +1,14 @@
 <?php
-/**
- * PHP version 7.2
- *
- * @category Library
+/*
  * @package  LanguageSpecific
  * @author   SbWereWolf <ulfnew@gmail.com>
- * MIT https://github.com/SbWereWolf/language-specific/blob/feature/php7.2/LICENSE
  * @link     https://github.com/SbWereWolf/language-specific
  *
- * Copyright © 2019 Volkhin Nikolay
- * 30.11.19 21:13
+ * Copyright © 2024 Volkhin Nikolay
+ * 12/26/24, 7:57 AM
  */
 
-namespace LanguageSpecific;
+namespace SbWereWolf\LanguageSpecific;
 
 use ArrayAccess;
 use Generator;
@@ -25,26 +21,28 @@ use JsonSerializable;
  * @category Library
  * @package  LanguageSpecific
  * @author   SbWereWolf <ulfnew@gmail.com>
- * @license  MIT https://github.com/SbWereWolf/language-specific/blob/feature/php7.2/LICENSE
  * @link     https://github.com/SbWereWolf/language-specific
  */
-interface IArrayHandler extends Iterator, JsonSerializable, ArrayAccess
+interface ArrayHandlerInterface
+    extends Iterator, JsonSerializable, ArrayAccess
 {
     /**
      * Получить элемент массива
      *
-     * @param $key int|bool|string|null индекс элемента
+     * @param $key int|bool|string|null|float индекс элемента
      *
-     * @return IValueHandler
+     * @return ValueHandlerInterface
      */
-    public function get($key = null): IValueHandler;
+    public function get(
+        int|bool|string|null|float $key = null
+    ): ValueHandlerInterface;
 
     /**
      * Извлекает следующее значение, кроме массивов
      *
      * @return Generator
      */
-    public function getting();
+    public function getting(): Generator;
 
     /**
      * Проверяет имеет ли массив заданный индекс
@@ -53,31 +51,33 @@ interface IArrayHandler extends Iterator, JsonSerializable, ArrayAccess
      *
      * @return bool
      */
-    public function has($key = null): bool;
+    public function has(int|bool|string|null|float $key = null): bool;
 
     /**
-     * Возвращает IArrayHandler для вложенного массива
+     * Возвращает ArrayHandlerInterface для вложенного массива
      *
-     * @param $key int|bool|string|null индекс элемента с массивом
+     * @param $key int|bool|string|null|float индекс элемента с массивом
      *
-     * @return IArrayHandler
+     * @return ArrayHandlerInterface
      */
-    public function pull($key = null): IArrayHandler;
+    public function pull(
+        int|bool|string|null|float $key = null
+    ): ArrayHandlerInterface;
 
     /**
      * Извлекает следующий массив
-     * Значение будет экземпляром интерфейса IArrayHandler
+     * Значение будет экземпляром интерфейса ArrayHandlerInterface
      *
      * @return Generator
      */
-    public function pulling();
+    public function pulling(): Generator;
 
     /**
-     * возвращает флаг "Массив не задан"
+     * Возвращает флаг "Массив не был задан"
      *
      * @return bool
      */
-    public function isUndefined(): bool;
+    public function wasNotDefined(): bool;
 
     /**
      * Возвращает исходный массив

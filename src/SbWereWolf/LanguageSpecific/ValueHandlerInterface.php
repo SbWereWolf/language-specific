@@ -1,51 +1,39 @@
 <?php
+/*
+ * @package  LanguageSpecific
+ * @author   SbWereWolf <ulfnew@gmail.com>
+ * @link     https://github.com/SbWereWolf/language-specific
+ *
+ * Copyright © 2024 Volkhin Nikolay
+ * 12/26/24, 7:57 AM
+ */
+
+namespace SbWereWolf\LanguageSpecific;
+
+
 /**
- * PHP version 7.2
+ * Interface ValueHandlerInterface
  *
  * @category Library
  * @package  LanguageSpecific
  * @author   SbWereWolf <ulfnew@gmail.com>
- * MIT https://github.com/SbWereWolf/language-specific/blob/feature/php7.2/LICENSE
- * @link     https://github.com/SbWereWolf/language-specific
- *
- * Copyright © 2019 Volkhin Nikolay
- * 30.11.19 21:13
- */
-
-namespace LanguageSpecific;
-
-
-/**
- * Interface IValueHandler
- *
- * @category Library
- * @package  LanguageSpecific
- * @author   SbWereWolf <ulfnew@gmail.com>
- * @license  MIT https://github.com/SbWereWolf/language-specific/blob/feature/php7.2/LICENSE
  * @link     https://github.com/SbWereWolf/language-specific
  */
-interface IValueHandler
+interface ValueHandlerInterface
 {
     /**
-     * Создать экземпляр с незаданным значением
-     *
-     * @return self
-     */
-    public static function asUndefined(): self;
-
-    /**
-     * Возвращает флаг "Имеет значение"
+     * Возвращает флаг "Значение было задано"
      *
      * @return bool
      */
-    public function has(): bool;
+    public function wasDefined(): bool;
 
     /**
      * Возвращает значение как есть
      *
      * @return mixed
      */
-    public function asIs();
+    public function asIs(): mixed;
 
     /**
      * Возвращает значение приведённое к int
@@ -101,10 +89,10 @@ interface IValueHandler
     /**
      * Использовать заданное значение в качестве значения по умолчанию
      *
-     * @param $value mixed значение по умолчанию, будет присвоено
+     * @param $value mixed|null значение по умолчанию, будет присвоено
      *               если значение незаданное
      *
-     * @return self
+     * @return ValueHandlerInterface
      */
-    public function default($value = null): self;
+    public function default(mixed $value = null): ValueHandlerInterface;
 }

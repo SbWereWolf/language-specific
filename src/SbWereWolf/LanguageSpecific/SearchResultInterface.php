@@ -1,18 +1,14 @@
 <?php
-/**
- * PHP version 7.2
- *
- * @category Library
+/*
  * @package  LanguageSpecific
  * @author   SbWereWolf <ulfnew@gmail.com>
- * @license  MIT https://github.com/SbWereWolf/language-specific/blob/feature/php7.2/LICENSE
  * @link     https://github.com/SbWereWolf/language-specific
  *
- * Copyright © 2019 Volkhin Nikolay
- * 14.11.19 23:44
+ * Copyright © 2024 Volkhin Nikolay
+ * 12/26/24, 7:57 AM
  */
 
-namespace LanguageSpecific;
+namespace SbWereWolf\LanguageSpecific;
 
 /**
  * Interface ISearchResult
@@ -21,17 +17,16 @@ namespace LanguageSpecific;
  * @category Library
  * @package  LanguageSpecific
  * @author   SbWereWolf <ulfnew@gmail.com>
- * @license  MIT https://github.com/SbWereWolf/language-specific/blob/feature/php7.2/LICENSE
  * @link     https://github.com/SbWereWolf/language-specific
  */
-interface ISearchResult
+interface SearchResultInterface
 {
     /**
      * Возвращает найденный ключ
      *
      * @return null|int|string|bool|float
      */
-    public function key();
+    public function key(): null|int|string|bool|float;
 
     /**
      * Возвращает флаг успешного результата поиска

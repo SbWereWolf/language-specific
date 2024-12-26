@@ -1,20 +1,17 @@
 <?php
-/**
- * PHP version 7.2
- *
- * @category Test
+/*
  * @package  LanguageSpecific
  * @author   SbWereWolf <ulfnew@gmail.com>
- * @license  MIT https://github.com/SbWereWolf/language-specific/blob/feature/php7.2/LICENSE
  * @link     https://github.com/SbWereWolf/language-specific
  *
- * Copyright © 2019 Volkhin Nikolay
- * 14.11.19 23:44
+ * Copyright © 2024 Volkhin Nikolay
+ * 12/26/24, 7:57 AM
  */
 
-use LanguageSpecific\IValueHandler;
-use LanguageSpecific\ValueHandler;
 use PHPUnit\Framework\TestCase;
+use SbWereWolf\LanguageSpecific\ValueHandler;
+use SbWereWolf\LanguageSpecific\ValueHandlerFactory;
+use SbWereWolf\LanguageSpecific\ValueHandlerInterface;
 
 /**
  * Class ValueHandlerTest
@@ -34,83 +31,83 @@ class ValueHandlerTest extends TestCase
      */
     public function testAsIs()
     {
-        $value = new ValueHandler(null);
+        $value = ValueHandlerFactory::makeValueHandler();
         self::assertTrue(
             is_null($value->asIs()),
             'Value of asIs() MUST BE null'
         );
         self::assertTrue(
-            $value->has(),
+            $value->wasDefined(),
             'Flag `has` MUST BE true'
         );
 
-        $value = new ValueHandler(1);
+        $value = ValueHandlerFactory::makeValueHandler(1);
         self::assertTrue(
             $value->asIs() === 1,
             'Value of asIs() MUST BE exact 1'
         );
         self::assertTrue(
-            $value->has(),
+            $value->wasDefined(),
             'Flag `has` MUST BE true'
         );
 
-        $value = new ValueHandler('1');
+        $value = ValueHandlerFactory::makeValueHandler('1');
         self::assertTrue(
             $value->asIs() === '1',
             'Value of asIs() MUST BE exact `1`'
         );
         self::assertTrue(
-            $value->has(),
+            $value->wasDefined(),
             'Flag `has` MUST BE true'
         );
 
-        $value = new ValueHandler(true);
+        $value = ValueHandlerFactory::makeValueHandler(true);
         self::assertTrue(
             $value->asIs() === true,
             'Value of asIs() MUST BE exact TRUE'
         );
         self::assertTrue(
-            $value->has(),
+            $value->wasDefined(),
             'Flag `has` MUST BE true'
         );
 
-        $value = new ValueHandler(false);
+        $value = ValueHandlerFactory::makeValueHandler(false);
         self::assertTrue(
             $value->asIs() === false,
             'Value of asIs() MUST BE exact FALSE'
         );
         self::assertTrue(
-            $value->has(),
+            $value->wasDefined(),
             'Flag `has` MUST BE true'
         );
 
-        $value = new ValueHandler(1.1);
+        $value = ValueHandlerFactory::makeValueHandler(1.1);
         self::assertTrue(
             $value->asIs() === 1.1,
             'Value of asIs() MUST BE exact 1.1'
         );
         self::assertTrue(
-            $value->has(),
+            $value->wasDefined(),
             'Flag `has` MUST BE true'
         );
 
-        $value = new ValueHandler([]);
+        $value = ValueHandlerFactory::makeValueHandler([]);
         self::assertTrue(
             empty(array_diff($value->asIs(), [])),
             'For for empty array value of asIs() MUST BE []'
         );
         self::assertTrue(
-            $value->has(),
+            $value->wasDefined(),
             'Flag `has` MUST BE true'
         );
 
-        $value = new ValueHandler([false, 1, 'a']);
+        $value = ValueHandlerFactory::makeValueHandler([false, 1, 'a']);
         self::assertTrue(
             empty(array_diff($value->asIs(), [false, 1, 'a'])),
             'MUST BE exact [false,1,`a`]'
         );
         self::assertTrue(
-            $value->has(),
+            $value->wasDefined(),
             'Flag `has` MUST BE true'
         );
     }
@@ -122,23 +119,23 @@ class ValueHandlerTest extends TestCase
      */
     public function testInt()
     {
-        $value = new ValueHandler(null);
+        $value = ValueHandlerFactory::makeValueHandler();
         self::assertTrue(
             $value->int() === 0,
             'int() for NULL value MUST BE zero'
         );
         self::assertTrue(
-            $value->has(),
+            $value->wasDefined(),
             'Flag `has` MUST BE true'
         );
 
-        $value = new ValueHandler(1);
+        $value = ValueHandlerFactory::makeValueHandler(1);
         self::assertTrue(
             $value->int() === 1,
             'int() MUST BE exact 1'
         );
         self::assertTrue(
-            $value->has(),
+            $value->wasDefined(),
             'Flag `has` MUST BE true'
         );
     }
@@ -150,33 +147,33 @@ class ValueHandlerTest extends TestCase
      */
     public function testBool()
     {
-        $value = new ValueHandler(null);
+        $value = ValueHandlerFactory::makeValueHandler();
         self::assertTrue(
             $value->bool() === false,
             ' bool() for NULL value MUST BE false'
         );
         self::assertTrue(
-            $value->has(),
+            $value->wasDefined(),
             'Flag `has` MUST BE true'
         );
 
-        $value = new ValueHandler(true);
+        $value = ValueHandlerFactory::makeValueHandler(true);
         self::assertTrue(
             $value->bool() === true,
             'bool() MUST BE exact true'
         );
         self::assertTrue(
-            $value->has(),
+            $value->wasDefined(),
             'Flag `has` MUST BE true'
         );
 
-        $value = new ValueHandler(false);
+        $value = ValueHandlerFactory::makeValueHandler(false);
         self::assertTrue(
             $value->bool() === false,
             'bool() MUST BE exact false'
         );
         self::assertTrue(
-            $value->has(),
+            $value->wasDefined(),
             'Flag `has` MUST BE true'
         );
     }
@@ -188,23 +185,23 @@ class ValueHandlerTest extends TestCase
      */
     public function testStr()
     {
-        $value = new ValueHandler(null);
+        $value = ValueHandlerFactory::makeValueHandler();
         self::assertTrue(
             $value->str() === '',
             'str() for NULL value MUST BE `` (empty string)'
         );
         self::assertTrue(
-            $value->has(),
+            $value->wasDefined(),
             'Flag `has` MUST BE true'
         );
 
-        $value = new ValueHandler('a');
+        $value = ValueHandlerFactory::makeValueHandler('a');
         self::assertTrue(
             $value->str() === 'a',
             ' str() MUST BE exact `a`'
         );
         self::assertTrue(
-            $value->has(),
+            $value->wasDefined(),
             'Flag `has` MUST BE true'
         );
     }
@@ -216,23 +213,23 @@ class ValueHandlerTest extends TestCase
      */
     public function testDouble()
     {
-        $value = new ValueHandler(null);
+        $value = ValueHandlerFactory::makeValueHandler();
         self::assertTrue(
             $value->double() === 0.0,
             'double() for NULL value MUST BE 0.0'
         );
         self::assertTrue(
-            $value->has(),
+            $value->wasDefined(),
             'Flag `has` MUST BE true'
         );
 
-        $value = new ValueHandler(1.1);
+        $value = ValueHandlerFactory::makeValueHandler(1.1);
         self::assertTrue(
             $value->double() === 1.1,
             'Value of double() MUST BE exact 1.1'
         );
         self::assertTrue(
-            $value->has(),
+            $value->wasDefined(),
             'Flag `has` MUST BE true'
         );
     }
@@ -244,23 +241,23 @@ class ValueHandlerTest extends TestCase
      */
     public function testArray()
     {
-        $value = new ValueHandler(null);
+        $value = ValueHandlerFactory::makeValueHandler();
         self::assertTrue(
             empty(array_diff($value->array(), [])),
             'For NULL value array() MUST BE []'
         );
         self::assertTrue(
-            $value->has(),
+            $value->wasDefined(),
             'Flag `has` MUST BE true'
         );
 
-        $value = new ValueHandler(array(false, 1, 'a'));
+        $value = ValueHandlerFactory::makeValueHandler([false, 1, 'a']);
         self::assertTrue(
             empty(array_diff($value->array(), [false, 1, 'a'])),
             'MUST BE exact [false,1,`a`]'
         );
         self::assertTrue(
-            $value->has(),
+            $value->wasDefined(),
             'Flag `has` MUST BE true'
         );
     }
@@ -272,49 +269,58 @@ class ValueHandlerTest extends TestCase
      */
     public function testType()
     {
-        $type = (new ValueHandler(null))->type();
+        $value = ValueHandlerFactory::makeValueHandler();
+        $type = $value->type();
         self::assertEquals(
             'NULL',
             $type,
             'For NULL value type() MUST BE `NULL`'
         );
 
-        $type = (new ValueHandler(false))->type();
+        $value = ValueHandlerFactory::makeValueHandler(false);
+        $type = $value->type();
         self::assertEquals(
             'boolean',
             $type,
             'For false value type() MUST BE `boolean`'
         );
 
-        $type = (new ValueHandler(1))->type();
+        $value = ValueHandlerFactory::makeValueHandler(1);
+        $type = $value->type();
         self::assertEquals(
             'integer',
             $type,
             'For 0 value type() MUST BE `integer`'
         );
 
-        $type = (new ValueHandler(0.1))->type();
+        $value = ValueHandlerFactory::makeValueHandler(0.1);
+        $type = $value->type();
         self::assertEquals(
             'double',
             $type,
             'For 0.0 value type() MUST BE `double`'
         );
 
-        $type = (new ValueHandler('a'))->type();
+        $value = ValueHandlerFactory::makeValueHandler('a');
+        $type = $value->type();
         self::assertEquals(
             'string',
             $type,
             'For `a` value type() MUST BE `string`'
         );
 
-        $type = (new ValueHandler([]))->type();
+        $value = ValueHandlerFactory::makeValueHandler([]);
+        $type = $value->type();
         self::assertEquals(
             'array',
             $type,
             'For [] value type() MUST BE `array`'
         );
 
-        $type = (new ValueHandler(new ValueHandler()))->type();
+        $value = ValueHandlerFactory::makeValueHandler(
+            ValueHandlerFactory::makeValueHandler()
+        );
+        $type = $value->type();
         self::assertEquals(
             'object',
             $type,
@@ -329,8 +335,11 @@ class ValueHandlerTest extends TestCase
      */
     public function testObject()
     {
+        $value = ValueHandlerFactory::makeValueHandler(
+            ValueHandlerFactory::makeValueHandler(1)
+        );
         /* @var $value ValueHandler */
-        $value = (new ValueHandler(new ValueHandler(1)))->object();
+        $value = $value->object();
 
         self::assertTrue(
             is_object($value),
@@ -343,7 +352,7 @@ class ValueHandlerTest extends TestCase
             . ' MUST BE instance of ValueHandler'
         );
         self::assertTrue(
-            $value->has(),
+            $value->wasDefined(),
             'Flag `has` MUST BE true'
         );
         self::assertTrue(
@@ -359,10 +368,11 @@ class ValueHandlerTest extends TestCase
      */
     public function testUndefined()
     {
-        $value = ValueHandler::asUndefined();
+        $fabric = new ValueHandlerFactory();
+        $value = $fabric::makeValueHandlerWithoutValue();
 
         self::assertFalse(
-            $value->has(),
+            $value->wasDefined(),
             'Flag `has` for undefined Value MUST BE false'
         );
         self::assertTrue(
@@ -392,26 +402,29 @@ class ValueHandlerTest extends TestCase
     }
 
     /**
-     * @return IValueHandler
+     * @return ValueHandlerInterface
      */
     private function checkWithInt()
     {
-        $value = ValueHandler::asUndefined()->default(1);
+        $value = ValueHandlerFactory::makeValueHandlerWithoutValue()
+            ->default(1);
         self::assertTrue(
             $value->int() === 1,
             'For undefined with(1) value of int() MUST BE exact 1'
         );
         self::assertFalse(
-            $value->has(),
+            $value->wasDefined(),
             'For undefined with(1) has() MUST BE false'
         );
-        $value = (new ValueHandler(3))->default(1);
+
+        $value = ValueHandlerFactory::makeValueHandler(3);
+        $value = $value->default(1);
         self::assertTrue(
             $value->int() === 3,
             'For Value(3) with(1) value of int() MUST BE exact 3'
         );
         self::assertTrue(
-            $value->has(),
+            $value->wasDefined(),
             'For Value(3) with(1) has() MUST BE true'
         );
 
@@ -419,28 +432,30 @@ class ValueHandlerTest extends TestCase
     }
 
     /**
-     * @return IValueHandler
+     * @return ValueHandlerInterface
      */
     private function checkWithDouble()
     {
-        $value = ValueHandler::asUndefined()->default(0.9);
+        $value = ValueHandlerFactory::makeValueHandlerWithoutValue()
+            ->default(0.9);
         self::assertTrue(
             $value->double() === 0.9,
             'For undefined with(0.9) value of double()'
             . ' MUST BE exact 0.9'
         );
         self::assertFalse(
-            $value->has(),
+            $value->wasDefined(),
             'For undefined with(0.9) has() MUST BE false'
         );
-        $value = (new ValueHandler(1.1))->default(0.9);
+        $value = ValueHandlerFactory::makeValueHandler(1.1)
+            ->default(0.9);
         self::assertTrue(
             $value->double() === 1.1,
             'For Value(1.1) with(0.9) value of double()'
             . ' MUST BE exact 1.1'
         );
         self::assertTrue(
-            $value->has(),
+            $value->wasDefined(),
             'For Value(1.1) with(0.9) has() MUST BE true'
         );
 
@@ -448,28 +463,30 @@ class ValueHandlerTest extends TestCase
     }
 
     /**
-     * @return IValueHandler
+     * @return ValueHandlerInterface
      */
     private function checkWithBool()
     {
-        $value = ValueHandler::asUndefined()->default(true);
+        $value = ValueHandlerFactory::makeValueHandlerWithoutValue()
+            ->default(true);
         self::assertTrue(
             $value->bool() === true,
             'For undefined with(true) value of bool()'
             . ' MUST BE exact true'
         );
         self::assertFalse(
-            $value->has(),
+            $value->wasDefined(),
             'For undefined with(true) has() MUST BE false'
         );
-        $value = (new ValueHandler(false))->default(true);
+        $value = ValueHandlerFactory::makeValueHandler(false)
+            ->default(true);
         self::assertTrue(
             $value->bool() === false,
             'For Value(false) with(true) value of bool()'
             . ' MUST BE exact false'
         );
         self::assertTrue(
-            $value->has(),
+            $value->wasDefined(),
             'For Value(false) with(true) has() MUST BE true'
         );
 
@@ -477,28 +494,30 @@ class ValueHandlerTest extends TestCase
     }
 
     /**
-     * @return IValueHandler
+     * @return ValueHandlerInterface
      */
     private function checkWithStr()
     {
-        $value = ValueHandler::asUndefined()->default('a');
+        $value = ValueHandlerFactory::makeValueHandlerWithoutValue()
+            ->default('a');
         self::assertTrue(
             $value->str() === 'a',
             'For undefined with(`a`) value of str()'
             . ' MUST BE exact `a`'
         );
         self::assertFalse(
-            $value->has(),
+            $value->wasDefined(),
             'For undefined with(`a`) has() MUST BE false'
         );
-        $value = (new ValueHandler('b'))->default('a');
+        $value = ValueHandlerFactory::makeValueHandler('b')
+            ->default('a');
         self::assertTrue(
             $value->str() === 'b',
             'For Value(`b`) with(`a`) value of str()'
             . ' MUST BE exact `b`'
         );
         self::assertTrue(
-            $value->has(),
+            $value->wasDefined(),
             'For Value(`b`) with(`a`) has() MUST BE true'
         );
 
@@ -506,28 +525,30 @@ class ValueHandlerTest extends TestCase
     }
 
     /**
-     * @return IValueHandler
+     * @return ValueHandlerInterface
      */
     private function checkWithArray()
     {
-        $value = ValueHandler::asUndefined()->default([0 => 1]);
+        $value = ValueHandlerFactory::makeValueHandlerWithoutValue()
+            ->default([0 => 1]);
         self::assertTrue(
             $value->array()[0] === 1,
             'For undefined with([0 => 1]) value of asArray()[0]'
             . ' MUST BE exact 1'
         );
         self::assertFalse(
-            $value->has(),
+            $value->wasDefined(),
             'For undefined with([0 => 1]) has() MUST BE false'
         );
-        $value = (new ValueHandler([2 => 3]))->default([0 => 1]);
+        $value = ValueHandlerFactory::makeValueHandler([2 => 3])
+            ->default([0 => 1]);
         self::assertTrue(
             $value->array()[2] === 3,
             'For Value([2 => 3]) with([0 => 1])'
             . 'value of asArray()[2] MUST BE exact 3'
         );
         self::assertTrue(
-            $value->has(),
+            $value->wasDefined(),
             'For Value([2 => 3]) with([0 => 1]) has() MUST BE true'
         );
 
@@ -535,34 +556,38 @@ class ValueHandlerTest extends TestCase
     }
 
     /**
-     * @return IValueHandler
+     * @return ValueHandlerInterface
      */
     private function checkWithObject()
     {
-        $value = ValueHandler::asUndefined()->default(new ValueHandler(1));
+        $value = ValueHandlerFactory::makeValueHandlerWithoutValue()
+            ->default(ValueHandlerFactory::makeValueHandler(1));
         self::assertTrue(
             $value->object()->int() === 1,
             'For undefined with() (new ValueHandler(1))'
             . ' value of object()->int() MUST BE exact 1'
         );
         self::assertFalse(
-            $value->has(),
+            $value->wasDefined(),
             'For undefined with() (new ValueHandler(1))'
             . ' has() MUST BE false'
         );
-        $value = (new ValueHandler(new ValueHandler(2)))
-            ->default(new ValueHandler(1));
+        $internal = ValueHandlerFactory::makeValueHandler(2);
+        $external = ValueHandlerFactory::makeValueHandler($internal);
+        $default = ValueHandlerFactory::makeValueHandler(1);
+
+        $external->default($default);
         self::assertTrue(
-            $value->object()->int() === 2,
+            $external->object()->int() === 2,
             'For Value(ValueHandler(2)) with(ValueHandler(1))'
             . 'value of object()->int() MUST BE exact 2'
         );
         self::assertTrue(
-            $value->has(),
+            $external->wasDefined(),
             'For Value(ValueHandler(2)) with(ValueHandler(1))'
             . ' has() MUST BE true'
         );
 
-        return $value;
+        return $external;
     }
 }

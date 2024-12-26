@@ -1,18 +1,14 @@
 <?php
-/**
- * PHP version 7.2
- *
- * @category Library
+/*
  * @package  LanguageSpecific
  * @author   SbWereWolf <ulfnew@gmail.com>
- * MIT https://github.com/SbWereWolf/language-specific/blob/feature/php7.2/LICENSE
  * @link     https://github.com/SbWereWolf/language-specific
  *
- * Copyright © 2019 Volkhin Nikolay
- * 30.11.19 21:13
+ * Copyright © 2024 Volkhin Nikolay
+ * 12/26/24, 7:57 AM
  */
 
-namespace LanguageSpecific;
+namespace SbWereWolf\LanguageSpecific;
 
 
 /**
@@ -21,66 +17,49 @@ namespace LanguageSpecific;
  * @category Library
  * @package  LanguageSpecific
  * @author   SbWereWolf <ulfnew@gmail.com>
- * @license  MIT https://github.com/SbWereWolf/language-specific/blob/feature/php7.2/LICENSE
  * @link     https://github.com/SbWereWolf/language-specific
  */
-class ValueHandler implements IValueHandler
+class ValueHandler implements ValueHandlerInterface
 {
     /**
      * Собственно значение
      *
-     * @var $_value mixed
+     * @var mixed $_value
      */
-    private $_value = null;
+    private mixed $_value;
 
     /**
      * Флаг "Значение задано"
      *
-     * @var $_has bool
+     * @var bool $_wasDefined
      */
-    private $_has = false;
+    private bool $_wasDefined = false;
 
     /**
      * Значение по умолчанию для неопределённого значения,
      * используется когда значение не задано
      *
-     * @var $_default mixed произвольное значение
+     * @var mixed $_default значение по умолчанию
      */
-    private $_default = null;
+    private mixed $_default = null;
 
     /**
      * Создать экземпляр с заданным значением
      *
-     * @param $value mixed произвольное значение
+     * @param mixed $value произвольное значение
+     * @param bool $isRealValue
      */
-    public function __construct($value = null)
-    {
-        $this->setValue($value)->setHas(true);
-    }
-
-    /**
-     * Создать экземпляр с незаданным значением
-     *
-     * @return IValueHandler
-     */
-    public static function asUndefined(): IValueHandler
-    {
-        $handler = new static();
-        $handler->_setUndefined();
-
-        return $handler;
-    }
-
-    /**
-     * Установить значение незаданным
-     *
-     * @return IValueHandler
-     */
-    private function _setUndefined(): IValueHandler
-    {
-        $this->setHas(false);
-
-        return $this;
+    public function __construct(
+        mixed $value = null,
+        bool $isRealValue = true
+    ) {
+        $this->_value = $value;
+        if ($isRealValue) {
+            $this->_wasDefined = true;
+        }
+        if (!$isRealValue) {
+            $this->_wasDefined = false;
+        }
     }
 
     /**
@@ -88,9 +67,9 @@ class ValueHandler implements IValueHandler
      *
      * @return bool
      */
-    public function has(): bool
+    public function wasDefined(): bool
     {
-        return $this->_has;
+        return $this->_wasDefined;
     }
 
     /**
@@ -98,9 +77,10 @@ class ValueHandler implements IValueHandler
      *
      * @return mixed
      */
-    public function asIs()
+    public function asIs(): mixed
     {
-        $result = $this->has() ? $this->_value : $this->_default;
+        /** @noinspection PhpUnnecessaryLocalVariableInspection */
+        $result = $this->wasDefined() ? $this->_value : $this->_default;
 
         return $result;
     }
@@ -180,38 +160,14 @@ class ValueHandler implements IValueHandler
     /**
      * Использовать заданное значение в качестве значения по умолчанию
      *
-     * @param $value mixed значение по умолчанию, будет присвоено
+     * @param mixed|null $value значение по умолчанию, будет присвоено
      *               если значение незаданное
      *
-     * @return IValueHandler
+     * @return ValueHandlerInterface
      */
-    public function default($value = null): IValueHandler
+    public function default(mixed $value = null): ValueHandlerInterface
     {
         $this->_default = $value;
-
-        return $this;
-    }
-
-    /**
-     * @param mixed $value of any type
-     *
-     * @return self
-     */
-    private function setValue($value): self
-    {
-        $this->_value = $value;
-
-        return $this;
-    }
-
-    /**
-     * @param bool $has
-     *
-     * @return IValueHandler
-     */
-    private function setHas(bool $has): IValueHandler
-    {
-        $this->_has = $has;
 
         return $this;
     }

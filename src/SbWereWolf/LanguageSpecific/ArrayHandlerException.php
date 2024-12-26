@@ -2,14 +2,13 @@
 /*
  * @package  LanguageSpecific
  * @author   SbWereWolf <ulfnew@gmail.com>
- * MIT https://github.com/SbWereWolf/language-specific/blob/feature/php7.2/LICENSE
  * @link     https://github.com/SbWereWolf/language-specific
  *
- * Copyright © 2020 Volkhin Nikolay
- * 13.10.2020, 1:42
+ * Copyright © 2024 Volkhin Nikolay
+ * 12/26/24, 7:57 AM
  */
 
-namespace LanguageSpecific;
+namespace SbWereWolf\LanguageSpecific;
 
 
 use Exception;

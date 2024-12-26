@@ -1,21 +1,18 @@
 <?php
-/**
- * PHP version 7.2
- *
- * @category Test
+/*
  * @package  LanguageSpecific
  * @author   SbWereWolf <ulfnew@gmail.com>
- * MIT https://github.com/SbWereWolf/language-specific/blob/feature/php7.2/LICENSE
  * @link     https://github.com/SbWereWolf/language-specific
  *
- * Copyright © 2019 Volkhin Nikolay
- * 30.11.19 21:13
+ * Copyright © 2024 Volkhin Nikolay
+ * 12/26/24, 7:57 AM
  */
 
-use LanguageSpecific\ArrayHandler;
-use LanguageSpecific\Factory;
-use LanguageSpecific\IArrayHandler;
 use PHPUnit\Framework\TestCase;
+use SbWereWolf\LanguageSpecific\ArrayHandler;
+use SbWereWolf\LanguageSpecific\ArrayHandlerFactory;
+use SbWereWolf\LanguageSpecific\ArrayHandlerInterface;
+use SbWereWolf\LanguageSpecific\ValueHandlerFactory;
 
 /**
  * Class ArrayHandlerTest
@@ -35,53 +32,12 @@ class ArrayHandlerTest extends TestCase
      */
     public function testConstructor()
     {
-        $handler = new ArrayHandler(0, new Factory());
-        self::assertTrue(
-            $handler instanceof ArrayHandler,
-            'MUST BE possible create ArrayHandler from'
-            . ' int'
-        );
-
-        $handler = new ArrayHandler(0.1, new Factory());
-        self::assertTrue(
-            $handler instanceof ArrayHandler,
-            'MUST BE possible create ArrayHandler from'
-            . ' float'
-        );
-
-        $handler = new ArrayHandler(false, new Factory());
-        self::assertTrue(
-            $handler instanceof ArrayHandler,
-            'MUST BE possible create ArrayHandler from'
-            . ' boolean'
-        );
-
-        $handler = new ArrayHandler(' ', new Factory());
-        self::assertTrue(
-            $handler instanceof ArrayHandler,
-            'MUST BE possible create ArrayHandler from'
-            . ' string'
-        );
-
-        $handler = new ArrayHandler(null, new Factory());
-        self::assertTrue(
-            $handler instanceof ArrayHandler,
-            'MUST BE possible create ArrayHandler from'
-            . ' NULL'
-        );
-
-        $handler = new ArrayHandler([], new Factory());
+        $fabric = new ArrayHandlerFactory(new ValueHandlerFactory());
+        $handler = $fabric->makeArrayHandler([]);
         self::assertTrue(
             $handler instanceof ArrayHandler,
             'MUST BE possible create ArrayHandler from'
             . ' array'
-        );
-
-        $handler = new ArrayHandler(new ArrayHandler());
-        self::assertTrue(
-            $handler instanceof ArrayHandler,
-            'MUST BE possible create ArrayHandler from'
-            . ' object'
         );
     }
 
@@ -93,15 +49,23 @@ class ArrayHandlerTest extends TestCase
     public function testPulling()
     {
         $last = ['1', '2', '3',];
-        $data = new ArrayHandler([['first', 'next', 'last',],
-            ['A', 'B', 'C',], $last]);
+        $data = [
+            ['first', 'next', 'last',],
+            ['A', 'B', 'C',],
+            $last
+        ];
+
+        $fabric = new ArrayHandlerFactory(new ValueHandlerFactory());
+        $handler = $fabric->makeArrayHandler($data);
 
         $index = 0;
-        $item = new ArrayHandler();
-        foreach ($data->pulling() as $item) {
-            /* @var $item IArrayHandler */
-            self::assertFalse($item->isUndefined(),
-                'Pulled item MUST BE defined');
+        $item = $fabric::makeArrayHandlerWithoutArray();
+        foreach ($handler->pulling() as $item) {
+            /* @var $item ArrayHandlerInterface */
+            self::assertFalse(
+                $item->wasNotDefined(),
+                'Pulled item MUST BE defined'
+            );
             $index++;
         }
 
@@ -123,49 +87,50 @@ class ArrayHandlerTest extends TestCase
      */
     public function testGet()
     {
-        $data = new ArrayHandler(
-            [0 => 'first', 'next' => 20, 'last' => 3.01,]
-            , new Factory());
+        $data = [0 => 'first', 'next' => 20, 'last' => 3.01,];
 
-        $item = $data->get();
+        $fabric = new ArrayHandlerFactory(new ValueHandlerFactory());
+        $handler = $fabric->makeArrayHandler($data);
+
+        $item = $handler->get();
         self::assertTrue(
             $item->asIs() === 'first',
             'Return value of simple get'
             . ' MUST BE equal to first array element'
         );
 
-        $item = $data->get('no-exists');
+        $item = $handler->get('no-exists');
         self::assertTrue(
             is_null($item->asIs()),
             'Return value of get() of non existence index'
             . ' MUST BE null'
         );
         self::assertFalse(
-            $item->has(),
+            $item->wasDefined(),
             'Return value of has() of non existence index'
             . ' MUST BE false'
         );
 
-        $item = $data->get('next');
+        $item = $handler->get('next');
         self::assertTrue(
             $item->asIs() === 20,
             'Return value of get() for exists index'
             . 'MUST BE equal the element value'
         );
 
-        $item = $data->get(99);
+        $item = $handler->get(99);
         self::assertTrue(
             is_null($item->asIs()),
             'Return value of get() of non existence index'
             . ' MUST BE null'
         );
         self::assertFalse(
-            $item->has(),
+            $item->wasDefined(),
             'Return value of has() of non existence index'
             . ' MUST BE false'
         );
 
-        $item = $data->get(0);
+        $item = $handler->get(0);
         self::assertTrue(
             $item->asIs() === 'first',
             'Return value of get() for exists index'
@@ -180,28 +145,29 @@ class ArrayHandlerTest extends TestCase
      */
     public function testHas()
     {
-        $data = new ArrayHandler(
-            [0 => 'first', 'next' => 20, null => 3.01,]
-        );
+        $data = [0 => 'first', 'next' => 20, null => 3.01,];
+
+        $fabric = new ArrayHandlerFactory(new ValueHandlerFactory());
+        $handler = $fabric->makeArrayHandler($data);
 
         self::assertTrue(
-            $data->has(),
+            $handler->has(),
             'ArrayHandler MUST contain any index'
         );
         self::assertTrue(
-            $data->has(0),
+            $handler->has(0),
             'ArrayHandler MUST contain index 0'
         );
         self::assertTrue(
-            $data->has('next'),
+            $handler->has('next'),
             'ArrayHandler MUST contain index `next`'
         );
         self::assertTrue(
-            $data->has(null),
+            $handler->has(null),
             'ArrayHandler MUST contain index with value null'
         );
         self::assertFalse(
-            $data->has('not-exists'),
+            $handler->has('not-exists'),
             'ArrayHandler MUST NOT contain index `not-exists`'
         );
     }
@@ -213,49 +179,53 @@ class ArrayHandlerTest extends TestCase
      */
     public function testPull()
     {
-        $level4 = [-4 =>
-            ['over' => ['and' => ['over' => ['again' => [true]]]]]];
+        $level4 = [
+            -4 =>
+                ['over' => ['and' => ['over' => ['again' => [true]]]]]
+        ];
         $level3 = [-3 => $level4, 'some' => 'other',];
         $level2 = [-2 => $level3];
         $level1 = [-1 => $level2, 'other' => ['content'], 'any'];
         $level0 = [$level1];
-        $data = new ArrayHandler($level0);
+
+        $fabric = new ArrayHandlerFactory(new ValueHandlerFactory());
+        $handler = $fabric->makeArrayHandler($level0);
 
         self::assertTrue(
-            is_array($data->pull()->get()->asIs()),
+            is_array($handler->pull()->get()->asIs()),
             'First pull MUST return array'
         );
         self::assertTrue(
-            is_array($data->pull()->pull(-1)->get()->asIs()),
+            is_array($handler->pull()->pull(-1)->get()->asIs()),
             'Pull of key `-1` MUST return array'
         );
         self::assertTrue(
-            $data->pull()->pull('other')
+            $handler->pull()->pull('other')
                 ->get()->str() === 'content',
             'Pull of key `other` MUST return array'
         );
         self::assertTrue(
-            $data->pull()->pull(-1)->pull()->get('some')
+            $handler->pull()->pull(-1)->pull()->get('some')
                 ->str() === 'other',
             'Index `some` MUST BE equal `other`'
         );
         self::assertTrue(
-            $data->pull(0)->pull(-1)->pull(-2)
+            $handler->pull(0)->pull(-1)->pull(-2)
                 ->pull(-3)->pull(-4)->pull(-5)
-                ->isUndefined(),
+                ->wasNotDefined(),
             'pull() of non existing index (`-5`) MUST'
             . ' return undefined ArrayHandler'
         );
         self::assertFalse(
-            $data->pull(0)->pull(-1)->pull(-2)
+            $handler->pull(0)->pull(-1)->pull(-2)
                 ->pull(-3)->pull(-4)->pull('over')
                 ->pull('and')->pull('over')->pull('again')
-                ->isUndefined(),
+                ->wasNotDefined(),
             'pull() existing index (`again`) MUST'
             . ' return not undefined ArrayHandler (defined array)'
         );
         self::assertTrue(
-            $data->pull(0)->pull(-1)->pull(-2)
+            $handler->pull(0)->pull(-1)->pull(-2)
                 ->pull(-3)->pull(-4)->pull('over')
                 ->pull('and')->pull('over')->pull('again')
                 ->get()->bool(),
