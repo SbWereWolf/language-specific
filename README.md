@@ -1,6 +1,6 @@
 # How to install
 ```bash
-composer require sbwerewolf/language-specific ^7.2
+composer require sbwerewolf/language-specific
 ```
 # Features
 ArrayHandler with ValueHandler are purpose to **safe access** to array
@@ -243,13 +243,13 @@ $data->get()->array(); // [1.1]
 use SbWereWolf\LanguageSpecific\ArrayHandler;
 use SbWereWolf\LanguageSpecific\ValueHandler;
 
-$data = new ArrayHandler(new ValueHandler());
+$data = new ArrayHandler([new ValueHandler()]);
 $value = $data->get()->object();
 var_export($value,true);
 /*
-LanguageSpecific\ValueHandler::__set_state(array(
+\SbWereWolf\LanguageSpecific\ValueHandler::__set_state(array(
    '_value' => NULL,
-   '_has' => true,
+   '_wasDefined' => true,
    '_default' => NULL,
 ))
 */
@@ -289,14 +289,14 @@ use SbWereWolf\LanguageSpecific\ValueHandler;
 ## asUndefined() - value handler with undefined value
 
 ```php
-use SbWereWolf\LanguageSpecific\ValueHandler;
+use SbWereWolf\LanguageSpecific\ValueHandlerFactory;
 
-$value = ValueHandler::asUndefined();
-var_export($value,true);
+$value = ValueHandlerFactory::makeValueHandlerWithoutValue();
+var_export($value);
 /*
-LanguageSpecific\ValueHandler::__set_state(array(
+\SbWereWolf\LanguageSpecific\ValueHandler::__set_state(array(
    '_value' => NULL,
-   '_has' => false,
+   '_wasDefined' => false,
    '_default' => NULL,
 ))
 */
@@ -306,8 +306,11 @@ LanguageSpecific\ValueHandler::__set_state(array(
 ```php
 use SbWereWolf\LanguageSpecific\ValueHandler;
 
-ValueHandler::asUndefined()->default('default')->str(); // 'default'
-(new ValueHandler('string'))->default('default')->str(); // 'string'
+$doNotHasValue = ValueHandlerFactory::makeValueHandlerWithoutValue();
+$doNotHasValue->default('default')->str(); // 'default'
+
+$doHasValue = ValueHandlerFactory::makeValueHandler('string');
+$doHasValue->default('default')->str(); // 'string'
 ```
 # Detail info
 Refer to 
