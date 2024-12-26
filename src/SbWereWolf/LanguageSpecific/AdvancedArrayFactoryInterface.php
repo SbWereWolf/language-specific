@@ -5,28 +5,28 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2024 Volkhin Nikolay
- * 12/26/24, 7:57 AM
+ * 12/26/24, 9:40 PM
  */
 
 namespace SbWereWolf\LanguageSpecific;
 
-interface ArrayHandlerFactoryInterface
+interface AdvancedArrayFactoryInterface
 {
     /**
      * Возвращает ArrayHandlerInterface без массива
      *
-     * @return ArrayHandlerInterface
+     * @return AdvancedArrayInterface
      */
     public static function
-    makeArrayHandlerWithoutArray(): ArrayHandlerInterface;
+    makeDummyAdvancedArray(): AdvancedArrayInterface;
 
     /**
      * Возвращает ArrayHandlerInterface
      *
      * @param array $values массив значений
-     * @return ArrayHandlerInterface
+     * @return AdvancedArrayInterface
      */
-    public function makeArrayHandler(
+    public function makeAdvancedArray(
         array $values
-    ): ArrayHandlerInterface;
+    ): AdvancedArrayInterface;
 }

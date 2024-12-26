@@ -5,21 +5,21 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2024 Volkhin Nikolay
- * 12/26/24, 7:57 AM
+ * 12/26/24, 9:40 PM
  */
 
 namespace SbWereWolf\LanguageSpecific;
 
 
 /**
- * Class ValueHandler
+ * Class CommonValue
  *
  * @category Library
  * @package  LanguageSpecific
  * @author   SbWereWolf <ulfnew@gmail.com>
  * @link     https://github.com/SbWereWolf/language-specific
  */
-class ValueHandler implements ValueHandlerInterface
+class CommonValue implements CommonValueInterface
 {
     /**
      * Собственно значение
@@ -29,11 +29,11 @@ class ValueHandler implements ValueHandlerInterface
     private mixed $_value;
 
     /**
-     * Флаг "Значение задано"
+     * Флаг "Значение действительное"
      *
-     * @var bool $_wasDefined
+     * @var bool $_isReal
      */
-    private bool $_wasDefined = false;
+    private bool $_isReal = false;
 
     /**
      * Значение по умолчанию для неопределённого значения,
@@ -55,10 +55,10 @@ class ValueHandler implements ValueHandlerInterface
     ) {
         $this->_value = $value;
         if ($isRealValue) {
-            $this->_wasDefined = true;
+            $this->_isReal = true;
         }
         if (!$isRealValue) {
-            $this->_wasDefined = false;
+            $this->_isReal = false;
         }
     }
 
@@ -67,9 +67,9 @@ class ValueHandler implements ValueHandlerInterface
      *
      * @return bool
      */
-    public function wasDefined(): bool
+    public function isReal(): bool
     {
-        return $this->_wasDefined;
+        return $this->_isReal;
     }
 
     /**
@@ -80,7 +80,7 @@ class ValueHandler implements ValueHandlerInterface
     public function asIs(): mixed
     {
         /** @noinspection PhpUnnecessaryLocalVariableInspection */
-        $result = $this->wasDefined() ? $this->_value : $this->_default;
+        $result = $this->isReal() ? $this->_value : $this->_default;
 
         return $result;
     }
@@ -163,9 +163,9 @@ class ValueHandler implements ValueHandlerInterface
      * @param mixed|null $value значение по умолчанию, будет присвоено
      *               если значение незаданное
      *
-     * @return ValueHandlerInterface
+     * @return CommonValueInterface
      */
-    public function default(mixed $value = null): ValueHandlerInterface
+    public function default(mixed $value = null): CommonValueInterface
     {
         $this->_default = $value;
 

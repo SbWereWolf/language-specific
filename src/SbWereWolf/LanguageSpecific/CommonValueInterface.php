@@ -5,28 +5,28 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2024 Volkhin Nikolay
- * 12/26/24, 7:57 AM
+ * 12/26/24, 9:40 PM
  */
 
 namespace SbWereWolf\LanguageSpecific;
 
 
 /**
- * Interface ValueHandlerInterface
+ * Interface CommonValueInterface
  *
  * @category Library
  * @package  LanguageSpecific
  * @author   SbWereWolf <ulfnew@gmail.com>
  * @link     https://github.com/SbWereWolf/language-specific
  */
-interface ValueHandlerInterface
+interface CommonValueInterface
 {
     /**
      * Возвращает флаг "Значение было задано"
      *
      * @return bool
      */
-    public function wasDefined(): bool;
+    public function isReal(): bool;
 
     /**
      * Возвращает значение как есть
@@ -92,7 +92,7 @@ interface ValueHandlerInterface
      * @param $value mixed|null значение по умолчанию, будет присвоено
      *               если значение незаданное
      *
-     * @return ValueHandlerInterface
+     * @return CommonValueInterface
      */
-    public function default(mixed $value = null): ValueHandlerInterface;
+    public function default(mixed $value = null): CommonValueInterface;
 }

@@ -5,13 +5,13 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2024 Volkhin Nikolay
- * 12/26/24, 7:57 AM
+ * 12/26/24, 9:40 PM
  */
 
 use PHPUnit\Framework\TestCase;
-use SbWereWolf\LanguageSpecific\ValueHandler;
-use SbWereWolf\LanguageSpecific\ValueHandlerFactory;
-use SbWereWolf\LanguageSpecific\ValueHandlerInterface;
+use SbWereWolf\LanguageSpecific\CommonValue;
+use SbWereWolf\LanguageSpecific\CommonValueFactory;
+use SbWereWolf\LanguageSpecific\CommonValueInterface;
 
 /**
  * Class ValueHandlerTest
@@ -19,257 +19,256 @@ use SbWereWolf\LanguageSpecific\ValueHandlerInterface;
  * @category Test
  * @package  LanguageSpecific
  * @author   SbWereWolf <ulfnew@gmail.com>
- * @license  MIT https://github.com/SbWereWolf/language-specific/blob/feature/php7.2/LICENSE
  * @link     https://github.com/SbWereWolf/language-specific
  */
 class ValueHandlerTest extends TestCase
 {
     /**
-     * Проверяем метод ValueHandler::asIs()
+     * Проверяем метод CommonValue::asIs()
      *
      * @return void
      */
     public function testAsIs()
     {
-        $value = ValueHandlerFactory::makeValueHandler();
+        $value = CommonValueFactory::makeCommonValue();
         self::assertTrue(
             is_null($value->asIs()),
             'Value of asIs() MUST BE null'
         );
         self::assertTrue(
-            $value->wasDefined(),
-            'Flag `has` MUST BE true'
+            $value->isReal(),
+            'Flag `is real` MUST BE true'
         );
 
-        $value = ValueHandlerFactory::makeValueHandler(1);
+        $value = CommonValueFactory::makeCommonValue(1);
         self::assertTrue(
             $value->asIs() === 1,
             'Value of asIs() MUST BE exact 1'
         );
         self::assertTrue(
-            $value->wasDefined(),
-            'Flag `has` MUST BE true'
+            $value->isReal(),
+            'Flag `is real` MUST BE true'
         );
 
-        $value = ValueHandlerFactory::makeValueHandler('1');
+        $value = CommonValueFactory::makeCommonValue('1');
         self::assertTrue(
             $value->asIs() === '1',
             'Value of asIs() MUST BE exact `1`'
         );
         self::assertTrue(
-            $value->wasDefined(),
-            'Flag `has` MUST BE true'
+            $value->isReal(),
+            'Flag `is real` MUST BE true'
         );
 
-        $value = ValueHandlerFactory::makeValueHandler(true);
+        $value = CommonValueFactory::makeCommonValue(true);
         self::assertTrue(
             $value->asIs() === true,
             'Value of asIs() MUST BE exact TRUE'
         );
         self::assertTrue(
-            $value->wasDefined(),
-            'Flag `has` MUST BE true'
+            $value->isReal(),
+            'Flag `is real` MUST BE true'
         );
 
-        $value = ValueHandlerFactory::makeValueHandler(false);
+        $value = CommonValueFactory::makeCommonValue(false);
         self::assertTrue(
             $value->asIs() === false,
             'Value of asIs() MUST BE exact FALSE'
         );
         self::assertTrue(
-            $value->wasDefined(),
-            'Flag `has` MUST BE true'
+            $value->isReal(),
+            'Flag `is real` MUST BE true'
         );
 
-        $value = ValueHandlerFactory::makeValueHandler(1.1);
+        $value = CommonValueFactory::makeCommonValue(1.1);
         self::assertTrue(
             $value->asIs() === 1.1,
             'Value of asIs() MUST BE exact 1.1'
         );
         self::assertTrue(
-            $value->wasDefined(),
-            'Flag `has` MUST BE true'
+            $value->isReal(),
+            'Flag `is real` MUST BE true'
         );
 
-        $value = ValueHandlerFactory::makeValueHandler([]);
+        $value = CommonValueFactory::makeCommonValue([]);
         self::assertTrue(
             empty(array_diff($value->asIs(), [])),
             'For for empty array value of asIs() MUST BE []'
         );
         self::assertTrue(
-            $value->wasDefined(),
-            'Flag `has` MUST BE true'
+            $value->isReal(),
+            'Flag `is real` MUST BE true'
         );
 
-        $value = ValueHandlerFactory::makeValueHandler([false, 1, 'a']);
+        $value = CommonValueFactory::makeCommonValue([false, 1, 'a']);
         self::assertTrue(
             empty(array_diff($value->asIs(), [false, 1, 'a'])),
             'MUST BE exact [false,1,`a`]'
         );
         self::assertTrue(
-            $value->wasDefined(),
-            'Flag `has` MUST BE true'
+            $value->isReal(),
+            'Flag `is real` MUST BE true'
         );
     }
 
     /**
-     * Проверяем метод ValueHandler::int()
+     * Проверяем метод CommonValue::int()
      *
      * @return void
      */
     public function testInt()
     {
-        $value = ValueHandlerFactory::makeValueHandler();
+        $value = CommonValueFactory::makeCommonValue();
         self::assertTrue(
             $value->int() === 0,
             'int() for NULL value MUST BE zero'
         );
         self::assertTrue(
-            $value->wasDefined(),
-            'Flag `has` MUST BE true'
+            $value->isReal(),
+            'Flag `is real` MUST BE true'
         );
 
-        $value = ValueHandlerFactory::makeValueHandler(1);
+        $value = CommonValueFactory::makeCommonValue(1);
         self::assertTrue(
             $value->int() === 1,
             'int() MUST BE exact 1'
         );
         self::assertTrue(
-            $value->wasDefined(),
-            'Flag `has` MUST BE true'
+            $value->isReal(),
+            'Flag `is real` MUST BE true'
         );
     }
 
     /**
-     * Проверяем метод ValueHandler::bool()
+     * Проверяем метод CommonValue::bool()
      *
      * @return void
      */
     public function testBool()
     {
-        $value = ValueHandlerFactory::makeValueHandler();
+        $value = CommonValueFactory::makeCommonValue();
         self::assertTrue(
             $value->bool() === false,
             ' bool() for NULL value MUST BE false'
         );
         self::assertTrue(
-            $value->wasDefined(),
-            'Flag `has` MUST BE true'
+            $value->isReal(),
+            'Flag `is real` MUST BE true'
         );
 
-        $value = ValueHandlerFactory::makeValueHandler(true);
+        $value = CommonValueFactory::makeCommonValue(true);
         self::assertTrue(
             $value->bool() === true,
             'bool() MUST BE exact true'
         );
         self::assertTrue(
-            $value->wasDefined(),
-            'Flag `has` MUST BE true'
+            $value->isReal(),
+            'Flag `is real` MUST BE true'
         );
 
-        $value = ValueHandlerFactory::makeValueHandler(false);
+        $value = CommonValueFactory::makeCommonValue(false);
         self::assertTrue(
             $value->bool() === false,
             'bool() MUST BE exact false'
         );
         self::assertTrue(
-            $value->wasDefined(),
-            'Flag `has` MUST BE true'
+            $value->isReal(),
+            'Flag `is real` MUST BE true'
         );
     }
 
     /**
-     * Проверяем метод ValueHandler::str()
+     * Проверяем метод CommonValue::str()
      *
      * @return void
      */
     public function testStr()
     {
-        $value = ValueHandlerFactory::makeValueHandler();
+        $value = CommonValueFactory::makeCommonValue();
         self::assertTrue(
             $value->str() === '',
             'str() for NULL value MUST BE `` (empty string)'
         );
         self::assertTrue(
-            $value->wasDefined(),
-            'Flag `has` MUST BE true'
+            $value->isReal(),
+            'Flag `is real` MUST BE true'
         );
 
-        $value = ValueHandlerFactory::makeValueHandler('a');
+        $value = CommonValueFactory::makeCommonValue('a');
         self::assertTrue(
             $value->str() === 'a',
             ' str() MUST BE exact `a`'
         );
         self::assertTrue(
-            $value->wasDefined(),
-            'Flag `has` MUST BE true'
+            $value->isReal(),
+            'Flag `is real` MUST BE true'
         );
     }
 
     /**
-     * Проверяем метод ValueHandler::double()
+     * Проверяем метод CommonValue::double()
      *
      * @return void
      */
     public function testDouble()
     {
-        $value = ValueHandlerFactory::makeValueHandler();
+        $value = CommonValueFactory::makeCommonValue();
         self::assertTrue(
             $value->double() === 0.0,
             'double() for NULL value MUST BE 0.0'
         );
         self::assertTrue(
-            $value->wasDefined(),
-            'Flag `has` MUST BE true'
+            $value->isReal(),
+            'Flag `is real` MUST BE true'
         );
 
-        $value = ValueHandlerFactory::makeValueHandler(1.1);
+        $value = CommonValueFactory::makeCommonValue(1.1);
         self::assertTrue(
             $value->double() === 1.1,
             'Value of double() MUST BE exact 1.1'
         );
         self::assertTrue(
-            $value->wasDefined(),
-            'Flag `has` MUST BE true'
+            $value->isReal(),
+            'Flag `is real` MUST BE true'
         );
     }
 
     /**
-     * Проверяем метод ValueHandler::array()
+     * Проверяем метод CommonValue::array()
      *
      * @return void
      */
     public function testArray()
     {
-        $value = ValueHandlerFactory::makeValueHandler();
+        $value = CommonValueFactory::makeCommonValue();
         self::assertTrue(
             empty(array_diff($value->array(), [])),
             'For NULL value array() MUST BE []'
         );
         self::assertTrue(
-            $value->wasDefined(),
-            'Flag `has` MUST BE true'
+            $value->isReal(),
+            'Flag `is real` MUST BE true'
         );
 
-        $value = ValueHandlerFactory::makeValueHandler([false, 1, 'a']);
+        $value = CommonValueFactory::makeCommonValue([false, 1, 'a']);
         self::assertTrue(
             empty(array_diff($value->array(), [false, 1, 'a'])),
             'MUST BE exact [false,1,`a`]'
         );
         self::assertTrue(
-            $value->wasDefined(),
-            'Flag `has` MUST BE true'
+            $value->isReal(),
+            'Flag `is real` MUST BE true'
         );
     }
 
     /**
-     * Проверяем метод ValueHandler::type()
+     * Проверяем метод CommonValue::type()
      *
      * @return void
      */
     public function testType()
     {
-        $value = ValueHandlerFactory::makeValueHandler();
+        $value = CommonValueFactory::makeCommonValue();
         $type = $value->type();
         self::assertEquals(
             'NULL',
@@ -277,7 +276,7 @@ class ValueHandlerTest extends TestCase
             'For NULL value type() MUST BE `NULL`'
         );
 
-        $value = ValueHandlerFactory::makeValueHandler(false);
+        $value = CommonValueFactory::makeCommonValue(false);
         $type = $value->type();
         self::assertEquals(
             'boolean',
@@ -285,7 +284,7 @@ class ValueHandlerTest extends TestCase
             'For false value type() MUST BE `boolean`'
         );
 
-        $value = ValueHandlerFactory::makeValueHandler(1);
+        $value = CommonValueFactory::makeCommonValue(1);
         $type = $value->type();
         self::assertEquals(
             'integer',
@@ -293,15 +292,15 @@ class ValueHandlerTest extends TestCase
             'For 0 value type() MUST BE `integer`'
         );
 
-        $value = ValueHandlerFactory::makeValueHandler(0.1);
+        $value = CommonValueFactory::makeCommonValue(0.1);
         $type = $value->type();
         self::assertEquals(
             'double',
             $type,
-            'For 0.0 value type() MUST BE `double`'
+            'For 0.1 value type() MUST BE `double`'
         );
 
-        $value = ValueHandlerFactory::makeValueHandler('a');
+        $value = CommonValueFactory::makeCommonValue('a');
         $type = $value->type();
         self::assertEquals(
             'string',
@@ -309,7 +308,7 @@ class ValueHandlerTest extends TestCase
             'For `a` value type() MUST BE `string`'
         );
 
-        $value = ValueHandlerFactory::makeValueHandler([]);
+        $value = CommonValueFactory::makeCommonValue([]);
         $type = $value->type();
         self::assertEquals(
             'array',
@@ -317,43 +316,43 @@ class ValueHandlerTest extends TestCase
             'For [] value type() MUST BE `array`'
         );
 
-        $value = ValueHandlerFactory::makeValueHandler(
-            ValueHandlerFactory::makeValueHandler()
+        $value = CommonValueFactory::makeCommonValue(
+            CommonValueFactory::makeCommonValue()
         );
         $type = $value->type();
         self::assertEquals(
             'object',
             $type,
-            'For (new ValueHandler()) value type() MUST BE `object`'
+            'For (new CommonValue()) value type() MUST BE `object`'
         );
     }
 
     /**
-     * Проверяем метод ValueHandler::object()
+     * Проверяем метод CommonValue::object()
      *
      * @return void
      */
     public function testObject()
     {
-        $value = ValueHandlerFactory::makeValueHandler(
-            ValueHandlerFactory::makeValueHandler(1)
+        $value = CommonValueFactory::makeCommonValue(
+            CommonValueFactory::makeCommonValue(1)
         );
-        /* @var $value ValueHandler */
+        /* @var $value CommonValue */
         $value = $value->object();
 
         self::assertTrue(
             is_object($value),
-            'For (new ValueHandler()) value of object() method'
+            'For (new CommonValue()) value of object() method'
             . ' MUST BE type of object'
         );
         self::assertTrue(
-            $value instanceof ValueHandler,
-            'For (new ValueHandler()) value of object() method'
-            . ' MUST BE instance of ValueHandler'
+            $value instanceof CommonValue,
+            'For (new CommonValue()) value of object()'
+            . ' MUST BE instance of CommonValue'
         );
         self::assertTrue(
-            $value->wasDefined(),
-            'Flag `has` MUST BE true'
+            $value->isReal(),
+            'Flag `is real` MUST BE true'
         );
         self::assertTrue(
             $value->asIs() === 1,
@@ -368,21 +367,21 @@ class ValueHandlerTest extends TestCase
      */
     public function testUndefined()
     {
-        $fabric = new ValueHandlerFactory();
-        $value = $fabric::makeValueHandlerWithoutValue();
+        $fabric = new CommonValueFactory();
+        $value = $fabric::makeCommonValueAsDummy();
 
         self::assertFalse(
-            $value->wasDefined(),
-            'Flag `has` for undefined Value MUST BE false'
+            $value->isReal(),
+            'Flag `is real` For dummy Value MUST BE false'
         );
         self::assertTrue(
             gettype($value->asIs()) === 'NULL',
-            'For undefined Value type of returning value of'
+            'For dummy Value type of returning value of'
             . ' asIs() MUST BE NULL'
         );
         self::assertTrue(
             is_null($value->asIs()),
-            'For undefined Value asIs() MUST BE null'
+            'For dummy Value asIs() MUST BE null'
         );
     }
 
@@ -402,190 +401,191 @@ class ValueHandlerTest extends TestCase
     }
 
     /**
-     * @return ValueHandlerInterface
+     * @return CommonValueInterface
      */
     private function checkWithInt()
     {
-        $value = ValueHandlerFactory::makeValueHandlerWithoutValue()
+        $value = CommonValueFactory::makeCommonValueAsDummy()
             ->default(1);
         self::assertTrue(
             $value->int() === 1,
-            'For undefined with(1) value of int() MUST BE exact 1'
+            'For dummy with default(1) value of int() MUST BE exact 1'
         );
         self::assertFalse(
-            $value->wasDefined(),
-            'For undefined with(1) has() MUST BE false'
+            $value->isReal(),
+            'For dummy with default(1) isReal() MUST BE false'
         );
 
-        $value = ValueHandlerFactory::makeValueHandler(3);
+        $value = CommonValueFactory::makeCommonValue(3);
         $value = $value->default(1);
         self::assertTrue(
             $value->int() === 3,
-            'For Value(3) with(1) value of int() MUST BE exact 3'
+            'For value(3) with default(1) int() MUST BE exact 3'
         );
         self::assertTrue(
-            $value->wasDefined(),
-            'For Value(3) with(1) has() MUST BE true'
+            $value->isReal(),
+            'For value(3) with default(1) isReal() MUST BE true'
         );
 
         return $value;
     }
 
     /**
-     * @return ValueHandlerInterface
+     * @return CommonValueInterface
      */
     private function checkWithDouble()
     {
-        $value = ValueHandlerFactory::makeValueHandlerWithoutValue()
+        $value = CommonValueFactory::makeCommonValueAsDummy()
             ->default(0.9);
         self::assertTrue(
             $value->double() === 0.9,
-            'For undefined with(0.9) value of double()'
+            'For dummy with default(0.9) value of double()'
             . ' MUST BE exact 0.9'
         );
         self::assertFalse(
-            $value->wasDefined(),
-            'For undefined with(0.9) has() MUST BE false'
+            $value->isReal(),
+            'For dummy with default(0.9) isReal() MUST BE false'
         );
-        $value = ValueHandlerFactory::makeValueHandler(1.1)
+        $value = CommonValueFactory::makeCommonValue(1.1)
             ->default(0.9);
         self::assertTrue(
             $value->double() === 1.1,
-            'For Value(1.1) with(0.9) value of double()'
+            'For value(1.1) with default(0.9) value of double()'
             . ' MUST BE exact 1.1'
         );
         self::assertTrue(
-            $value->wasDefined(),
-            'For Value(1.1) with(0.9) has() MUST BE true'
+            $value->isReal(),
+            'For value(1.1) with default(0.9) isReal() MUST BE true'
         );
 
         return $value;
     }
 
     /**
-     * @return ValueHandlerInterface
+     * @return CommonValueInterface
      */
     private function checkWithBool()
     {
-        $value = ValueHandlerFactory::makeValueHandlerWithoutValue()
+        $value = CommonValueFactory::makeCommonValueAsDummy()
             ->default(true);
         self::assertTrue(
             $value->bool() === true,
-            'For undefined with(true) value of bool()'
+            'For dummy with default(true) value of bool()'
             . ' MUST BE exact true'
         );
         self::assertFalse(
-            $value->wasDefined(),
-            'For undefined with(true) has() MUST BE false'
+            $value->isReal(),
+            'For dummy with default(true) isReal() MUST BE false'
         );
-        $value = ValueHandlerFactory::makeValueHandler(false)
+        $value = CommonValueFactory::makeCommonValue(false)
             ->default(true);
         self::assertTrue(
             $value->bool() === false,
-            'For Value(false) with(true) value of bool()'
+            'For value(false) with default(true) value of bool()'
             . ' MUST BE exact false'
         );
         self::assertTrue(
-            $value->wasDefined(),
-            'For Value(false) with(true) has() MUST BE true'
+            $value->isReal(),
+            'For value(false) with default(true) isReal() MUST BE true'
         );
 
         return $value;
     }
 
     /**
-     * @return ValueHandlerInterface
+     * @return CommonValueInterface
      */
     private function checkWithStr()
     {
-        $value = ValueHandlerFactory::makeValueHandlerWithoutValue()
+        $value = CommonValueFactory::makeCommonValueAsDummy()
             ->default('a');
         self::assertTrue(
             $value->str() === 'a',
-            'For undefined with(`a`) value of str()'
+            'For dummy with default(`a`) value of str()'
             . ' MUST BE exact `a`'
         );
         self::assertFalse(
-            $value->wasDefined(),
-            'For undefined with(`a`) has() MUST BE false'
+            $value->isReal(),
+            'For dummy with default(`a`) isReal() MUST BE false'
         );
-        $value = ValueHandlerFactory::makeValueHandler('b')
+        $value = CommonValueFactory::makeCommonValue('b')
             ->default('a');
         self::assertTrue(
             $value->str() === 'b',
-            'For Value(`b`) with(`a`) value of str()'
+            'For value(`b`) with default(`a`) value of str()'
             . ' MUST BE exact `b`'
         );
         self::assertTrue(
-            $value->wasDefined(),
-            'For Value(`b`) with(`a`) has() MUST BE true'
+            $value->isReal(),
+            'For value(`b`) with default(`a`) isReal() MUST BE true'
         );
 
         return $value;
     }
 
     /**
-     * @return ValueHandlerInterface
+     * @return CommonValueInterface
      */
     private function checkWithArray()
     {
-        $value = ValueHandlerFactory::makeValueHandlerWithoutValue()
+        $value = CommonValueFactory::makeCommonValueAsDummy()
             ->default([0 => 1]);
         self::assertTrue(
             $value->array()[0] === 1,
-            'For undefined with([0 => 1]) value of asArray()[0]'
+            'For dummy with default([0 => 1]) value of array()[0]'
             . ' MUST BE exact 1'
         );
         self::assertFalse(
-            $value->wasDefined(),
-            'For undefined with([0 => 1]) has() MUST BE false'
+            $value->isReal(),
+            'For dummy with default([0 => 1]) isReal() MUST BE false'
         );
-        $value = ValueHandlerFactory::makeValueHandler([2 => 3])
+        $value = CommonValueFactory::makeCommonValue([2 => 3])
             ->default([0 => 1]);
         self::assertTrue(
             $value->array()[2] === 3,
-            'For Value([2 => 3]) with([0 => 1])'
-            . 'value of asArray()[2] MUST BE exact 3'
+            'For value([2 => 3]) with default([0 => 1])'
+            . 'value of array()[2] MUST BE exact 3'
         );
         self::assertTrue(
-            $value->wasDefined(),
-            'For Value([2 => 3]) with([0 => 1]) has() MUST BE true'
+            $value->isReal(),
+            'For value([2 => 3]) with default([0 => 1])'
+            . ' isReal() MUST BE true'
         );
 
         return $value;
     }
 
     /**
-     * @return ValueHandlerInterface
+     * @return CommonValueInterface
      */
     private function checkWithObject()
     {
-        $value = ValueHandlerFactory::makeValueHandlerWithoutValue()
-            ->default(ValueHandlerFactory::makeValueHandler(1));
+        $value = CommonValueFactory::makeCommonValueAsDummy()
+            ->default(CommonValueFactory::makeCommonValue(1));
         self::assertTrue(
             $value->object()->int() === 1,
-            'For undefined with() (new ValueHandler(1))'
+            'For dummy with default(new CommonValue(1))'
             . ' value of object()->int() MUST BE exact 1'
         );
         self::assertFalse(
-            $value->wasDefined(),
-            'For undefined with() (new ValueHandler(1))'
-            . ' has() MUST BE false'
+            $value->isReal(),
+            'For dummy with default(new CommonValue(1))'
+            . ' isReal() MUST BE false'
         );
-        $internal = ValueHandlerFactory::makeValueHandler(2);
-        $external = ValueHandlerFactory::makeValueHandler($internal);
-        $default = ValueHandlerFactory::makeValueHandler(1);
+        $internal = CommonValueFactory::makeCommonValue(2);
+        $external = CommonValueFactory::makeCommonValue($internal);
+        $default = CommonValueFactory::makeCommonValue(1);
 
         $external->default($default);
         self::assertTrue(
             $external->object()->int() === 2,
-            'For Value(ValueHandler(2)) with(ValueHandler(1))'
+            'For value(CommonValue(2)) with default(CommonValue(1))'
             . 'value of object()->int() MUST BE exact 2'
         );
         self::assertTrue(
-            $external->wasDefined(),
-            'For Value(ValueHandler(2)) with(ValueHandler(1))'
-            . ' has() MUST BE true'
+            $external->isReal(),
+            'For value(CommonValue(2)) with default(CommonValue(1))'
+            . ' isReal() MUST BE true'
         );
 
         return $external;

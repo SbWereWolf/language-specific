@@ -1,35 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ~ LanguageSpecific
-  ~ Copyright © 2019 Volkhin Nikolay
-  ~ 26.10.2019, 13:15
+  ~ @package  LanguageSpecific
+  ~ @author   SbWereWolf <ulfnew@gmail.com>
+  ~ @link     https://github.com/SbWereWolf/language-specific
+  ~
+  ~ Copyright © 2024 Volkhin Nikolay
+  ~ 12/26/24, 9:40 PM
   -->
 
-<phpunit bootstrap="vendor/autoload.php"
-
-         backupStaticAttributes="false"
-
-         cacheTokens="false"
-         colors="true"
-
-         processIsolation="false"
-         stopOnError="false"
-         stopOnFailure="false"
-         stopOnIncomplete="false"
-         stopOnSkipped="false"
-
-         verbose="true"
-
-         forceCoversAnnotation="false"
->
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
+         bootstrap="vendor/autoload.php"
+         cacheDirectory=".phpunit.cache"
+         executionOrder="depends,defects"
+         shortenArraysForExportThreshold="10"
+         beStrictAboutCoverageMetadata="true"
+         beStrictAboutOutputDuringTests="true"
+         displayDetailsOnPhpunitDeprecations="true"
+         failOnPhpunitDeprecation="true"
+         failOnRisky="true"
+         failOnWarning="true">
     <testsuites>
-        <testsuite name="unit">
+        <testsuite name="default">
             <directory>tests/unit</directory>
         </testsuite>
     </testsuites>
-    <filter>
-        <whitelist>
-            <directory suffix=".php">src/LanguageSpecific</directory>
-        </whitelist>
-    </filter>
+
+    <source ignoreIndirectDeprecations="true" restrictNotices="true" restrictWarnings="true">
+        <include>
+            <directory>src</directory>
+        </include>
+    </source>
 </phpunit>

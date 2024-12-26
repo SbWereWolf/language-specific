@@ -5,14 +5,14 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2024 Volkhin Nikolay
- * 12/26/24, 8:33 AM
+ * 12/26/24, 9:40 PM
  */
 
 use PHPUnit\Framework\TestCase;
-use SbWereWolf\LanguageSpecific\ArrayHandler;
-use SbWereWolf\LanguageSpecific\ArrayHandlerFactory;
-use SbWereWolf\LanguageSpecific\ArrayHandlerInterface;
-use SbWereWolf\LanguageSpecific\ValueHandlerFactory;
+use SbWereWolf\LanguageSpecific\AdvancedArray;
+use SbWereWolf\LanguageSpecific\AdvancedArrayFactory;
+use SbWereWolf\LanguageSpecific\AdvancedArrayInterface;
+use SbWereWolf\LanguageSpecific\CommonValueFactory;
 
 /**
  * Class ArrayHandlerTest
@@ -20,29 +20,28 @@ use SbWereWolf\LanguageSpecific\ValueHandlerFactory;
  * @category Test
  * @package  LanguageSpecific
  * @author   SbWereWolf <ulfnew@gmail.com>
- * @license  MIT https://github.com/SbWereWolf/language-specific/blob/feature/php7.2/LICENSE
  * @link     https://github.com/SbWereWolf/language-specific
  */
 class ArrayHandlerTest extends TestCase
 {
     /**
-     * Проверяем конструктор ArrayHandler
+     * Проверяем конструктор AdvancedArray
      *
      * @return void
      */
     public function testConstructor()
     {
-        $fabric = new ArrayHandlerFactory(new ValueHandlerFactory());
-        $handler = $fabric->makeArrayHandler([]);
+        $fabric = new AdvancedArrayFactory(new CommonValueFactory());
+        $handler = $fabric->makeAdvancedArray([]);
         self::assertTrue(
-            $handler instanceof ArrayHandler,
-            'MUST BE possible create ArrayHandler from'
+            $handler instanceof AdvancedArray,
+            'MUST BE possible create AdvancedArray from'
             . ' array'
         );
     }
 
     /**
-     * Проверяем метод ArrayHandler::pulling()
+     * Проверяем метод AdvancedArray::pulling()
      *
      * @return void
      */
@@ -55,13 +54,13 @@ class ArrayHandlerTest extends TestCase
             $last
         ];
 
-        $fabric = new ArrayHandlerFactory(new ValueHandlerFactory());
-        $handler = $fabric->makeArrayHandler($data);
+        $fabric = new AdvancedArrayFactory(new CommonValueFactory());
+        $handler = $fabric->makeAdvancedArray($data);
 
         $index = 0;
-        $item = $fabric::makeArrayHandlerWithoutArray();
-        foreach ($handler->pulling() as $item) {
-            /* @var $item ArrayHandlerInterface */
+        $item = $fabric::makeDummyAdvancedArray();
+        foreach ($handler->arrays() as $item) {
+            /* @var $item AdvancedArrayInterface */
             self::assertFalse(
                 $item->isDummy(),
                 'Pulled item MUST BE defined'
@@ -81,7 +80,7 @@ class ArrayHandlerTest extends TestCase
     }
 
     /**
-     * Проверяем метод ArrayHandler::get()
+     * Проверяем метод AdvancedArray::get()
      *
      * @return void
      */
@@ -89,8 +88,8 @@ class ArrayHandlerTest extends TestCase
     {
         $data = [0 => 'first', 'next' => 20, 'last' => 3.01,];
 
-        $fabric = new ArrayHandlerFactory(new ValueHandlerFactory());
-        $handler = $fabric->makeArrayHandler($data);
+        $fabric = new AdvancedArrayFactory(new CommonValueFactory());
+        $handler = $fabric->makeAdvancedArray($data);
 
         $item = $handler->get();
         self::assertTrue(
@@ -106,8 +105,8 @@ class ArrayHandlerTest extends TestCase
             . ' MUST BE null'
         );
         self::assertFalse(
-            $item->wasDefined(),
-            'Return value of has() of non existence index'
+            $item->isReal(),
+            'Return value of isReal() of non existence index'
             . ' MUST BE false'
         );
 
@@ -125,8 +124,8 @@ class ArrayHandlerTest extends TestCase
             . ' MUST BE null'
         );
         self::assertFalse(
-            $item->wasDefined(),
-            'Return value of has() of non existence index'
+            $item->isReal(),
+            'Return value of isReal() of non existence index'
             . ' MUST BE false'
         );
 
@@ -139,41 +138,41 @@ class ArrayHandlerTest extends TestCase
     }
 
     /**
-     * Проверяем метод ArrayHandler::has()
+     * Проверяем метод AdvancedArray::isReal()
      *
      * @return void
      */
-    public function testHas()
+    public function testIsReal()
     {
         $data = [0 => 'first', 'next' => 20, null => 3.01,];
 
-        $fabric = new ArrayHandlerFactory(new ValueHandlerFactory());
-        $handler = $fabric->makeArrayHandler($data);
+        $fabric = new AdvancedArrayFactory(new CommonValueFactory());
+        $handler = $fabric->makeAdvancedArray($data);
 
         self::assertTrue(
             $handler->has(),
-            'ArrayHandler MUST contain any index'
+            'AdvancedArray MUST contain any index'
         );
         self::assertTrue(
             $handler->has(0),
-            'ArrayHandler MUST contain index 0'
+            'AdvancedArray MUST contain index 0'
         );
         self::assertTrue(
             $handler->has('next'),
-            'ArrayHandler MUST contain index `next`'
+            'AdvancedArray MUST contain index `next`'
         );
         self::assertTrue(
             $handler->has(null),
-            'ArrayHandler MUST contain index with value null'
+            'AdvancedArray MUST contain index with value null'
         );
         self::assertFalse(
             $handler->has('not-exists'),
-            'ArrayHandler MUST NOT contain index `not-exists`'
+            'AdvancedArray MUST NOT contain index `not-exists`'
         );
     }
 
     /**
-     * Проверяем метод ArrayHandler::pull()
+     * Проверяем метод AdvancedArray::pull()
      *
      * @return void
      */
@@ -188,33 +187,32 @@ class ArrayHandlerTest extends TestCase
         $level1 = [-1 => $level2, 'other' => ['content'], 'any'];
         $level0 = [$level1];
 
-        $fabric = new ArrayHandlerFactory(new ValueHandlerFactory());
-        $handler = $fabric->makeArrayHandler($level0);
+        $fabric = new AdvancedArrayFactory(new CommonValueFactory());
+        $handler = $fabric->makeAdvancedArray($level0);
 
         self::assertTrue(
-            is_array($handler->pull()->get()->asIs()),
-            'First pull MUST return array'
+            $handler->pull()->isDummy() === false,
+            'First pull MUST return real array'
         );
         self::assertTrue(
-            is_array($handler->pull()->pull(-1)->get()->asIs()),
-            'Pull of key `-1` MUST return array'
+            $handler->pull()->pull(-1)->isDummy() === false,
+            'Pull of key `-1` MUST return real array'
         );
         self::assertTrue(
-            $handler->pull()->pull('other')
-                ->get()->str() === 'content',
-            'Pull of key `other` MUST return array'
+            $handler->pull()->pull('other')->isDummy() === false,
+            'Pull of key `other` MUST return real array'
         );
         self::assertTrue(
             $handler->pull()->pull(-1)->pull()->get('some')
                 ->str() === 'other',
-            'Index `some` MUST BE equal `other`'
+            'Element value with index `some` MUST BE `other`'
         );
         self::assertTrue(
             $handler->pull(0)->pull(-1)->pull(-2)
                 ->pull(-3)->pull(-4)->pull(-5)
                 ->isDummy(),
             'pull() of non existing index (`-5`) MUST'
-            . ' return undefined ArrayHandler'
+            . ' return dummy AdvancedArray'
         );
         self::assertFalse(
             $handler->pull(0)->pull(-1)->pull(-2)
@@ -222,7 +220,7 @@ class ArrayHandlerTest extends TestCase
                 ->pull('and')->pull('over')->pull('again')
                 ->isDummy(),
             'pull() existing index (`again`) MUST'
-            . ' return not undefined ArrayHandler (defined array)'
+            . ' return real AdvancedArray (value is not dummy)'
         );
         self::assertTrue(
             $handler->pull(0)->pull(-1)->pull(-2)

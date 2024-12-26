@@ -5,34 +5,34 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2024 Volkhin Nikolay
- * 12/26/24, 7:57 AM
+ * 12/26/24, 9:40 PM
  */
 
 namespace SbWereWolf\LanguageSpecific;
 
-class ArrayHandlerFactory implements ArrayHandlerFactoryInterface
+class AdvancedArrayFactory implements AdvancedArrayFactoryInterface
 {
-    private ValueHandlerFactoryInterface $factory;
+    private CommonValueFactoryInterface $factory;
 
-    public function __construct(ValueHandlerFactoryInterface $factory)
+    public function __construct(CommonValueFactoryInterface $factory)
     {
         $this->factory = $factory;
     }
 
     public static function
-    makeArrayHandlerWithoutArray(): ArrayHandlerInterface
+    makeDummyAdvancedArray(): AdvancedArrayInterface
     {
         /** @noinspection PhpUnnecessaryLocalVariableInspection */
-        $handler = new ArrayHandler([], null, null, true);
+        $handler = new AdvancedArray([], null, null, true);
 
         return $handler;
     }
 
-    public function makeArrayHandler(
+    public function makeAdvancedArray(
         array $values
-    ): ArrayHandlerInterface {
+    ): AdvancedArrayInterface {
         /** @noinspection PhpUnnecessaryLocalVariableInspection */
-        $handler = new ArrayHandler($values, $this->factory, $this);
+        $handler = new AdvancedArray($values, $this->factory, $this);
 
         return $handler;
     }

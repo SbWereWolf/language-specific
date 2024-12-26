@@ -2,10 +2,6 @@
   "name": "sbwerewolf/language-specific",
   "description": "Library for using PHP specific features",
   "type": "library",
-  "require-dev": {
-    "phpunit/phpunit": "11.*",
-    "friendsofphp/php-cs-fixer": "3.*"
-  },
   "license": "MIT",
   "authors": [
     {
@@ -17,12 +13,16 @@
     "php": ">=8.4",
     "ext-json": "*"
   },
+  "require-dev": {
+    "phpunit/phpunit": "11.*",
+    "buggregator/trap": "^1.11"
+  },
   "autoload": {
     "psr-4": {
       "": "src/"
     }
   },
   "scripts": {
-    "test": "php ./vendor/phpunit/phpunit/phpunit --coverage-html build/coverage-report --debug"
+    "test": "php ./vendor/phpunit/phpunit/phpunit --coverage-html ./build/coverage-report --coverage-filter ./src"
   }
 }
