@@ -5,3 +5,4 @@
 /tests/developing/**
 /.php_cs.cache
 /*.tmp
+/composer.phar
