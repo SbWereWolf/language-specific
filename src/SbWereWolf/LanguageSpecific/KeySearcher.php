@@ -5,7 +5,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2024 Volkhin Nikolay
- * 12/26/24, 7:57 AM
+ * 12/27/24, 5:13 AM
  */
 
 namespace SbWereWolf\LanguageSpecific;
@@ -25,7 +25,7 @@ class KeySearcher implements KeySearcherInterface
      *
      * @var array
      */
-    private $_source;
+    private array $_source;
 
     /**
      * KeySearcher constructor.
