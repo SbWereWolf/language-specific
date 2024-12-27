@@ -5,7 +5,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2024 Volkhin Nikolay
- * 12/26/24, 9:40 PM
+ * 12/27/24, 10:03 AM
  */
 
 namespace SbWereWolf\LanguageSpecific;
@@ -13,7 +13,7 @@ namespace SbWereWolf\LanguageSpecific;
 interface AdvancedArrayFactoryInterface
 {
     /**
-     * Возвращает ArrayHandlerInterface без массива
+     * Возвращает заглушку для AdvancedArrayInterface (без массива)
      *
      * @return AdvancedArrayInterface
      */
@@ -21,12 +21,12 @@ interface AdvancedArrayFactoryInterface
     makeDummyAdvancedArray(): AdvancedArrayInterface;
 
     /**
-     * Возвращает ArrayHandlerInterface
+     * Возвращает AdvancedArrayInterface
      *
-     * @param array $values массив значений
+     * @param array $data массив значений
      * @return AdvancedArrayInterface
      */
     public function makeAdvancedArray(
-        array $values
+        mixed $data
     ): AdvancedArrayInterface;
 }

@@ -5,10 +5,20 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2024 Volkhin Nikolay
- * 12/26/24, 7:57 AM
+ * 12/27/24, 10:03 AM
  */
 
-namespace SbWereWolf\LanguageSpecific;
+declare(strict_types=1);
+/*
+ * @package  LanguageSpecific
+ * @author   SbWereWolf <ulfnew@gmail.com>
+ * @link     https://github.com/SbWereWolf/language-specific
+ *
+ * Copyright © 2024 Volkhin Nikolay
+ * 12/27/24, 5:56 AM
+ */
+
+namespace SbWereWolf\LanguageSpecific\Array;
 
 /**
  * Class SearchResult
@@ -21,7 +31,6 @@ namespace SbWereWolf\LanguageSpecific;
  */
 class SearchResult implements SearchResultInterface
 {
-
     private null|int|string|bool|float $_key;
     private bool $_has;
 

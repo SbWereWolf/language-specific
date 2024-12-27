@@ -5,14 +5,13 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2024 Volkhin Nikolay
- * 12/26/24, 9:40 PM
+ * 12/27/24, 10:03 AM
  */
 
-namespace SbWereWolf\LanguageSpecific;
+namespace SbWereWolf\LanguageSpecific\Array;
 
 use ArrayAccess;
-use Iterator;
-use JsonSerializable;
+use SbWereWolf\LanguageSpecific\Value\CommonValueInterface;
 
 /**
  * Interface CommonArrayInterface
@@ -22,16 +21,8 @@ use JsonSerializable;
  * @author   SbWereWolf <ulfnew@gmail.com>
  * @link     https://github.com/SbWereWolf/language-specific
  */
-interface CommonArrayInterface
-    extends Iterator, JsonSerializable, ArrayAccess
+interface CommonArrayInterface extends ArrayAccess
 {
-    /**
-     * Возвращает флаг "является заглушкой"
-     *
-     * @return bool
-     */
-    public function isDummy(): bool;
-
     /**
      * Проверяет, что массив имеет элемент с заданным индексом
      *
@@ -52,11 +43,4 @@ interface CommonArrayInterface
     public function get(
         int|bool|string|null|float $key = null
     ): CommonValueInterface;
-
-    /**
-     * Возвращает исходный массив без обработки
-     *
-     * @return array
-     */
-    public function raw(): array;
 }

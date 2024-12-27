@@ -5,23 +5,33 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2024 Volkhin Nikolay
+ * 12/27/24, 10:03 AM
+ */
+
+declare(strict_types=1);
+/*
+ * @package  LanguageSpecific
+ * @author   SbWereWolf <ulfnew@gmail.com>
+ * @link     https://github.com/SbWereWolf/language-specific
+ *
+ * Copyright © 2024 Volkhin Nikolay
  * 12/27/24, 5:16 AM
  */
 
 use PHPUnit\Framework\TestCase;
-use SbWereWolf\LanguageSpecific\CommonValue;
-use SbWereWolf\LanguageSpecific\CommonValueFactory;
-use SbWereWolf\LanguageSpecific\CommonValueInterface;
+use SbWereWolf\LanguageSpecific\Value\CommonValue;
+use SbWereWolf\LanguageSpecific\Value\CommonValueFactory;
+use SbWereWolf\LanguageSpecific\Value\CommonValueInterface;
 
 /**
- * Class ValueHandlerTest
+ * Class CommonValueTest
  *
  * @category Test
  * @package  LanguageSpecific
  * @author   SbWereWolf <ulfnew@gmail.com>
  * @link     https://github.com/SbWereWolf/language-specific
  */
-class ValueHandlerTest extends TestCase
+class CommonValueTest extends TestCase
 {
     /**
      * Проверяем метод CommonValue::asIs()
@@ -337,7 +347,7 @@ class ValueHandlerTest extends TestCase
         $value = CommonValueFactory::makeCommonValue(
             CommonValueFactory::makeCommonValue(1)
         );
-        /* @var $value CommonValue */
+        /* @var $value \SbWereWolf\LanguageSpecific\Value\CommonValue */
         $sample = $value->object();
 
         self::assertTrue(
@@ -365,7 +375,7 @@ class ValueHandlerTest extends TestCase
      *
      * @return void
      */
-    public function testUndefined()
+    public function testIsReal()
     {
         $fabric = new CommonValueFactory();
         $value = $fabric::makeCommonValueAsDummy();
@@ -390,20 +400,20 @@ class ValueHandlerTest extends TestCase
      *
      * @return void
      */
-    public function testWith()
+    public function testDefault()
     {
-        $this->checkWithInt();
-        $this->checkWithDouble();
-        $this->checkWithBool();
-        $this->checkWithStr();
-        $this->checkWithArray();
-        $this->checkWithObject();
+        $this->checkDefaultInt();
+        $this->checkDefaultDouble();
+        $this->checkDefaultBool();
+        $this->checkDefaultStr();
+        $this->checkDefaultArray();
+        $this->checkDefaultObject();
     }
 
     /**
-     * @return CommonValueInterface
+     * @return \SbWereWolf\LanguageSpecific\Value\CommonValueInterface
      */
-    private function checkWithInt()
+    private function checkDefaultInt()
     {
         $value = CommonValueFactory::makeCommonValueAsDummy()
             ->default(1);
@@ -431,9 +441,9 @@ class ValueHandlerTest extends TestCase
     }
 
     /**
-     * @return CommonValueInterface
+     * @return \SbWereWolf\LanguageSpecific\Value\CommonValueInterface
      */
-    private function checkWithDouble()
+    private function checkDefaultDouble()
     {
         $value = CommonValueFactory::makeCommonValueAsDummy()
             ->default(0.9);
@@ -462,9 +472,9 @@ class ValueHandlerTest extends TestCase
     }
 
     /**
-     * @return CommonValueInterface
+     * @return \SbWereWolf\LanguageSpecific\Value\CommonValueInterface
      */
-    private function checkWithBool()
+    private function checkDefaultBool()
     {
         $value = CommonValueFactory::makeCommonValueAsDummy()
             ->default(true);
@@ -495,7 +505,7 @@ class ValueHandlerTest extends TestCase
     /**
      * @return CommonValueInterface
      */
-    private function checkWithStr()
+    private function checkDefaultStr()
     {
         $value = CommonValueFactory::makeCommonValueAsDummy()
             ->default('a');
@@ -526,7 +536,7 @@ class ValueHandlerTest extends TestCase
     /**
      * @return CommonValueInterface
      */
-    private function checkWithArray()
+    private function checkDefaultArray()
     {
         $value = CommonValueFactory::makeCommonValueAsDummy()
             ->default([0 => 1]);
@@ -556,9 +566,9 @@ class ValueHandlerTest extends TestCase
     }
 
     /**
-     * @return CommonValueInterface
+     * @return \SbWereWolf\LanguageSpecific\Value\CommonValueInterface
      */
-    private function checkWithObject()
+    private function checkDefaultObject()
     {
         $value = CommonValueFactory::makeCommonValueAsDummy()
             ->default(CommonValueFactory::makeCommonValue(1));

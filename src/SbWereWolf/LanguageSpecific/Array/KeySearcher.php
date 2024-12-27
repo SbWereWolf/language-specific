@@ -5,10 +5,21 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2024 Volkhin Nikolay
- * 12/27/24, 5:13 AM
+ * 12/27/24, 10:03 AM
  */
 
-namespace SbWereWolf\LanguageSpecific;
+declare(strict_types=1);
+/*
+ * @package  LanguageSpecific
+ * @author   SbWereWolf <ulfnew@gmail.com>
+ * @link     https://github.com/SbWereWolf/language-specific
+ *
+ * Copyright © 2024 Volkhin Nikolay
+ * 12/27/24, 5:55 AM
+ */
+
+namespace SbWereWolf\LanguageSpecific\Array;
+
 
 /**
  * Class KeySearcher
@@ -54,7 +65,7 @@ class KeySearcher implements KeySearcherInterface
         $result = new SearchResult(false, $key);
 
         $data = $this->_source;
-        $keyExists = array_key_exists($key, $data);
+        $keyExists = in_array($key, array_keys($data), true);
         if ($keyExists) {
             $result = new SearchResult(true, $key);
         }

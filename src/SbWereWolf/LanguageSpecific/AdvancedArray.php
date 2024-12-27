@@ -5,6 +5,16 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2024 Volkhin Nikolay
+ * 12/27/24, 10:03 AM
+ */
+
+declare(strict_types=1);
+/*
+ * @package  LanguageSpecific
+ * @author   SbWereWolf <ulfnew@gmail.com>
+ * @link     https://github.com/SbWereWolf/language-specific
+ *
+ * Copyright © 2024 Volkhin Nikolay
  * 12/26/24, 9:40 PM
  */
 
@@ -12,6 +22,8 @@ namespace SbWereWolf\LanguageSpecific;
 
 
 use Generator;
+use SbWereWolf\LanguageSpecific\Array\CommonArray;
+use SbWereWolf\LanguageSpecific\Value\CommonValueFactoryInterface;
 
 /**
  * Class AdvancedArray
@@ -24,51 +36,49 @@ use Generator;
 class AdvancedArray extends CommonArray
     implements AdvancedArrayInterface
 {
+    private bool $isDummy = true;
     private AdvancedArrayFactory $arrayFactory;
 
     /**
      * AdvancedArray constructor.
      * Принимает массив,
-     * либо значение которое можно привести к массиву
      *
      * @param array $data массив
-     * @param CommonValueFactoryInterface|null $valueFactory
+     * @param CommonValueFactoryInterface $valueFactory
      *  фабрика для создания экземпляров CommonValueInterface
-     * @param AdvancedArrayFactoryInterface|null $arrayFactory
+     * @param AdvancedArrayFactoryInterface $arrayFactory
      * фабрика для создания новых экземпляров ArrayHandlerInterface
      * @param bool $isDummy
      *          флаг "является заглушкой для несуществующего массива"
      */
     public function __construct(
         mixed $data,
-        CommonValueFactoryInterface|null $valueFactory = null,
-        AdvancedArrayFactoryInterface|null $arrayFactory = null,
-        bool $isDummy = false,
+        CommonValueFactoryInterface $valueFactory,
+        AdvancedArrayFactoryInterface $arrayFactory,
+        bool $isDummy,
     ) {
         parent::__construct($data, $valueFactory);
 
-        if (is_null($arrayFactory)) {
-            $this->arrayFactory =
-                new AdvancedArrayFactory($this->valueFactory);
-        }
-        if ($arrayFactory instanceof AdvancedArrayFactoryInterface) {
-            $this->arrayFactory = $arrayFactory;
-        }
+        $this->arrayFactory = $arrayFactory;
 
         if ($isDummy) {
-            $this->_data = [];
-            $this->riseIsDummy();
+            $this->isDummy = true;
         }
         if (!$isDummy) {
-            $this->_data = array_replace([], $this->_data);
-            $this->dropIsDummy();
+            $this->isDummy = false;
         }
+    }
+
+    /* @inheritDoc */
+    public function isDummy(): bool
+    {
+        return $this->isDummy === true;
     }
 
     /* @inheritDoc */
     public function values(): Generator
     {
-        $keys = array_keys($this->_data);
+        $keys = array_keys($this->data);
         foreach ($keys as $key) {
             $value = $this->get($key);
             $isArray = $value->type() === 'array';
@@ -102,7 +112,7 @@ class AdvancedArray extends CommonArray
     /* @inheritDoc */
     public function arrays(): Generator
     {
-        $keys = array_keys($this->_data);
+        $keys = array_keys($this->data);
         foreach ($keys as $key) {
             $nextArray = $this->pull($key);
 

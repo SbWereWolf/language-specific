@@ -5,10 +5,10 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2024 Volkhin Nikolay
- * 12/26/24, 9:40 PM
+ * 12/27/24, 10:03 AM
  */
 
-namespace SbWereWolf\LanguageSpecific;
+namespace SbWereWolf\LanguageSpecific\Value;
 
 
 /**
@@ -22,20 +22,6 @@ namespace SbWereWolf\LanguageSpecific;
 class CommonValue implements CommonValueInterface
 {
     /**
-     * Собственно значение
-     *
-     * @var mixed $_value
-     */
-    private mixed $_value;
-
-    /**
-     * Флаг "Значение действительное"
-     *
-     * @var bool $_isReal
-     */
-    private bool $_isReal = false;
-
-    /**
      * Значение по умолчанию для неопределённого значения,
      * используется когда значение не задано
      *
@@ -47,19 +33,12 @@ class CommonValue implements CommonValueInterface
      * Создать экземпляр с заданным значением
      *
      * @param mixed $value произвольное значение
-     * @param bool $isRealValue
+     * @param bool $isReal Значение является действительным
      */
     public function __construct(
-        mixed $value = null,
-        bool $isRealValue = true
+        private readonly mixed $value = null,
+        private readonly bool $isReal = true
     ) {
-        $this->_value = $value;
-        if ($isRealValue) {
-            $this->_isReal = true;
-        }
-        if (!$isRealValue) {
-            $this->_isReal = false;
-        }
     }
 
     /**
@@ -69,7 +48,7 @@ class CommonValue implements CommonValueInterface
      */
     public function isReal(): bool
     {
-        return $this->_isReal;
+        return $this->isReal === true;
     }
 
     /**
@@ -80,7 +59,7 @@ class CommonValue implements CommonValueInterface
     public function asIs(): mixed
     {
         /** @noinspection PhpUnnecessaryLocalVariableInspection */
-        $result = $this->isReal() ? $this->_value : $this->_default;
+        $result = $this->isReal() ? $this->value : $this->_default;
 
         return $result;
     }

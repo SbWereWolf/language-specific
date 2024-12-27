@@ -254,13 +254,13 @@ $data->get()->array(); // [0 => "1.1"]
 
 ```php
 use SbWereWolf\LanguageSpecific\AdvancedArray;
-use SbWereWolf\LanguageSpecific\CommonValue;
+use SbWereWolf\LanguageSpecific\Value\CommonValue;
 
 $data = new AdvancedArray([new CommonValue()]);
 $value = $data->get()->object();
 var_export($value);
 /*
-\SbWereWolf\LanguageSpecific\CommonValue::__set_state(array(
+\SbWereWolf\LanguageSpecific\Value\CommonValue::__set_state(array(
    '_value' => NULL,
    '_isReal' => true,
    '_default' => NULL,
@@ -284,7 +284,7 @@ $data->get('4')->isReal(); // false
 ## type() - get type of value
 
 ```php
-use SbWereWolf\LanguageSpecific\CommonValue;
+use SbWereWolf\LanguageSpecific\Value\CommonValue;
 
 (new CommonValue(null))->type(); // `NULL`
 
@@ -306,12 +306,12 @@ use SbWereWolf\LanguageSpecific\CommonValue;
 Create exemplar of CommonValue as dummy
 
 ```php
-use SbWereWolf\LanguageSpecific\CommonValueFactory;
+use SbWereWolf\LanguageSpecific\Value\CommonValueFactory;
 
 $value = CommonValueFactory::makeCommonValueAsDummy();
 var_export($value);
 /*
-\SbWereWolf\LanguageSpecific\CommonValue::__set_state(array(
+\SbWereWolf\LanguageSpecific\Value\CommonValue::__set_state(array(
    '_value' => NULL,
    '_isReal' => false,
    '_default' => NULL,
@@ -324,7 +324,7 @@ var_export($value);
 Default value will be implemented when value is dummy
 
 ```php
-use SbWereWolf\LanguageSpecific\CommonValueFactory;
+use SbWereWolf\LanguageSpecific\Value\CommonValueFactory;
 
 $dummy = CommonValueFactory::makeCommonValueAsDummy();
 $dummy->default('default')->str(); // "default"

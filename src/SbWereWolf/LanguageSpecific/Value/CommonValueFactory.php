@@ -5,10 +5,10 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2024 Volkhin Nikolay
- * 12/26/24, 9:40 PM
+ * 12/27/24, 10:03 AM
  */
 
-namespace SbWereWolf\LanguageSpecific;
+namespace SbWereWolf\LanguageSpecific\Value;
 
 
 class CommonValueFactory implements CommonValueFactoryInterface
