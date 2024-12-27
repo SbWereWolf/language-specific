@@ -5,7 +5,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2024 Volkhin Nikolay
- * 12/27/24, 10:03 AM
+ * 12/27/24, 10:58 AM
  */
 
 namespace SbWereWolf\LanguageSpecific\Array;
@@ -26,21 +26,22 @@ interface CommonArrayInterface extends ArrayAccess
     /**
      * Проверяет, что массив имеет элемент с заданным индексом
      *
-     * @param int|bool|string|null|float $key индекс искомого элемента
+     * @param string|int|float|bool|null $key индекс искомого
+     *                                                  элемента
      *
      * @return bool
      */
-    public function has(int|bool|string|null|float $key = null): bool;
+    public function has(string|int|float|bool|null $key = null): bool;
 
     /**
      * По индексу получить элемент массива.
      * Возвращает экземпляр с интерфейсом CommonValueInterface
      *
-     * @param int|bool|string|null|float $key индекс элемента
+     * @param string|int|float|bool|null $key индекс элемента
      *
      * @return CommonValueInterface
      */
     public function get(
-        int|bool|string|null|float $key = null
+        string|int|float|bool|null $key = null
     ): CommonValueInterface;
 }

@@ -5,7 +5,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2024 Volkhin Nikolay
- * 12/27/24, 10:03 AM
+ * 12/27/24, 10:58 AM
  */
 
 declare(strict_types=1);
@@ -37,7 +37,7 @@ class AdvancedArray extends CommonArray
     implements AdvancedArrayInterface
 {
     private bool $isDummy = true;
-    private AdvancedArrayFactory $arrayFactory;
+    private AdvancedArrayFactoryInterface $arrayFactory;
 
     /**
      * AdvancedArray constructor.
@@ -52,7 +52,7 @@ class AdvancedArray extends CommonArray
      *          флаг "является заглушкой для несуществующего массива"
      */
     public function __construct(
-        mixed $data,
+        array $data,
         CommonValueFactoryInterface $valueFactory,
         AdvancedArrayFactoryInterface $arrayFactory,
         bool $isDummy,

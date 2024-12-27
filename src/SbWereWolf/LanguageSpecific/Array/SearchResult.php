@@ -5,7 +5,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2024 Volkhin Nikolay
- * 12/27/24, 10:03 AM
+ * 12/27/24, 10:58 AM
  */
 
 declare(strict_types=1);
@@ -38,12 +38,12 @@ class SearchResult implements SearchResultInterface
      * SearchResult constructor.
      *
      * @param bool $success успех поиска
-     * @param null|int|string|bool|float $key при успехе значение
+     * @param string|int|float|bool|null $key при успехе значение
      *                                          найденного ключа
      */
     public function __construct(
         bool $success = false,
-        null|int|string|bool|float $key = null
+        string|int|float|bool|null $key = null
     ) {
         $this->_key = $key;
         $this->_has = $success;
