@@ -5,7 +5,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2024 Volkhin Nikolay
- * 12/26/24, 9:40 PM
+ * 12/27/24, 5:12 AM
  */
 
 use PHPUnit\Framework\TestCase;
@@ -338,24 +338,24 @@ class ValueHandlerTest extends TestCase
             CommonValueFactory::makeCommonValue(1)
         );
         /* @var $value CommonValue */
-        $value = $value->object();
+        $sample = $value->object();
 
         self::assertTrue(
-            is_object($value),
+            is_object($sample),
             'For (new CommonValue()) value of object() method'
             . ' MUST BE type of object'
         );
         self::assertTrue(
-            $value instanceof CommonValue,
+            $sample instanceof CommonValue,
             'For (new CommonValue()) value of object()'
             . ' MUST BE instance of CommonValue'
         );
         self::assertTrue(
-            $value->isReal(),
+            $sample->isReal(),
             'Flag `is real` MUST BE true'
         );
         self::assertTrue(
-            $value->asIs() === 1,
+            $sample->asIs() === 1,
             'Value of asIs() MUST BE zero'
         );
     }
