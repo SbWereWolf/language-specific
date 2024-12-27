@@ -5,7 +5,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2024 Volkhin Nikolay
- * 12/26/24, 9:40 PM
+ * 12/27/24, 5:16 AM
  */
 
 use PHPUnit\Framework\TestCase;
@@ -73,8 +73,8 @@ class ArrayHandlerTest extends TestCase
             'All of array elements MUST been iterated'
         );
 
-        self::assertTrue(
-            empty(array_diff($last, $item->raw())),
+        self::assertEmpty(
+            array_diff($last, $item->raw()),
             'Pulled item MUST BE same as last array element'
         );
     }

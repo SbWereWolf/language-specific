@@ -5,7 +5,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2024 Volkhin Nikolay
- * 12/27/24, 5:12 AM
+ * 12/27/24, 5:16 AM
  */
 
 use PHPUnit\Framework\TestCase;
@@ -91,8 +91,8 @@ class ValueHandlerTest extends TestCase
         );
 
         $value = CommonValueFactory::makeCommonValue([]);
-        self::assertTrue(
-            empty(array_diff($value->asIs(), [])),
+        self::assertEmpty(
+            array_diff($value->asIs(), []),
             'For for empty array value of asIs() MUST BE []'
         );
         self::assertTrue(
@@ -101,8 +101,8 @@ class ValueHandlerTest extends TestCase
         );
 
         $value = CommonValueFactory::makeCommonValue([false, 1, 'a']);
-        self::assertTrue(
-            empty(array_diff($value->asIs(), [false, 1, 'a'])),
+        self::assertEmpty(
+            array_diff($value->asIs(), [false, 1, 'a']),
             'MUST BE exact [false,1,`a`]'
         );
         self::assertTrue(
@@ -241,8 +241,8 @@ class ValueHandlerTest extends TestCase
     public function testArray()
     {
         $value = CommonValueFactory::makeCommonValue();
-        self::assertTrue(
-            empty(array_diff($value->array(), [])),
+        self::assertEmpty(
+            array_diff($value->array(), []),
             'For NULL value array() MUST BE []'
         );
         self::assertTrue(
@@ -251,8 +251,8 @@ class ValueHandlerTest extends TestCase
         );
 
         $value = CommonValueFactory::makeCommonValue([false, 1, 'a']);
-        self::assertTrue(
-            empty(array_diff($value->array(), [false, 1, 'a'])),
+        self::assertEmpty(
+            array_diff($value->array(), [false, 1, 'a']),
             'MUST BE exact [false,1,`a`]'
         );
         self::assertTrue(
