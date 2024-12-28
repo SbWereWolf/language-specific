@@ -1,10 +1,9 @@
 /.idea/**
 /vendor/**
-/.phpunit.result.cache
 /build/**
 /tests/developing/**
-/.php_cs.cache
-/*.tmp
 /composer.phar
 /phing-latest.phar
 /.phpunit.cache/**
+./phpstan.neon
+/continuous-integration/phpstan/tmp/**

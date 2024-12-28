@@ -1,0 +1,115 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Method SbWereWolf\\LanguageSpecific\\AdvancedArray\:\:__construct\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: ../../../src/SbWereWolf/LanguageSpecific/AdvancedArray.php
+
+		-
+			message: '#^Method SbWereWolf\\LanguageSpecific\\Array\\ArrayFactory\:\:makeItProper\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: ../../../src/SbWereWolf/LanguageSpecific/Array/ArrayFactory.php
+
+		-
+			message: '#^Method SbWereWolf\\LanguageSpecific\\Array\\BaseArray\:\:__construct\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: ../../../src/SbWereWolf/LanguageSpecific/Array/BaseArray.php
+
+		-
+			message: '#^Method SbWereWolf\\LanguageSpecific\\Array\\BaseArray\:\:jsonSerialize\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: ../../../src/SbWereWolf/LanguageSpecific/Array/BaseArray.php
+
+		-
+			message: '#^Method SbWereWolf\\LanguageSpecific\\Array\\BaseArray\:\:next\(\) with return type void returns mixed but should not return anything\.$#'
+			identifier: return.void
+			count: 1
+			path: ../../../src/SbWereWolf/LanguageSpecific/Array/BaseArray.php
+
+		-
+			message: '#^Method SbWereWolf\\LanguageSpecific\\Array\\BaseArray\:\:raw\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: ../../../src/SbWereWolf/LanguageSpecific/Array/BaseArray.php
+
+		-
+			message: '#^Parameter \#1 \$key of function key_exists expects int\|string, int\|string\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../src/SbWereWolf/LanguageSpecific/Array/BaseArray.php
+
+		-
+			message: '#^Interface SbWereWolf\\LanguageSpecific\\Array\\BaseArrayInterface extends generic interface Iterator but does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: ../../../src/SbWereWolf/LanguageSpecific/Array/BaseArrayInterface.php
+
+		-
+			message: '#^Method SbWereWolf\\LanguageSpecific\\Array\\BaseArrayInterface\:\:raw\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: ../../../src/SbWereWolf/LanguageSpecific/Array/BaseArrayInterface.php
+
+		-
+			message: '#^Parameter \#1 \$key of method SbWereWolf\\LanguageSpecific\\Array\\CommonArray\:\:get\(\) expects bool\|float\|int\|string\|null, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../src/SbWereWolf/LanguageSpecific/Array/CommonArray.php
+
+		-
+			message: '#^Parameter \#1 \$key of method SbWereWolf\\LanguageSpecific\\Array\\CommonArray\:\:has\(\) expects bool\|float\|int\|string\|null, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../../../src/SbWereWolf/LanguageSpecific/Array/CommonArray.php
+
+		-
+			message: '#^Interface SbWereWolf\\LanguageSpecific\\Array\\CommonArrayInterface extends generic interface ArrayAccess but does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: ../../../src/SbWereWolf/LanguageSpecific/Array/CommonArrayInterface.php
+
+		-
+			message: '#^Method SbWereWolf\\LanguageSpecific\\Array\\KeySearcher\:\:__construct\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: ../../../src/SbWereWolf/LanguageSpecific/Array/KeySearcher.php
+
+		-
+			message: '#^Property SbWereWolf\\LanguageSpecific\\Array\\KeySearcher\:\:\$_source type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: ../../../src/SbWereWolf/LanguageSpecific/Array/KeySearcher.php
+
+		-
+			message: '#^Cannot cast mixed to float\.$#'
+			identifier: cast.double
+			count: 1
+			path: ../../../src/SbWereWolf/LanguageSpecific/Value/CommonValue.php
+
+		-
+			message: '#^Cannot cast mixed to int\.$#'
+			identifier: cast.int
+			count: 1
+			path: ../../../src/SbWereWolf/LanguageSpecific/Value/CommonValue.php
+
+		-
+			message: '#^Cannot cast mixed to string\.$#'
+			identifier: cast.string
+			count: 1
+			path: ../../../src/SbWereWolf/LanguageSpecific/Value/CommonValue.php
+
+		-
+			message: '#^Method SbWereWolf\\LanguageSpecific\\Value\\CommonValue\:\:array\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: ../../../src/SbWereWolf/LanguageSpecific/Value/CommonValue.php
+
+		-
+			message: '#^Method SbWereWolf\\LanguageSpecific\\Value\\CommonValueInterface\:\:array\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: ../../../src/SbWereWolf/LanguageSpecific/Value/CommonValueInterface.php
