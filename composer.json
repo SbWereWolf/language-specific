@@ -29,7 +29,7 @@
     }
   },
   "scripts": {
-    "test": "php ./vendor/phpunit/phpunit/phpunit --list-tests --coverage-html ./build/coverage-report --coverage-filter ./src",
+    "test": "php ./vendor/phpunit/phpunit/phpunit ./vendor/phpunit/phpunit/phpunit --testdox --colors=always  --coverage-html ./build/coverage-report --coverage-filter ./src",
     "phpstan": "php vendor/bin/phpstan analyse -vvv"
   },
   "config": {
