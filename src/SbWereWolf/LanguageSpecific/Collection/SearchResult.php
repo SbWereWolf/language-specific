@@ -5,7 +5,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2024 Volkhin Nikolay
- * 12/29/24, 6:24 AM
+ * 12/29/24, 7:07 AM
  */
 
 declare(strict_types=1);
@@ -31,32 +31,27 @@ namespace SbWereWolf\LanguageSpecific\Collection;
  */
 class SearchResult implements SearchResultInterface
 {
-    private null|int|string|bool|float $_key;
-    private bool $_has;
-
     /**
      * SearchResult constructor.
      *
-     * @param bool $success успех поиска
+     * @param bool $has флаг успех поиска, массив имеет заданный индекс?
      * @param string|int|float|bool|null $key при успехе значение
      *                                          найденного ключа
      */
     public function __construct(
-        bool $success = false,
-        string|int|float|bool|null $key = null
+        private readonly bool $has = false,
+        private readonly string|int|float|bool|null $key = null
     ) {
-        $this->_key = $key;
-        $this->_has = $success;
     }
 
     /**
      * Возвращает найденный ключ
      *
-     * @return null|int|string|bool|float
+     * @return string|int|float|bool|null
      */
-    public function key(): float|bool|int|string|null
+    public function key(): string|int|float|bool|null
     {
-        return $this->_key;
+        return $this->key;
     }
 
     /**
@@ -66,6 +61,6 @@ class SearchResult implements SearchResultInterface
      */
     public function has(): bool
     {
-        return $this->_has;
+        return $this->has;
     }
 }

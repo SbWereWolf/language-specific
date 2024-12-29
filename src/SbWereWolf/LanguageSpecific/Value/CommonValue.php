@@ -5,7 +5,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2024 Volkhin Nikolay
- * 12/27/24, 10:03 AM
+ * 12/29/24, 7:07 AM
  */
 
 namespace SbWereWolf\LanguageSpecific\Value;
@@ -25,9 +25,9 @@ class CommonValue implements CommonValueInterface
      * Значение по умолчанию для неопределённого значения,
      * используется когда значение не задано
      *
-     * @var mixed $_default значение по умолчанию
+     * @var mixed $default значение по умолчанию
      */
-    private mixed $_default = null;
+    private mixed $default = null;
 
     /**
      * Создать экземпляр с заданным значением
@@ -59,7 +59,7 @@ class CommonValue implements CommonValueInterface
     public function asIs(): mixed
     {
         /** @noinspection PhpUnnecessaryLocalVariableInspection */
-        $result = $this->isReal() ? $this->value : $this->_default;
+        $result = $this->isReal() ? $this->value : $this->default;
 
         return $result;
     }
@@ -146,7 +146,7 @@ class CommonValue implements CommonValueInterface
      */
     public function default(mixed $value = null): CommonValueInterface
     {
-        $this->_default = $value;
+        $this->default = $value;
 
         return $this;
     }

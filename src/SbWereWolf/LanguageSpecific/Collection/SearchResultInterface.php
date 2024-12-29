@@ -5,7 +5,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2024 Volkhin Nikolay
- * 12/29/24, 6:24 AM
+ * 12/29/24, 7:07 AM
  */
 
 namespace SbWereWolf\LanguageSpecific\Collection;
@@ -24,9 +24,9 @@ interface SearchResultInterface
     /**
      * Возвращает найденный ключ
      *
-     * @return null|int|string|bool|float
+     * @return string|int|float|bool|null
      */
-    public function key(): null|int|string|bool|float;
+    public function key(): string|int|float|bool|null;
 
     /**
      * Возвращает флаг успешного результата поиска

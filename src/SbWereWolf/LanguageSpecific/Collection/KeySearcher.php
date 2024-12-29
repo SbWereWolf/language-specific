@@ -5,7 +5,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2024 Volkhin Nikolay
- * 12/29/24, 6:24 AM
+ * 12/29/24, 7:07 AM
  */
 
 declare(strict_types=1);
@@ -36,7 +36,7 @@ class KeySearcher implements KeySearcherInterface
      *
      * @var array
      */
-    private array $_source;
+    private array $haystack;
 
     /**
      * KeySearcher constructor.
@@ -48,39 +48,39 @@ class KeySearcher implements KeySearcherInterface
      */
     public function __construct(array &$data)
     {
-        $this->_source = $data;
+        $this->haystack = $data;
     }
 
     /**
      * Искать заданный индекс
      *
-     * @param string|int|float|bool|null $key искомый индекс,
+     * @param string|int|float|bool|null $needle искомый индекс,
      * если не задан, то будет использован индекс текущего элемента
      *
      * @return SearchResultInterface
      */
     public function search(
-        string|int|float|bool|null $key = null
+        string|int|float|bool|null $needle = null
     ): SearchResultInterface {
-        $result = new SearchResult(false, $key);
+        $result = new SearchResult(false, $needle);
 
-        $data = $this->_source;
-        $keyExists = in_array($key, array_keys($data), true);
+        $data = $this->haystack;
+        $keyExists = in_array($needle, array_keys($data), true);
         if ($keyExists) {
-            $result = new SearchResult(true, $key);
+            $result = new SearchResult(true, $needle);
         }
         $isNullKey = false;
         if (!$keyExists) {
-            $isNullKey = is_null($key);
+            $isNullKey = is_null($needle);
         }
         if ($isNullKey) {
-            $key = key($data);
+            $needle = key($data);
         }
         if ($isNullKey && !$keyExists) {
-            $keyExists = in_array($key, array_keys($data), true);
+            $keyExists = in_array($needle, array_keys($data), true);
         }
         if ($isNullKey && $keyExists) {
-            $result = new SearchResult(true, $key);
+            $result = new SearchResult(true, $needle);
         }
 
         return $result;
