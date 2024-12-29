@@ -18,7 +18,6 @@
     "buggregator/trap": "*",
     "phpstan/phpstan": "^2.0",
     "phpmd/phpmd": "^2",
-    "vimeo/psalm": "*",
     "squizlabs/php_codesniffer": "*",
     "phpstan/extension-installer": "^1.4",
     "phpstan/phpstan-strict-rules": "^2.0"
@@ -32,7 +31,8 @@
     "test": "php ./vendor/phpunit/phpunit/phpunit --configuration ./continuous-integration/phpunit/phpunit.xml --testdox  --colors=always  --coverage-html ./continuous-integration/autotests-coverage-report --coverage-filter ./src",
     "phpstan": "php ./vendor/bin/phpstan analyse -vvv",
     "phpmd": "php ./vendor/bin/phpmd src ansi continuous-integration/phpmd/ruleset.xml",
-    "phpmd-ignore-violation": "php ./vendor/bin/phpmd src ansi continuous-integration/phpmd/ruleset.xml --generate-baseline"
+    "phpmd-ignore-violation": "php ./vendor/bin/phpmd src ansi continuous-integration/phpmd/ruleset.xml --generate-baseline",
+    "psalm": "php ./psalm.phar --config=continuous-integration/psalm/psalm.xml"
   },
   "config": {
     "allow-plugins": {
