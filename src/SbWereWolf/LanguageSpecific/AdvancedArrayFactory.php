@@ -5,7 +5,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2024 Volkhin Nikolay
- * 12/27/24, 10:03 AM
+ * 12/29/24, 6:24 AM
  */
 
 declare(strict_types=1);
@@ -20,7 +20,7 @@ declare(strict_types=1);
 
 namespace SbWereWolf\LanguageSpecific;
 
-use SbWereWolf\LanguageSpecific\Array\ArrayFactory;
+use SbWereWolf\LanguageSpecific\Collection\ArrayFactory;
 use SbWereWolf\LanguageSpecific\Value\CommonValueFactory;
 
 class AdvancedArrayFactory

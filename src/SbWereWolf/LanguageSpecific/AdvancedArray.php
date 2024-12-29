@@ -5,7 +5,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2024 Volkhin Nikolay
- * 12/27/24, 10:58 AM
+ * 12/29/24, 6:24 AM
  */
 
 declare(strict_types=1);
@@ -22,7 +22,7 @@ namespace SbWereWolf\LanguageSpecific;
 
 
 use Generator;
-use SbWereWolf\LanguageSpecific\Array\CommonArray;
+use SbWereWolf\LanguageSpecific\Collection\CommonArray;
 use SbWereWolf\LanguageSpecific\Value\CommonValueFactoryInterface;
 
 /**

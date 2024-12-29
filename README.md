@@ -333,9 +333,13 @@ $real = CommonValueFactory::makeCommonValue('real value');
 $real->default('default')->str(); // "real value"
 ```
 # Detail info
-Refer to 
- - [Array Handler](https://github.com/SbWereWolf/language-specific/blob/feature/php7.2/tests/unit/ArrayHandlerTest.php)
- - [Value Handler](https://github.com/SbWereWolf/language-specific/blob/feature/php7.2/tests/unit/ValueHandlerTest.php)
+
+Refer to
+
+- [AdvancedArray](https://github.com/SbWereWolf/language-specific/blob/master/tests/unit/AdvancedArrayTest.php)
+- [BaseArray](https://github.com/SbWereWolf/language-specific/blob/master/tests/unit/BaseArrayTest.php)
+- [CommonArray](https://github.com/SbWereWolf/language-specific/blob/master/tests/unit/CommonArrayTest.php)
+- [CommonValue](https://github.com/SbWereWolf/language-specific/blob/master/tests/unit/CommonValueTest.php)
  
 for detail examples of class methods working
 

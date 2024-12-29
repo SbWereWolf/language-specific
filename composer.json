@@ -30,7 +30,8 @@
   },
   "scripts": {
     "test": "php ./vendor/phpunit/phpunit/phpunit ./vendor/phpunit/phpunit/phpunit --testdox --colors=always  --coverage-html ./build/coverage-report --coverage-filter ./src",
-    "phpstan": "php vendor/bin/phpstan analyse -vvv"
+    "phpstan": "php ./vendor/bin/phpstan analyse -vvv",
+    "phpmd": "php ./vendor/bin/phpmd src ansi continuous-integration/phpmd/ruleset.xml"
   },
   "config": {
     "allow-plugins": {

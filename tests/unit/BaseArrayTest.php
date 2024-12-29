@@ -5,7 +5,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2024 Volkhin Nikolay
- * 12/27/24, 10:03 AM
+ * 12/29/24, 6:24 AM
  */
 
 declare(strict_types=1);
@@ -20,8 +20,8 @@ declare(strict_types=1);
  */
 
 use PHPUnit\Framework\TestCase;
-use SbWereWolf\LanguageSpecific\Array\ArrayFactory;
-use SbWereWolf\LanguageSpecific\Array\BaseArray;
+use SbWereWolf\LanguageSpecific\Collection\ArrayFactory;
+use SbWereWolf\LanguageSpecific\Collection\BaseArray;
 use SbWereWolf\LanguageSpecific\Value\CommonValueInterface;
 
 /**
@@ -197,7 +197,7 @@ class BaseArrayTest extends TestCase
 
         self::assertFalse(
             $hasMore,
-            'Array have only 4 elements,'
+            'Collection have only 4 elements,'
             . ' after 4 next() internal pointer MUST point to null'
         );
 

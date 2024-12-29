@@ -5,7 +5,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2024 Volkhin Nikolay
- * 12/27/24, 10:03 AM
+ * 12/29/24, 6:24 AM
  */
 
 declare(strict_types=1);
@@ -20,10 +20,10 @@ declare(strict_types=1);
  */
 
 use PHPUnit\Framework\TestCase;
-use SbWereWolf\LanguageSpecific\Array\ArrayFactory;
-use SbWereWolf\LanguageSpecific\Array\CommonArray;
-use SbWereWolf\LanguageSpecific\Array\ListIsImmutableException;
-use SbWereWolf\LanguageSpecific\Array\ValueIsImmutableException;
+use SbWereWolf\LanguageSpecific\Collection\ArrayFactory;
+use SbWereWolf\LanguageSpecific\Collection\CommonArray;
+use SbWereWolf\LanguageSpecific\Collection\ListIsImmutableException;
+use SbWereWolf\LanguageSpecific\Collection\ValueIsImmutableException;
 
 /**
  * Class CommonArrayTest
