@@ -5,7 +5,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2024 Volkhin Nikolay
- * 12/29/24, 6:24 AM
+ * 12/29/24, 3:27 PM
  */
 
 declare(strict_types=1);
@@ -38,7 +38,7 @@ class CommonArray extends BaseArray implements CommonArrayInterface
         string|int|float|bool|null $key = null
     ): CommonValueInterface {
         $value = $this->valueFactory::makeCommonValueAsDummy();
-        $payload = (new KeySearcher($this->data))->search($key);
+        $payload = (new KeySearcher($this->data))->seek($key);
         if ($payload->has()) {
             $key = $payload->key();
             $value = $this->valueFactory::makeCommonValue(
@@ -52,7 +52,7 @@ class CommonArray extends BaseArray implements CommonArrayInterface
     /* @inheritDoc */
     public function has(string|int|float|bool|null $key = null): bool
     {
-        $output = (new KeySearcher($this->data))->search($key);
+        $output = (new KeySearcher($this->data))->seek($key);
         /** @noinspection PhpUnnecessaryLocalVariableInspection */
         $result = $output->has();
 

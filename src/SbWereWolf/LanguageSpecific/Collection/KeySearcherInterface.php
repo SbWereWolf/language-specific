@@ -5,7 +5,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2024 Volkhin Nikolay
- * 12/29/24, 7:07 AM
+ * 12/29/24, 3:27 PM
  */
 
 namespace SbWereWolf\LanguageSpecific\Collection;
@@ -28,7 +28,7 @@ interface KeySearcherInterface
      *
      * @return SearchResultInterface
      */
-    public function search(
+    public function seek(
         string|int|float|bool|null $needle = null
     ): SearchResultInterface;
 }
