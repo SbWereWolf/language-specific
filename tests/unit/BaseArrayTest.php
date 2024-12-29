@@ -5,7 +5,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2024 Volkhin Nikolay
- * 12/29/24, 6:24 AM
+ * 12/29/24, 8:05 AM
  */
 
 declare(strict_types=1);
@@ -203,13 +203,17 @@ class BaseArrayTest extends TestCase
 
         $handler->rewind();
         $key = $handler->key();
-        self::assertEquals(-1, $key, 'First index should be -1');
+        self::assertEquals(
+            -1,
+            $key,
+            'After rewind current element index should be -1'
+        );
         /* @var CommonValueInterface $value */
         $value = $handler->current();
         self::assertEquals(
             0,
             $value->asIs(),
-            'First element should be 0'
+            'After rewind current element value should be 0'
         );
     }
 }
