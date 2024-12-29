@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!--
+  ~ @package  LanguageSpecific
+  ~ @author   SbWereWolf <ulfnew@gmail.com>
+  ~ @link     https://github.com/SbWereWolf/language-specific
+  ~
+  ~ Copyright © 2024 Volkhin Nikolay
+  ~ 12/29/24, 8:06 AM
+  -->
+
+<psalm
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        errorLevel="7"
+        resolveFromConfigFile="true"
+        xmlns="https://getpsalm.org/schema/config"
+        xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
+        findUnusedBaselineEntry="true"
+        findUnusedCode="true"
+>
+    <projectFiles>
+        <directory name="../../src"/>
+        <directory name="../../tests/unit"/>
+        <ignoreFiles>
+            <directory name="../../vendor"/>
+        </ignoreFiles>
+    </projectFiles>
+</psalm>

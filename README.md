@@ -1,6 +1,6 @@
 # How to install
 ```bash
-composer require sbwerewolf/language-specific ^7.2
+composer require sbwerewolf/language-specific
 ```
 # Features
 ArrayHandler with ValueHandler are purpose to **safe access** to array
@@ -18,8 +18,9 @@ and others
 With ValueHandler class you get that type exact you want.
 # Use-cases
 ## Get database response with proper types
+
 ```php
-use LanguageSpecific\ArrayHandler;
+use SbWereWolf\LanguageSpecific\AdvancedArray;
 
 $connection = new PDO ($dsn,$login,$password);
 
@@ -36,22 +37,25 @@ $data =
     );
 */
 
-$employee = new ArrayHandler($data);
+$employee = new AdvancedArray($data);
 echo "The highest paid employee is {$employee->get('name')->str()}"
     . ", with salary of {$employee->get('salary')->int()}$";
 /*
 The highest paid employee is Mike, with salary of 19999$
 */
 ```
-# Library methods of version 7.2
-## raw() - returns original array
-```php
-use LanguageSpecific\ArrayHandler;
 
-$data = new ArrayHandler(
+# Library methods of version 8.4
+## raw() - returns original array
+
+```php
+use SbWereWolf\LanguageSpecific\AdvancedArray;
+
+$data = new AdvancedArray(
     [0 => 'first',
     'index' => 20, 
-    3 => 'last',]);
+    3 => 'last',]
+    );
     
 $original = $data->raw();
 
@@ -65,69 +69,75 @@ array (
 */
 ```
 ## has($key = null) - flag that array has the index (key)
+
 ```php
-use LanguageSpecific\ArrayHandler;
+use SbWereWolf\LanguageSpecific\AdvancedArray;
 
-$data = new ArrayHandler([0=>1]);
+$data = new AdvancedArray([0=>1]);
 $data->has(); // true
-// array has at least one index (element)
+// array has at least one element
 
-$data = new ArrayHandler([0=>1]);
+$data = new AdvancedArray([0=>1]);
 $data->has(0); // true
-// array has index 0
+// array has element with index 0
 
-$data = new ArrayHandler([2=>3]);
+$data = new AdvancedArray([2=>3]);
 $data->has('4'); // false
-// array not has index '4'
+// array not has element with index '4'
 ```
 ## get($key = null) - Get element by index or without it
-```php
-use LanguageSpecific\ArrayHandler;
 
-$data = new ArrayHandler(
+```php
+use SbWereWolf\LanguageSpecific\AdvancedArray;
+
+$data = new AdvancedArray(
     [0 => 'first',
     'index' => 20, 
     3 => 'last',]);
 
 $data->get()->asIs();
 /* 'first' */
-$data->get()->has();
+$data->get()->isReal();
 /* true */
 
 $data->get('no-exists')->asIs();
 /* NULL */
-$data->get('no-exists')->has();
+$data->get('no-exists')->isReal();
 /* false */
 
 $data->get('index')->asIs();
 /* 20 */
-$data->get('index')->has();
+$data->get('index')->isReal();
 /* true */
 
 $data->get(99)->asIs();
 /* NULL */
-$data->get(99)->has();
+$data->get(99)->isReal();
 /* false */
 
 $data->get(3)->asIs();
 /* 'last' */
-$data->get(3)->has();
+$data->get(3)->isReal();
 /* true */
 ```
-## isUndefined() - flag that exemplar value is undefined
-```php
-use LanguageSpecific\ArrayHandler;
 
-$data = new ArrayHandler(['first' => ['A' => 1], 'next' => ['B'=>2],
+## isDummy() - flag that indicates exemplar value is dummy
+
+```php
+use SbWereWolf\LanguageSpecific\AdvancedArray;
+
+$data = new AdvancedArray(['first' => ['A' => 1], 'next' => ['B'=>2],
     'last' => ['C'=>3],]);
 
-$data->pull('first')->isUndefined(); // false
-$data->pull('begin')->isUndefined(); // true
+$data->pull('first')->isDummy(); // false
+$data->pull('begin')->isDummy(); // true
 
 ``` 
-## pull($key = null) - get array handler for nested array
+
+## pull($key = null) - get advanced array for nested array
+
 ```php
-use LanguageSpecific\ArrayHandler;
+use SbWereWolf\LanguageSpecific\AdvancedArray;
 
 $level4 = [-4 =>
     ['over' => ['and' => ['over' => ['again' => ['for always']]]]]];
@@ -136,12 +146,12 @@ $level2 = [-2 => $level3];
 $level1 = [-1 => $level2, 'other' => ['content'], 'any'];
 $level0 = [$level1];
 
-$data = new ArrayHandler($level0);
+$data = new AdvancedArray($level0);
 
 $data->pull(0)->pull(-1)->pull(-2)
                 ->pull(-3)->pull(-4)->pull('over')
                 ->pull('and')->pull('over')->pull('again')
-                ->isUndefined(); // false
+                ->isDummy(); // false
 
 $data->pull(0)->pull(-1)->pull(-2)
                 ->pull(-3)->pull(-4)->pull('over')
@@ -150,17 +160,22 @@ $data->pull(0)->pull(-1)->pull(-2)
 
 $data->pull(0)->pull(-1)->pull(-2)
                 ->pull(-3)->pull(-4
-                )->pull(-5)->isUndefined(); // true
+                )->pull(-5)->isDummy(); // true
 ```
-## pulling() - iterate through array and get handler for each element
+
+## arrays() iterate through array and get handler for each nested array
+
 ```php
-use LanguageSpecific\ArrayHandler;
+use SbWereWolf\LanguageSpecific\AdvancedArray;
 
-$data = new ArrayHandler([['first', 'next', 'last',],
-    ['A','B','C',], ['1','2','3',]]);
+$data = new AdvancedArray([
+        ['first', 'next', 'last',],
+        ['A','B','C',], 
+        ['1','2','3',]
+    ]);
 
-foreach ($data->pulling() as $next) {
-    /* @var $next ArrayHandler */
+foreach ($data->arrays() as $next) {
+    /* @var $next AdvancedArray */
     echo PHP_EOL. var_export($next->raw());
 }
 
@@ -183,118 +198,148 @@ array (
 */
 ```
 ## asIs() - Get value as it is
-```php
-use LanguageSpecific\ArrayHandler;
 
-$data = new ArrayHandler('1.1');
-$data->get()->asIs(); // '1.1'
+```php
+use SbWereWolf\LanguageSpecific\AdvancedArray;
+
+$data = new AdvancedArray('1.1');
+$data->get()->asIs(); // "1.1"
 ```
 ## int() - to integer
-```php
-use LanguageSpecific\ArrayHandler;
 
-$data = new ArrayHandler('1.1');
+```php
+use SbWereWolf\LanguageSpecific\AdvancedArray;
+
+$data = new AdvancedArray('1.1');
 $data->get()->int(); // 1
 ```
 ## double() to double
-```php
-use LanguageSpecific\ArrayHandler;
 
-$data = new ArrayHandler('1.1');
+```php
+use SbWereWolf\LanguageSpecific\AdvancedArray;
+
+$data = new AdvancedArray('1.1');
 $data->get()->double(); // 1.1
 ```
 ## str() - to string
-```php
-use LanguageSpecific\ArrayHandler;
 
-$data = new ArrayHandler('1.1');
-$data->get()->str(); // '1.1'
+```php
+use SbWereWolf\LanguageSpecific\AdvancedArray;
+
+$data = new AdvancedArray('1.1');
+$data->get()->str(); // "1.1"
 ```
 ## bool() - to boolean
-```php
-use LanguageSpecific\ArrayHandler;
 
-$data = new ArrayHandler('1.1');
+```php
+use SbWereWolf\LanguageSpecific\AdvancedArray;
+
+$data = new AdvancedArray('1.1');
 $data->get()->bool(); // true
 ```
 ## array() - to array
-```php
-use LanguageSpecific\ArrayHandler;
 
-$data = new ArrayHandler([1.1]);
-$data->get()->array(); // [1.1]
+```php
+use SbWereWolf\LanguageSpecific\AdvancedArray;
+
+/* Let input string */
+$data = new AdvancedArray('1.1');
+$data->get()->array(); // [0 => "1.1"]
+
+/* Let input array with string */
+$data = new AdvancedArray(['1.1']);
+$data->get()->array(); // [0 => "1.1"]
 ```
 ## object() - to object
-```php
-use LanguageSpecific\ArrayHandler;
-use LanguageSpecific\ValueHandler;
 
-$data = new ArrayHandler(new ValueHandler());
+```php
+use SbWereWolf\LanguageSpecific\AdvancedArray;
+use SbWereWolf\LanguageSpecific\Value\CommonValue;
+
+$data = new AdvancedArray([new CommonValue()]);
 $value = $data->get()->object();
-var_export($value,true);
+var_export($value);
 /*
-LanguageSpecific\ValueHandler::__set_state(array(
+\SbWereWolf\LanguageSpecific\Value\CommonValue::__set_state(array(
    '_value' => NULL,
-   '_has' => true,
+   '_isReal' => true,
    '_default' => NULL,
 ))
 */
 ```
-## has() - flag that value of element was defined on exemplar construction
-```php
-use LanguageSpecific\ArrayHandler;
 
-$data = new ArrayHandler([0=>1]);
-$data->get(0)->has(); // true
+## isReal() - flag that value of element is real (is not dummy)
+
+```php
+use SbWereWolf\LanguageSpecific\AdvancedArray;
+
+$data = new AdvancedArray([0=>1]);
+$data->get(0)->isReal(); // true
 // array element with index 0 has value
 
-$data = new ArrayHandler([2=>3]);
-$data->get('4')->has(); // false
-// array element with index '4' not has value
+$data = new AdvancedArray([2=>3]);
+$data->get('4')->isReal(); // false
+// array do not have element with index '4' then value is not real
 ```
 ## type() - get type of value
+
 ```php
-use LanguageSpecific\ValueHandler;
+use SbWereWolf\LanguageSpecific\Value\CommonValue;
 
-(new ValueHandler(null))->type(); // `NULL`
+(new CommonValue(null))->type(); // `NULL`
 
-(new ValueHandler(false))->type(); // `boolean`
+(new CommonValue(false))->type(); // `boolean`
 
-(new ValueHandler(0))->type(); // `integer`
+(new CommonValue(0))->type(); // `integer`
 
-(new ValueHandler(0.0))->type(); // `double`
+(new CommonValue(0.0))->type(); // `double`
 
-(new ValueHandler('a'))->type(); // `string`
+(new CommonValue('a'))->type(); // `string`
 
-(new ValueHandler([]))->type(); // `array`
+(new CommonValue([]))->type(); // `array`
 
-(new ValueHandler(new ValueHandler()))->type(); // `object`
+(new CommonValue(new CommonValue()))->type(); // `object`
 ```
-## asUndefined() - value handler with undefined value
-```php
-use LanguageSpecific\ValueHandler;
 
-$value = ValueHandler::asUndefined();
-var_export($value,true);
+## CommonValueFactory::makeCommonValueAsDummy
+
+Create exemplar of CommonValue as dummy
+
+```php
+use SbWereWolf\LanguageSpecific\Value\CommonValueFactory;
+
+$value = CommonValueFactory::makeCommonValueAsDummy();
+var_export($value);
 /*
-LanguageSpecific\ValueHandler::__set_state(array(
+\SbWereWolf\LanguageSpecific\Value\CommonValue::__set_state(array(
    '_value' => NULL,
-   '_has' => false,
+   '_isReal' => false,
    '_default' => NULL,
 ))
 */
 ```
-## default($value = null) - define default value that will be used with undefined value
-```php
-use LanguageSpecific\ValueHandler;
 
-ValueHandler::asUndefined()->default('default')->str(); // 'default'
-(new ValueHandler('string'))->default('default')->str(); // 'string'
+## default($value = null) - define default value
+
+Default value will be implemented when value is dummy
+
+```php
+use SbWereWolf\LanguageSpecific\Value\CommonValueFactory;
+
+$dummy = CommonValueFactory::makeCommonValueAsDummy();
+$dummy->default('default')->str(); // "default"
+
+$real = CommonValueFactory::makeCommonValue('real value');
+$real->default('default')->str(); // "real value"
 ```
 # Detail info
-Refer to 
- - [Array Handler](https://github.com/SbWereWolf/language-specific/blob/feature/php7.2/tests/unit/ArrayHandlerTest.php)
- - [Value Handler](https://github.com/SbWereWolf/language-specific/blob/feature/php7.2/tests/unit/ValueHandlerTest.php)
+
+Refer to
+
+- [AdvancedArray](https://github.com/SbWereWolf/language-specific/blob/master/tests/unit/AdvancedArrayTest.php)
+- [BaseArray](https://github.com/SbWereWolf/language-specific/blob/master/tests/unit/BaseArrayTest.php)
+- [CommonArray](https://github.com/SbWereWolf/language-specific/blob/master/tests/unit/CommonArrayTest.php)
+- [CommonValue](https://github.com/SbWereWolf/language-specific/blob/master/tests/unit/CommonValueTest.php)
  
 for detail examples of class methods working
 
@@ -304,9 +349,11 @@ composer test
 ```
 # Контакты
 ```
-Вольхин Николай
+Volkhin Nikolay
 e-mail ulfnew@gmail.com
 phone +7-902-272-65-35
 Telegram @sbwerewolf
 ```
-[Telegram chat with me](https://t.me/SbWereWolf) 
+
+- [Telegram chat with me](https://t.me/SbWereWolf)
+- [WhatsApp chat with me](https://wa.me/79022726535) 

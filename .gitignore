@@ -1,7 +1,9 @@
 /.idea/**
-/vendor/
-/.phpunit.result.cache
-/build/**
+/vendor/**
 /tests/developing/**
-/.php_cs.cache
-/*.tmp
+/composer.phar
+/phing-latest.phar
+./phpstan.neon
+/continuous-integration/phpstan/tmp/**
+/continuous-integration/autotests-coverage-report/**
+/continuous-integration/phpunit/.phpunit.cache/**
