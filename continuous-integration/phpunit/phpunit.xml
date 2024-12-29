@@ -5,12 +5,12 @@
   ~ @link     https://github.com/SbWereWolf/language-specific
   ~
   ~ Copyright © 2024 Volkhin Nikolay
-  ~ 12/26/24, 9:40 PM
+  ~ 12/29/24, 7:10 AM
   -->
 
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
-         bootstrap="vendor/autoload.php"
+         xsi:noNamespaceSchemaLocation="../../vendor/phpunit/phpunit/phpunit.xsd"
+         bootstrap="../../vendor/autoload.php"
          cacheDirectory=".phpunit.cache"
          executionOrder="depends,defects"
          shortenArraysForExportThreshold="10"
@@ -22,7 +22,7 @@
          failOnWarning="true">
     <testsuites>
         <testsuite name="default">
-            <directory>tests/unit</directory>
+            <directory>../../tests/unit</directory>
         </testsuite>
     </testsuites>
 
