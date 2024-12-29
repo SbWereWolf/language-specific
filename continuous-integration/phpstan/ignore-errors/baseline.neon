@@ -79,7 +79,7 @@ parameters:
 			path: ../../../src/SbWereWolf/LanguageSpecific/Collection/KeySearcher.php
 
 		-
-			message: '#^Property SbWereWolf\\LanguageSpecific\\Collection\\KeySearcher\:\:\$_source type has no value type specified in iterable type array\.$#'
+			message: '#^Property SbWereWolf\\LanguageSpecific\\Collection\\KeySearcher\:\:\$haystack type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
 			path: ../../../src/SbWereWolf/LanguageSpecific/Collection/KeySearcher.php
