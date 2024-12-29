@@ -1,0 +1,11 @@
+* text=auto
+* eol=lf
+
+.git                    export-ignore
+.gitattributes          export-ignore
+.gitignore              export-ignore
+.php_cs                 export-ignore
+test                    export-ignore
+tests                   export-ignore
+continuous-integration  export-ignore
+psalm.phar              export-ignore
