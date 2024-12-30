@@ -7,3 +7,4 @@
 /continuous-integration/phpstan/tmp/**
 /continuous-integration/autotests-coverage-report/**
 /continuous-integration/phpunit/.phpunit.cache/**
+/continuous-integration/phpcs/phpcs.cacheFile

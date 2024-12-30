@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--
+  ~ @package  LanguageSpecific
+  ~ @author   SbWereWolf <ulfnew@gmail.com>
+  ~ @link     https://github.com/SbWereWolf/language-specific
+  ~
+  ~ Copyright © 2024 Volkhin Nikolay
+  ~ 12/30/24, 1:34 PM
+  -->
+
+<ruleset name="PSR-12">
+    <description>Check code style for PSR-12 requirements</description>
+    <file>../../src/</file>
+    <arg name="cache" value="phpcs.cacheFile"/>
+    <arg name="colors"/>
+    <arg value="sp"/>
+    <ini name="memory_limit" value="64M"/>
+    <rule ref="PSR12"/>
+    <rule ref="PSR12.Functions.ReturnTypeDeclaration.SpaceBeforeReturnType">
+        <severity>0</severity>
+    </rule>
+</ruleset>
