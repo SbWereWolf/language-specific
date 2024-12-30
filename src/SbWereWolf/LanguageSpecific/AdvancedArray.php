@@ -5,7 +5,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2024 Volkhin Nikolay
- * 12/30/24, 8:46 AM
+ * 12/30/24, 11:05 AM
  */
 
 declare(strict_types=1);
@@ -23,6 +23,7 @@ use SbWereWolf\LanguageSpecific\Value\CommonValueFactoryInterface;
  * @category Library
  * @package  LanguageSpecific
  * @author   SbWereWolf <ulfnew@gmail.com>
+ * @license  MIT license
  * @link     https://github.com/SbWereWolf/language-specific
  */
 class AdvancedArray extends CommonArray
@@ -36,12 +37,12 @@ class AdvancedArray extends CommonArray
      * Принимает массив,
      *
      * @param array $data массив
-     * @param CommonValueFactoryInterface $valueFactory
-     *  фабрика для создания экземпляров CommonValueInterface
-     * @param AdvancedArrayFactoryInterface $arrayFactory
-     * фабрика для создания новых экземпляров ArrayHandlerInterface
-     * @param bool $isDummy
-     *          флаг "является заглушкой для несуществующего массива"
+     * @param CommonValueFactoryInterface $valueFactory фабрика для
+     *                      создания экземпляров CommonValueInterface
+     * @param AdvancedArrayFactoryInterface $arrayFactory фабрика для
+     *                  создания новых экземпляров ArrayHandlerInterface
+     * @param bool $isDummy флаг "является заглушкой для несуществующего
+     *                      массива"
      */
     public function __construct(
         array $data,
@@ -61,13 +62,13 @@ class AdvancedArray extends CommonArray
         }
     }
 
-    /* @inheritDoc */
+    /** @inheritDoc */
     public function isDummy(): bool
     {
         return $this->isDummy === true;
     }
 
-    /* @inheritDoc */
+    /** @inheritDoc */
     public function values(): Generator
     {
         $keys = array_keys($this->data);
@@ -81,7 +82,7 @@ class AdvancedArray extends CommonArray
         }
     }
 
-    /* @inheritDoc */
+    /** @inheritDoc */
     public function pull(
         int|bool|string|null|float $key = null
     ): AdvancedArrayInterface {
@@ -101,7 +102,7 @@ class AdvancedArray extends CommonArray
         return $pulled;
     }
 
-    /* @inheritDoc */
+    /** @inheritDoc */
     public function arrays(): Generator
     {
         $keys = array_keys($this->data);

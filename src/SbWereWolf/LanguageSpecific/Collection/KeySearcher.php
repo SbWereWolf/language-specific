@@ -5,7 +5,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2024 Volkhin Nikolay
- * 12/30/24, 8:46 AM
+ * 12/30/24, 11:05 AM
  */
 
 declare(strict_types=1);
@@ -19,6 +19,7 @@ namespace SbWereWolf\LanguageSpecific\Collection;
  * @category Library
  * @package  LanguageSpecific
  * @author   SbWereWolf <ulfnew@gmail.com>
+ * @license  MIT license
  * @link     https://github.com/SbWereWolf/language-specific
  */
 class KeySearcher implements KeySearcherInterface

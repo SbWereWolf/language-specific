@@ -5,11 +5,20 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2024 Volkhin Nikolay
- * 12/27/24, 10:58 AM
+ * 12/30/24, 11:05 AM
  */
 
 namespace SbWereWolf\LanguageSpecific;
 
+/**
+ * Interface AdvancedArrayFactoryInterface
+ *
+ * @category Library
+ * @package  LanguageSpecific
+ * @author   SbWereWolf <ulfnew@gmail.com>
+ * @license  MIT license
+ * @link     https://github.com/SbWereWolf/language-specific
+ */
 interface AdvancedArrayFactoryInterface
 {
     /**
@@ -17,13 +26,14 @@ interface AdvancedArrayFactoryInterface
      *
      * @return AdvancedArrayInterface
      */
-    public static function
-    makeDummyAdvancedArray(): AdvancedArrayInterface;
+    public static function makeDummyAdvancedArray
+    (): AdvancedArrayInterface;
 
     /**
      * Возвращает AdvancedArrayInterface
      *
      * @param mixed $data массив значений
+     *
      * @return AdvancedArrayInterface
      */
     public function makeAdvancedArray(

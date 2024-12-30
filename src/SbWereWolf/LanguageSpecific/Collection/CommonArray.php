@@ -5,7 +5,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2024 Volkhin Nikolay
- * 12/30/24, 8:46 AM
+ * 12/30/24, 11:05 AM
  */
 
 declare(strict_types=1);
@@ -21,11 +21,12 @@ use SbWereWolf\LanguageSpecific\Value\CommonValueInterface;
  * @category Library
  * @package  LanguageSpecific
  * @author   SbWereWolf <ulfnew@gmail.com>
+ * @license  MIT license
  * @link     https://github.com/SbWereWolf/language-specific
  */
 class CommonArray extends BaseArray implements CommonArrayInterface
 {
-    /* @inheritDoc */
+    /** @inheritDoc */
     public function get(
         string|int|float|bool|null $key = null
     ): CommonValueInterface {
@@ -41,7 +42,7 @@ class CommonArray extends BaseArray implements CommonArrayInterface
         return $value;
     }
 
-    /* @inheritDoc */
+    /** @inheritDoc */
     public function has(string|int|float|bool|null $key = null): bool
     {
         $output = (new KeySearcher($this->data))->seek($key);
@@ -51,13 +52,13 @@ class CommonArray extends BaseArray implements CommonArrayInterface
         return $result;
     }
 
-    /* @inheritDoc */
+    /** @inheritDoc */
     public function offsetExists($offset): bool
     {
         return $this->has($offset);
     }
 
-    /* @inheritDoc */
+    /** @inheritDoc */
     public function offsetGet($offset): mixed
     {
         return $this->get($offset)->asIs();
