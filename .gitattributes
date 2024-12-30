@@ -8,4 +8,3 @@
 test                    export-ignore
 tests                   export-ignore
 continuous-integration  export-ignore
-psalm.phar              export-ignore

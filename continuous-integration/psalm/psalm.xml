@@ -5,7 +5,7 @@
   ~ @link     https://github.com/SbWereWolf/language-specific
   ~
   ~ Copyright © 2024 Volkhin Nikolay
-  ~ 12/29/24, 8:06 AM
+  ~ 12/30/24, 6:11 AM
   -->
 
 <psalm
@@ -13,7 +13,7 @@
         errorLevel="7"
         resolveFromConfigFile="true"
         xmlns="https://getpsalm.org/schema/config"
-        xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
+        xsi:schemaLocation="https://getpsalm.org/schema/config config.xsd"
         findUnusedBaselineEntry="true"
         findUnusedCode="true"
 >

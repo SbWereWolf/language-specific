@@ -33,7 +33,7 @@
     "phpstan-supress": "php ./vendor/bin/phpstan analyse -vvv --configuration continuous-integration/phpstan/phpstan.neon --generate-baseline continuous-integration/phpstan/ignore-errors/baseline.neon",
     "phpmd-check": "php ./vendor/bin/phpmd src ansi continuous-integration/phpmd/ruleset.xml",
     "phpmd-supress": "php ./vendor/bin/phpmd src ansi continuous-integration/phpmd/ruleset.xml --generate-baseline",
-    "psalm": "php ./psalm.phar --config=continuous-integration/psalm/psalm.xml"
+    "psalm": "php ./continuous-integration/psalm/psalm.phar --config=./continuous-integration/psalm/psalm.xml"
   },
   "config": {
     "allow-plugins": {
