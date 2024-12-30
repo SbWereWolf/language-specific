@@ -1,11 +1,12 @@
 <?php
+
 /*
  * @package  LanguageSpecific
  * @author   SbWereWolf <ulfnew@gmail.com>
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2024 Volkhin Nikolay
- * 12/30/24, 11:05 AM
+ * 12/30/24, 11:35 AM
  */
 
 declare(strict_types=1);
@@ -24,13 +25,11 @@ use SbWereWolf\LanguageSpecific\Value\CommonValueFactory;
  * @license  MIT license
  * @link     https://github.com/SbWereWolf/language-specific
  */
-class AdvancedArrayFactory
-    extends ArrayFactory
-    implements AdvancedArrayFactoryInterface
+class AdvancedArrayFactory extends ArrayFactory implements
+    AdvancedArrayFactoryInterface
 {
     /** @inheritDoc */
-    public static function makeDummyAdvancedArray
-    (): AdvancedArrayInterface
+    public static function makeDummyAdvancedArray(): AdvancedArrayInterface
     {
         $factory = new CommonValueFactory();
         /** @noinspection PhpUnnecessaryLocalVariableInspection */
@@ -51,7 +50,10 @@ class AdvancedArrayFactory
         $data = $this->makeItProper($data);
         /** @noinspection PhpUnnecessaryLocalVariableInspection */
         $handler = new AdvancedArray(
-            $data, $this->valueFactory, $this, false
+            $data,
+            $this->valueFactory,
+            $this,
+            false
         );
 
         return $handler;
