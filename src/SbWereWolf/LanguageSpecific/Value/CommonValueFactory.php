@@ -5,8 +5,10 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2024 Volkhin Nikolay
- * 12/27/24, 10:03 AM
+ * 12/30/24, 8:46 AM
  */
+
+declare(strict_types=1);
 
 namespace SbWereWolf\LanguageSpecific\Value;
 

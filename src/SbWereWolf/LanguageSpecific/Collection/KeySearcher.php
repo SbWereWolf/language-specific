@@ -5,18 +5,10 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2024 Volkhin Nikolay
- * 12/29/24, 3:27 PM
+ * 12/30/24, 8:46 AM
  */
 
 declare(strict_types=1);
-/*
- * @package  LanguageSpecific
- * @author   SbWereWolf <ulfnew@gmail.com>
- * @link     https://github.com/SbWereWolf/language-specific
- *
- * Copyright © 2024 Volkhin Nikolay
- * 12/27/24, 5:55 AM
- */
 
 namespace SbWereWolf\LanguageSpecific\Collection;
 
@@ -43,7 +35,7 @@ class KeySearcher implements KeySearcherInterface
      *
      * @param array $data массив для поиска индекса
      *
-     * @return void
+     * @return       void
      * @noinspection PhpParameterByRefIsNotUsedAsReferenceInspection
      */
     public function __construct(array &$data)
@@ -51,14 +43,7 @@ class KeySearcher implements KeySearcherInterface
         $this->haystack = $data;
     }
 
-    /**
-     * Искать заданный индекс
-     *
-     * @param string|int|float|bool|null $needle искомый индекс,
-     * если не задан, то будет использован индекс текущего элемента
-     *
-     * @return SearchResultInterface
-     */
+    /** @inheritDoc */
     public function seek(
         string|int|float|bool|null $needle = null
     ): SearchResultInterface {

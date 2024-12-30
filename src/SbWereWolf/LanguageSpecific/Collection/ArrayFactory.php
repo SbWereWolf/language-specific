@@ -5,18 +5,10 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2024 Volkhin Nikolay
- * 12/29/24, 6:24 AM
+ * 12/30/24, 8:46 AM
  */
 
 declare(strict_types=1);
-/*
- * @package  LanguageSpecific
- * @author   SbWereWolf <ulfnew@gmail.com>
- * @link     https://github.com/SbWereWolf/language-specific
- *
- * Copyright © 2024 Volkhin Nikolay
- * 12/26/24, 9:40 PM
- */
 
 namespace SbWereWolf\LanguageSpecific\Collection;
 

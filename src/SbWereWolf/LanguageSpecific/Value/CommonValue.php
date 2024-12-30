@@ -5,8 +5,10 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2024 Volkhin Nikolay
- * 12/29/24, 7:07 AM
+ * 12/30/24, 8:46 AM
  */
+
+declare(strict_types=1);
 
 namespace SbWereWolf\LanguageSpecific\Value;
 
@@ -32,7 +34,7 @@ class CommonValue implements CommonValueInterface
     /**
      * Создать экземпляр с заданным значением
      *
-     * @param mixed $value произвольное значение
+     * @param mixed $value Произвольное значение
      * @param bool $isReal Значение является действительным
      */
     public function __construct(
@@ -41,21 +43,13 @@ class CommonValue implements CommonValueInterface
     ) {
     }
 
-    /**
-     * Возвращает флаг "Имеет значение"
-     *
-     * @return bool
-     */
+    /** @inheritDoc */
     public function isReal(): bool
     {
         return $this->isReal === true;
     }
 
-    /**
-     * Возвращает значение как оно есть
-     *
-     * @return mixed
-     */
+    /** @inheritDoc */
     public function asIs(): mixed
     {
         /** @noinspection PhpUnnecessaryLocalVariableInspection */
@@ -64,86 +58,49 @@ class CommonValue implements CommonValueInterface
         return $result;
     }
 
-    /**
-     * Возвращает значение приведённое к int
-     *
-     * @return int
-     */
+    /** @inheritDoc */
     public function int(): int
     {
         return (int)($this->asIs());
     }
 
-    /**
-     * Возвращает значение приведённое к string
-     *
-     * @return string
-     */
+    /** @inheritDoc */
     public function str(): string
     {
         return (string)($this->asIs());
     }
 
-    /**
-     * Возвращает значение приведённое к boolean
-     *
-     * @return bool
-     */
+    /** @inheritDoc */
     public function bool(): bool
     {
         return (bool)($this->asIs());
     }
 
-    /**
-     * Возвращает значение приведённое к double (float)
-     *
-     * @return float
-     */
+    /** @inheritDoc */
     public function double(): float
     {
         return (float)($this->asIs());
     }
 
-    /**
-     * Возвращает значение приведённое к массиву
-     *
-     * @return array
-     */
+    /** @inheritDoc */
     public function array(): array
     {
         return (array)($this->asIs());
     }
 
-    /**
-     * Возвращает значение приведённое к объекту
-     *
-     * @return object
-     */
+    /** @inheritDoc */
     public function object(): object
     {
         return (object)($this->asIs());
     }
 
-    /**
-     * Возвращает тип значения, одно из:
-     * "boolean" "integer" "double"  "string" "array"
-     * "object" "resource" "resource (closed)" "NULL" "unknown type"
-     *
-     * @return string
-     */
+    /** @inheritDoc */
     public function type(): string
     {
         return gettype($this->asIs());
     }
 
-    /**
-     * Использовать заданное значение в качестве значения по умолчанию
-     *
-     * @param mixed|null $value значение по умолчанию, будет присвоено
-     *               если значение незаданное
-     *
-     * @return CommonValueInterface
-     */
+    /** @inheritDoc */
     public function default(mixed $value = null): CommonValueInterface
     {
         $this->default = $value;

@@ -5,7 +5,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2024 Volkhin Nikolay
- * 12/29/24, 6:24 AM
+ * 12/30/24, 8:46 AM
  */
 
 namespace SbWereWolf\LanguageSpecific\Collection;
@@ -26,8 +26,7 @@ interface CommonArrayInterface extends ArrayAccess
     /**
      * Проверяет, что массив имеет элемент с заданным индексом
      *
-     * @param string|int|float|bool|null $key индекс искомого
-     *                                                  элемента
+     * @param string|int|float|bool|null $key индекс искомого элемента
      *
      * @return bool
      */
