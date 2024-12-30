@@ -1,7 +1,0 @@
-includes:
-    - continuous-integration/phpstan/ignore-errors/baseline.neon
-parameters:
-    level: 10
-    tmpDir: continuous-integration/phpstan/tmp/
-    paths:
-        - src

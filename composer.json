@@ -29,9 +29,10 @@
   },
   "scripts": {
     "test": "php ./vendor/phpunit/phpunit/phpunit --configuration ./continuous-integration/phpunit/phpunit.xml --testdox  --colors=always  --coverage-html ./continuous-integration/autotests-coverage-report --coverage-filter ./src",
-    "phpstan": "php ./vendor/bin/phpstan analyse -vvv",
-    "phpmd": "php ./vendor/bin/phpmd src ansi continuous-integration/phpmd/ruleset.xml",
-    "phpmd-ignore-violation": "php ./vendor/bin/phpmd src ansi continuous-integration/phpmd/ruleset.xml --generate-baseline",
+    "phpstan-check": "php ./vendor/bin/phpstan analyse -vvv --configuration continuous-integration/phpstan/phpstan.neon",
+    "phpstan-supress": "php ./vendor/bin/phpstan analyse -vvv --configuration continuous-integration/phpstan/phpstan.neon --generate-baseline continuous-integration/phpstan/ignore-errors/baseline.neon",
+    "phpmd-check": "php ./vendor/bin/phpmd src ansi continuous-integration/phpmd/ruleset.xml",
+    "phpmd-supress": "php ./vendor/bin/phpmd src ansi continuous-integration/phpmd/ruleset.xml --generate-baseline",
     "psalm": "php ./psalm.phar --config=continuous-integration/psalm/psalm.xml"
   },
   "config": {

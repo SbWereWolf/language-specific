@@ -1,0 +1,7 @@
+includes:
+    - ignore-errors/baseline.neon
+parameters:
+    level: 10
+    tmpDir: tmp/
+    paths:
+        - ../../src
