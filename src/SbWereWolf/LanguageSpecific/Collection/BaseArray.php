@@ -6,7 +6,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2024 Volkhin Nikolay
- * 12/30/24, 11:35 AM
+ * 12/31/24, 7:23 PM
  */
 
 declare(strict_types=1);
@@ -32,7 +32,7 @@ class BaseArray implements BaseArrayInterface
      * Конструктор класса BaseArray
      *
      * @param array $data Массив с элементами для выдачи значений
-     * @param CommonValueFactoryInterface $factory фабрика для
+     * @param CommonValueFactoryInterface $valueFactory фабрика для
      *                                  экземпляров CommonValueInterface
      */
     public function __construct(
