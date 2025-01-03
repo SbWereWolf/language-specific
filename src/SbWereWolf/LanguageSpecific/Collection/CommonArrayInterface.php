@@ -5,8 +5,8 @@
  * @author   SbWereWolf <ulfnew@gmail.com>
  * @link     https://github.com/SbWereWolf/language-specific
  *
- * Copyright © 2024 Volkhin Nikolay
- * 12/30/24, 11:35 AM
+ * Copyright © 2025 Volkhin Nikolay
+ * 1/3/25, 8:34 AM
  */
 
 namespace SbWereWolf\LanguageSpecific\Collection;
@@ -23,7 +23,7 @@ use SbWereWolf\LanguageSpecific\Value\CommonValueInterface;
  * @license  MIT license
  * @link     https://github.com/SbWereWolf/language-specific
  */
-interface CommonArrayInterface extends ArrayAccess
+interface CommonArrayInterface extends ArrayAccess, BaseArrayInterface
 {
     /**
      * Проверяет, что массив имеет элемент с заданным индексом
