@@ -5,8 +5,8 @@
  * @author   SbWereWolf <ulfnew@gmail.com>
  * @link     https://github.com/SbWereWolf/language-specific
  *
- * Copyright © 2024 Volkhin Nikolay
- * 12/30/24, 11:35 AM
+ * Copyright © 2025 Volkhin Nikolay
+ * 1/3/25, 8:34 AM
  */
 
 declare(strict_types=1);
@@ -62,10 +62,7 @@ class KeySearcher implements KeySearcherInterface
         if ($isNullKey) {
             $needle = key($data);
         }
-        if ($isNullKey && !$keyExists) {
-            $keyExists = in_array($needle, array_keys($data), true);
-        }
-        if ($isNullKey && $keyExists) {
+        if ($isNullKey && !$keyExists && !is_null($needle)) {
             $result = new SearchResult(true, $needle);
         }
 
