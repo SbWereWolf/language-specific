@@ -34,10 +34,10 @@
     "phpstan-supress": "php ./vendor/bin/phpstan analyse -vvv --configuration continuous-integration/phpstan/phpstan.neon --generate-baseline continuous-integration/phpstan/ignore-errors/baseline.neon",
     "phpmd-check": "php ./vendor/bin/phpmd src ansi continuous-integration/phpmd/ruleset.xml",
     "phpmd-supress": "php ./vendor/bin/phpmd src ansi continuous-integration/phpmd/ruleset.xml --generate-baseline",
-    "psalm": "php ./continuous-integration/psalm/psalm.phar --config=./continuous-integration/psalm/psalm.xml",
     "check-style": "php ./vendor/bin/phpcs --standard=continuous-integration/phpcs/phpcs.xml -v",
     "fix-style": "php ./vendor/bin/phpcs --standard=continuous-integration/phpcs/phpcs.xml -v",
-    "phan-check": "php ./vendor/bin/phan --allow-polyfill-parse"
+    "phan-check": "php ./vendor/bin/phan --allow-polyfill-parse",
+    "under-construction-psalm": "php ./continuous-integration/psalm/psalm.phar --config=./continuous-integration/psalm/psalm.xml"
   },
   "config": {
     "allow-plugins": {
