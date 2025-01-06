@@ -8,3 +8,4 @@
 test                    export-ignore
 tests                   export-ignore
 continuous-integration  export-ignore
+.phan                   export-ignore
