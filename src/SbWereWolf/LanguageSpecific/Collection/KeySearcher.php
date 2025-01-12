@@ -6,7 +6,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2025 Volkhin Nikolay
- * 1/3/25, 8:34 AM
+ * 1/12/25, 5:10 AM
  */
 
 declare(strict_types=1);
@@ -51,19 +51,20 @@ class KeySearcher implements KeySearcherInterface
         $result = new SearchResult(false, $needle);
 
         $data = $this->haystack;
-        $keyExists = in_array($needle, array_keys($data), true);
-        if ($keyExists) {
+        $needleInArray = in_array($needle, array_keys($data), true);
+        if ($needleInArray) {
             $result = new SearchResult(true, $needle);
         }
-        $isNullKey = false;
-        if (!$keyExists) {
-            $isNullKey = is_null($needle);
+        $isNeedleNull = false;
+        if (!$needleInArray) {
+            $isNeedleNull = is_null($needle);
         }
-        if ($isNullKey) {
-            $needle = key($data);
+        $key = null;
+        if ($isNeedleNull) {
+            $key = key($data);
         }
-        if ($isNullKey && !$keyExists && !is_null($needle)) {
-            $result = new SearchResult(true, $needle);
+        if (!is_null($key)) {
+            $result = new SearchResult(true, $key);
         }
 
         return $result;
