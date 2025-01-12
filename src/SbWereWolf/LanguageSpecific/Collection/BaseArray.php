@@ -5,20 +5,21 @@
  * @author   SbWereWolf <ulfnew@gmail.com>
  * @link     https://github.com/SbWereWolf/language-specific
  *
- * Copyright © 2024 Volkhin Nikolay
- * 12/31/24, 7:23 PM
+ * Copyright © 2025 Volkhin Nikolay
+ * 1/12/25, 5:02 AM
  */
 
 declare(strict_types=1);
 
 namespace SbWereWolf\LanguageSpecific\Collection;
 
+use JetBrains\PhpStorm\Pure;
 use ReturnTypeWillChange;
 use SbWereWolf\LanguageSpecific\Value\CommonValueFactoryInterface;
 use SbWereWolf\LanguageSpecific\Value\CommonValueInterface;
 
 /**
- * Class CommonArray
+ * Class BaseArray
  *
  * @category Library
  * @package  LanguageSpecificc
@@ -42,6 +43,7 @@ class BaseArray implements BaseArrayInterface
     }
 
     /** @inheritDoc */
+    #[Pure]
     public function jsonSerialize(): array
     {
         return $this->raw();
@@ -83,6 +85,9 @@ class BaseArray implements BaseArrayInterface
     /** @inheritDoc */
     public function valid(): bool
     {
-        return key_exists(key($this->data), $this->data);
+        $key = key($this->data);
+        $isValid = !is_null($key);
+
+        return $isValid;
     }
 }
