@@ -5,8 +5,8 @@
  * @author   SbWereWolf <ulfnew@gmail.com>
  * @link     https://github.com/SbWereWolf/language-specific
  *
- * Copyright © 2024 Volkhin Nikolay
- * 12/30/24, 11:35 AM
+ * Copyright © 2025 Volkhin Nikolay
+ * 1/12/25, 5:14 AM
  */
 
 declare(strict_types=1);
@@ -16,6 +16,7 @@ namespace SbWereWolf\LanguageSpecific;
 use Generator;
 use SbWereWolf\LanguageSpecific\Collection\CommonArray;
 use SbWereWolf\LanguageSpecific\Value\CommonValueFactoryInterface;
+use SbWereWolf\LanguageSpecific\Value\CommonValueInterface;
 
 /**
  * Class AdvancedArray
@@ -71,13 +72,11 @@ class AdvancedArray extends CommonArray implements
     /** @inheritDoc */
     public function values(): Generator
     {
-        $keys = array_keys($this->data);
-        foreach ($keys as $key) {
-            $value = $this->get($key);
-            $isArray = $value->type() === 'array';
-
+        foreach ($this as $key => $val) {
+            /** @var CommonValueInterface $val */
+            $isArray = $val->type() === 'array';
             if (!$isArray) {
-                yield $key => $value;
+                yield $key => $val;
             }
         }
     }
@@ -86,13 +85,23 @@ class AdvancedArray extends CommonArray implements
     public function pull(
         int|bool|string|null|float $key = null
     ): AdvancedArrayInterface {
-        $nested = $this->get($key);
-        $isExists = $nested->isReal();
+        $pulled = $this->arrayFactory::makeDummyAdvancedArray();
+
+        $isNullKey = is_null($key);
+        if ($isNullKey && $this->arrays()->valid()) {
+            $pulled = $this->arrays()->current();
+        }
+
+        $nested = $this->valueFactory::makeCommonValueAsDummy();
+        $isReal = false;
+        if (!$isNullKey) {
+            $nested = $this->get($key);
+            $isReal = $nested->isReal();
+        }
         $isArray = false;
-        if ($isExists) {
+        if ($isReal) {
             $isArray = $nested->type() === 'array';
         }
-        $pulled = $this->arrayFactory::makeDummyAdvancedArray();
         if ($isArray) {
             $pulled = $this
                 ->arrayFactory
@@ -105,12 +114,13 @@ class AdvancedArray extends CommonArray implements
     /** @inheritDoc */
     public function arrays(): Generator
     {
-        $keys = array_keys($this->data);
-        foreach ($keys as $key) {
-            $nextArray = $this->pull($key);
+        foreach ($this as $key => $val) {
+            /** @var CommonValueInterface $val */
+            $isArray = $val->type() === 'array';
+            if ($isArray) {
+                $nextArray = $this->arrayFactory
+                    ->makeAdvancedArray($val->asIs());
 
-            $isReal = !$nextArray->isDummy();
-            if ($isReal) {
                 yield $key => $nextArray;
             }
         }
