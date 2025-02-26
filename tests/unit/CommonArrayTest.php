@@ -4,8 +4,8 @@
  * @author   SbWereWolf <ulfnew@gmail.com>
  * @link     https://github.com/SbWereWolf/language-specific
  *
- * Copyright © 2024 Volkhin Nikolay
- * 12/29/24, 6:24 AM
+ * Copyright © 2025 Volkhin Nikolay
+ * 2/27/25, 12:34 AM
  */
 
 declare(strict_types=1);
@@ -193,7 +193,7 @@ class CommonArrayTest extends TestCase
      */
     public function testArrayAccessAbilities()
     {
-        $data = [0 => 'first', 'next' => 20, null => 3.01,];
+        $data = [0 => 'first', 'next' => 20, null => 3.21,];
 
         $fabric = new ArrayFactory();
         $handler = $fabric->makeCommonArray($data);
@@ -210,14 +210,14 @@ class CommonArrayTest extends TestCase
             'CommonArray DO NOT MUST contain index "0"'
         );
 
-        $first = $handler->offsetGet(0);
+        $first = $handler->offsetGet(0)->asIs();
         self::assertEquals(
             'first',
             $first,
             'Element with index 0 MUST BE "first"'
         );
 
-        $null = $handler->offsetGet("0");
+        $null = $handler->offsetGet("0")->asIs();
         self::assertEquals(
             null,
             $null,

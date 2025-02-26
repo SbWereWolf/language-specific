@@ -5,8 +5,8 @@
  * @author   SbWereWolf <ulfnew@gmail.com>
  * @link     https://github.com/SbWereWolf/language-specific
  *
- * Copyright © 2024 Volkhin Nikolay
- * 12/30/24, 11:35 AM
+ * Copyright © 2025 Volkhin Nikolay
+ * 2/27/25, 12:34 AM
  */
 
 declare(strict_types=1);
@@ -59,9 +59,9 @@ class CommonArray extends BaseArray implements CommonArrayInterface
     }
 
     /** @inheritDoc */
-    public function offsetGet($offset): mixed
+    public function offsetGet($offset): CommonValueInterface
     {
-        return $this->get($offset)->asIs();
+        return $this->get($offset);
     }
 
     /**
