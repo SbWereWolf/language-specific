@@ -5,8 +5,8 @@
  * @author   SbWereWolf <ulfnew@gmail.com>
  * @link     https://github.com/SbWereWolf/language-specific
  *
- * Copyright © 2024 Volkhin Nikolay
- * 12/30/24, 11:35 AM
+ * Copyright © 2025 Volkhin Nikolay
+ * 2/27/25, 12:37 AM
  */
 
 namespace SbWereWolf\LanguageSpecific;
@@ -36,7 +36,7 @@ interface AdvancedArrayInterface extends CommonArrayInterface
      * Возвращает все элементы массива не являющиеся массивами.
      * Возвращает экземпляр с интерфейсом CommonValueInterface
      *
-     * @return Generator
+     * @return Generator[CommonValueInterface]
      */
     public function values(): Generator;
 
@@ -55,7 +55,7 @@ interface AdvancedArrayInterface extends CommonArrayInterface
      * Выдаёт все элементы массива являющиеся массивами.
      * Возвращает экземпляр с интерфейсом AdvancedArrayInterface
      *
-     * @return Generator
+     * @return Generator[AdvancedArrayInterface]
      */
     public function arrays(): Generator;
 }
