@@ -126,8 +126,11 @@ $data->get(3)->isReal();
 ```php
 use SbWereWolf\LanguageSpecific\AdvancedArray;
 
-$data = new AdvancedArray(['first' => ['A' => 1], 'next' => ['B'=>2],
-    'last' => ['C'=>3],]);
+$data = new AdvancedArray([
+    'first' => ['A' => 1],
+    'next' => ['B' => 2],
+    'last' => ['C' => 3],
+]);
 
 $data->pull('first')->isDummy(); // false
 $data->pull('begin')->isDummy(); // true
