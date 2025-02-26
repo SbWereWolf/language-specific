@@ -4,8 +4,8 @@
  * @author   SbWereWolf <ulfnew@gmail.com>
  * @link     https://github.com/SbWereWolf/language-specific
  *
- * Copyright © 2024 Volkhin Nikolay
- * 12/27/24, 10:03 AM
+ * Copyright © 2025 Volkhin Nikolay
+ * 2/27/25, 12:36 AM
  */
 
 declare(strict_types=1);
@@ -109,7 +109,7 @@ class AdvancedArrayTest extends TestCase
             $last
         ];
 
-        $fabric = new AdvancedArrayFactory(new CommonValueFactory());
+        $fabric = new AdvancedArrayFactory();
         $handler = $fabric->makeAdvancedArray($data);
 
         $index = 0;
@@ -151,7 +151,7 @@ class AdvancedArrayTest extends TestCase
         $level1 = [-1 => $level2, 'other' => ['content'], 'any'];
         $level0 = [$level1];
 
-        $fabric = new AdvancedArrayFactory(new CommonValueFactory());
+        $fabric = new AdvancedArrayFactory();
         $handler = $fabric->makeAdvancedArray($level0);
 
         self::assertTrue(
@@ -210,7 +210,7 @@ class AdvancedArrayTest extends TestCase
             $last
         ];
 
-        $fabric = new AdvancedArrayFactory(new CommonValueFactory());
+        $fabric = new AdvancedArrayFactory();
         $handler = $fabric->makeAdvancedArray($data);
 
         $index = 0;
