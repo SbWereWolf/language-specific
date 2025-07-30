@@ -304,6 +304,27 @@ use SbWereWolf\LanguageSpecific\Value\CommonValue;
 (new CommonValue(new CommonValue()))->type(); // `object`
 ```
 
+## class() - get pretty name of type of value
+
+```php
+use SbWereWolf\LanguageSpecific\Value\CommonValue;
+
+(new CommonValue(null))->class(); // `null`
+
+(new CommonValue(false))->class(); // `bool`
+
+(new CommonValue(0))->class(); // `int`
+
+(new CommonValue(0.0))->class(); // `float`
+
+(new CommonValue('a'))->class(); // `string`
+
+(new CommonValue([]))->class(); // `array`
+
+(new CommonValue(new CommonValue()))->class(); 
+// `SbWereWolf\LanguageSpecific\Value\CommonValue`
+```
+
 ## CommonValueFactory::makeCommonValueAsDummy
 
 Create exemplar of CommonValue as dummy
