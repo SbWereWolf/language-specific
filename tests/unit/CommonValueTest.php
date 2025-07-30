@@ -4,11 +4,12 @@
  * @author   SbWereWolf <ulfnew@gmail.com>
  * @link     https://github.com/SbWereWolf/language-specific
  *
- * Copyright © 2024 Volkhin Nikolay
- * 12/27/24, 10:03 AM
+ * Copyright © 2025 Volkhin Nikolay
+ * 7/30/25, 11:18 AM
  */
 
 declare(strict_types=1);
+
 /*
  * @package  LanguageSpecific
  * @author   SbWereWolf <ulfnew@gmail.com>
@@ -338,6 +339,82 @@ class CommonValueTest extends TestCase
     }
 
     /**
+     * Проверяем метод CommonValue::class()
+     *
+     * @return void
+     */
+    public function testClass()
+    {
+        $value = CommonValueFactory::makeCommonValue();
+        $type = $value->class();
+        self::assertEquals(
+            'null',
+            $type,
+            'For NULL value class() MUST BE `null`'
+        );
+
+        $value = CommonValueFactory::makeCommonValue(false);
+        $type = $value->class();
+        self::assertEquals(
+            'bool',
+            $type,
+            'For false value class() MUST BE `bool`'
+        );
+
+        $value = CommonValueFactory::makeCommonValue(1);
+        $type = $value->class();
+        self::assertEquals(
+            'int',
+            $type,
+            'For 0 value class() MUST BE `int`'
+        );
+
+        $value = CommonValueFactory::makeCommonValue(0.1);
+        $type = $value->class();
+        self::assertEquals(
+            'float',
+            $type,
+            'For 0.1 value class() MUST BE `float`'
+        );
+
+        $value = CommonValueFactory::makeCommonValue('a');
+        $type = $value->class();
+        self::assertEquals(
+            'string',
+            $type,
+            'For `a` value class() MUST BE `string`'
+        );
+
+        $value = CommonValueFactory::makeCommonValue([]);
+        $type = $value->class();
+        self::assertEquals(
+            'array',
+            $type,
+            'For [] value class() MUST BE `array`'
+        );
+
+        $object = (object)null;
+        $value = CommonValueFactory::makeCommonValue($object);
+        $type = $value->class();
+        self::assertEquals(
+            'stdClass',
+            $type,
+            'For ((object)null) value class() MUST BE `stdClass`'
+        );
+
+        $value = CommonValueFactory::makeCommonValue(
+            CommonValueFactory::makeCommonValue()
+        );
+        $type = $value->class();
+        self::assertEquals(
+            'SbWereWolf\LanguageSpecific\Value\CommonValue',
+            $type,
+            'For (new CommonValue()) value class() MUST BE'
+            . ' `SbWereWolf\LanguageSpecific\Value\CommonValue`'
+        );
+    }
+
+    /**
      * Проверяем метод CommonValue::object()
      *
      * @return void
@@ -347,7 +424,7 @@ class CommonValueTest extends TestCase
         $value = CommonValueFactory::makeCommonValue(
             CommonValueFactory::makeCommonValue(1)
         );
-        /* @var $value \SbWereWolf\LanguageSpecific\Value\CommonValue */
+        /* @var $value CommonValue */
         $sample = $value->object();
 
         self::assertTrue(
@@ -411,7 +488,7 @@ class CommonValueTest extends TestCase
     }
 
     /**
-     * @return \SbWereWolf\LanguageSpecific\Value\CommonValueInterface
+     * @return CommonValueInterface
      */
     private function checkDefaultInt()
     {
@@ -441,7 +518,7 @@ class CommonValueTest extends TestCase
     }
 
     /**
-     * @return \SbWereWolf\LanguageSpecific\Value\CommonValueInterface
+     * @return CommonValueInterface
      */
     private function checkDefaultDouble()
     {
@@ -472,7 +549,7 @@ class CommonValueTest extends TestCase
     }
 
     /**
-     * @return \SbWereWolf\LanguageSpecific\Value\CommonValueInterface
+     * @return CommonValueInterface
      */
     private function checkDefaultBool()
     {
@@ -566,7 +643,7 @@ class CommonValueTest extends TestCase
     }
 
     /**
-     * @return \SbWereWolf\LanguageSpecific\Value\CommonValueInterface
+     * @return CommonValueInterface
      */
     private function checkDefaultObject()
     {

@@ -5,8 +5,8 @@
  * @author   SbWereWolf <ulfnew@gmail.com>
  * @link     https://github.com/SbWereWolf/language-specific
  *
- * Copyright © 2024 Volkhin Nikolay
- * 12/30/24, 11:35 AM
+ * Copyright © 2025 Volkhin Nikolay
+ * 7/30/25, 11:18 AM
  */
 
 declare(strict_types=1);
@@ -107,5 +107,10 @@ class CommonValue implements CommonValueInterface
         $this->default = $value;
 
         return $this;
+    }
+
+    public function class(): string
+    {
+        return get_debug_type($this->asIs());
     }
 }

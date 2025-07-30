@@ -5,8 +5,8 @@
  * @author   SbWereWolf <ulfnew@gmail.com>
  * @link     https://github.com/SbWereWolf/language-specific
  *
- * Copyright © 2024 Volkhin Nikolay
- * 12/30/24, 11:35 AM
+ * Copyright © 2025 Volkhin Nikolay
+ * 7/30/25, 11:18 AM
  */
 
 namespace SbWereWolf\LanguageSpecific\Value;
@@ -86,6 +86,18 @@ interface CommonValueInterface
      * @return string
      */
     public function type(): string;
+
+    /**
+     * Возвращает тип значения или имя класса, одно из:
+     * "int" "float" "bool" "string" "array" "null"
+     * A class name for named classes
+     * "class@anonymous" for an anonymous classes
+     * "resource (xxx)" for resources where "xxx" is a name of resource
+     * "resource (closed)" for closed resources
+     *
+     * @return string
+     */
+    public function class(): string;
 
     /**
      * Использовать заданное значение в качестве значения по умолчанию
