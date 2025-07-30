@@ -67,7 +67,7 @@ interface CommonValueInterface
     /**
      * Возвращает значение приведённое к массиву
      *
-     * @return array
+     * @return array<mixed,mixed>
      */
     public function array(): array;
 

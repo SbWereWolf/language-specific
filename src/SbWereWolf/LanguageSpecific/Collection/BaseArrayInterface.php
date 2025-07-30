@@ -5,8 +5,8 @@
  * @author   SbWereWolf <ulfnew@gmail.com>
  * @link     https://github.com/SbWereWolf/language-specific
  *
- * Copyright © 2024 Volkhin Nikolay
- * 12/30/24, 11:35 AM
+ * Copyright © 2025 Volkhin Nikolay
+ * 7/30/25, 11:16 AM
  */
 
 namespace SbWereWolf\LanguageSpecific\Collection;
@@ -28,7 +28,7 @@ interface BaseArrayInterface extends Iterator, JsonSerializable
     /**
      * Возвращает исходный массив без обработки
      *
-     * @return array
+     * @return array<mixed,mixed>
      */
     public function raw(): array;
 }
