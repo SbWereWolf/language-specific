@@ -80,7 +80,7 @@ interface CommonValueInterface
 
     /**
      * Возвращает тип значения, одно из:
-     * "boolean" "integer" "double"  "string" "array"
+     * "boolean" "integer" "double" "string" "array"
      * "object" "resource" "resource (closed)" "NULL" "unknown type"
      *
      * @return string
