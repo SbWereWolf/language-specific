@@ -5,8 +5,8 @@
  * @author   SbWereWolf <ulfnew@gmail.com>
  * @link     https://github.com/SbWereWolf/language-specific
  *
- * Copyright © 2025 Volkhin Nikolay
- * 2/27/25, 12:34 AM
+ * Copyright © 2026 Volkhin Nikolay
+ * 3/19/26, 11:45 PM
  */
 
 declare(strict_types=1);
@@ -31,7 +31,6 @@ class CommonArray extends BaseArray implements CommonArrayInterface
         string|int|float|bool|null $key
     ): CommonValueInterface {
         $value = $this->valueFactory::makeCommonValueAsDummy();
-        $key = $this->normalizeKey($key);
         $has = $this->has($key);
         if ($has) {
             $value = $this->valueFactory::makeCommonValue(
@@ -60,7 +59,6 @@ class CommonArray extends BaseArray implements CommonArrayInterface
     /** @inheritDoc */
     public function has(string|int|float|bool|null $key): bool
     {
-        $key = $this->normalizeKey($key);
         $result = array_key_exists($key, $this->data);
 
         return $result;
@@ -90,8 +88,7 @@ class CommonArray extends BaseArray implements CommonArrayInterface
      *
      * @throws ValueIsImmutableException
      */
-    /** @phan-suppress-next-line PhanUnusedPublicMethodParameter */
-    public function offsetSet($_offset, $_value): void
+    public function offsetSet($offset, $value): void
     {
         throw new ValueIsImmutableException(
             'Value of element is immutable.',
@@ -104,33 +101,11 @@ class CommonArray extends BaseArray implements CommonArrayInterface
      *
      * @throws ListIsImmutableException
      */
-    /** @phan-suppress-next-line PhanUnusedPublicMethodParameter */
-    public function offsetUnset($_offset): void
+    public function offsetUnset($offset): void
     {
         throw new ListIsImmutableException(
             'List of elements is immutable.',
             -2
         );
-    }
-
-    /**
-     * Нормализует тип ключа до допустимого array-key.
-     *
-     * @param string|int|float|bool|null $key
-     *
-     * @return int|string
-     */
-    private function normalizeKey(
-        string|int|float|bool|null $key
-    ): int|string {
-        if (is_null($key)) {
-            return '';
-        }
-
-        if (is_bool($key) || is_float($key)) {
-            return (int)$key;
-        }
-
-        return $key;
     }
 }
