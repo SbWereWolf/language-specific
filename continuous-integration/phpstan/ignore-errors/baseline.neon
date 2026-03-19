@@ -25,32 +25,8 @@ parameters:
 			path: ../../../src/SbWereWolf/LanguageSpecific/Collection/BaseArray.php
 
 		-
-			message: '#^Method SbWereWolf\\LanguageSpecific\\Collection\\BaseArray\:\:next\(\) with return type void returns mixed but should not return anything\.$#'
-			identifier: return.void
-			count: 1
-			path: ../../../src/SbWereWolf/LanguageSpecific/Collection/BaseArray.php
-
-		-
-			message: '#^Method SbWereWolf\\LanguageSpecific\\Collection\\BaseArray\:\:raw\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: ../../../src/SbWereWolf/LanguageSpecific/Collection/BaseArray.php
-
-		-
-			message: '#^Parameter \#1 \$key of function key_exists expects int\|string, int\|string\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: ../../../src/SbWereWolf/LanguageSpecific/Collection/BaseArray.php
-
-		-
 			message: '#^Interface SbWereWolf\\LanguageSpecific\\Collection\\BaseArrayInterface extends generic interface Iterator but does not specify its types\: TKey, TValue$#'
 			identifier: missingType.generics
-			count: 1
-			path: ../../../src/SbWereWolf/LanguageSpecific/Collection/BaseArrayInterface.php
-
-		-
-			message: '#^Method SbWereWolf\\LanguageSpecific\\Collection\\BaseArrayInterface\:\:raw\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
 			count: 1
 			path: ../../../src/SbWereWolf/LanguageSpecific/Collection/BaseArrayInterface.php
 
@@ -89,15 +65,3 @@ parameters:
 			identifier: cast.string
 			count: 1
 			path: ../../../src/SbWereWolf/LanguageSpecific/Value/CommonValue.php
-
-		-
-			message: '#^Method SbWereWolf\\LanguageSpecific\\Value\\CommonValue\:\:array\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: ../../../src/SbWereWolf/LanguageSpecific/Value/CommonValue.php
-
-		-
-			message: '#^Method SbWereWolf\\LanguageSpecific\\Value\\CommonValueInterface\:\:array\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: ../../../src/SbWereWolf/LanguageSpecific/Value/CommonValueInterface.php
