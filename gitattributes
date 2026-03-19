@@ -1,0 +1,7 @@
+/tests export-ignore
+/continuous-integration export-ignore
+
+/.gitignore export-ignore
+/.gitattributes export-ignore
+
+/composer.lock export-ignore
