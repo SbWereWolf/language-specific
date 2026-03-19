@@ -4,8 +4,8 @@
  * @author   SbWereWolf <ulfnew@gmail.com>
  * @link     https://github.com/SbWereWolf/language-specific
  *
- * Copyright © 2025 Volkhin Nikolay
- * 2/27/25, 12:34 AM
+ * Copyright © 2026 Volkhin Nikolay
+ * 3/20/26, 1:04 AM
  */
 
 declare(strict_types=1);
@@ -198,15 +198,15 @@ class CommonArrayTest extends TestCase
         $fabric = new ArrayFactory();
         $handler = $fabric->makeCommonArray($data);
 
-        $exists = $handler->offsetExists(null);
+        $nullExists = $handler->offsetExists(null);
         self::assertTrue(
-            $exists,
+            $nullExists,
             'CommonArray MUST contain index null'
         );
 
-        $notExists = $handler->offsetExists('0');
+        $charZeroExists = $handler->offsetExists('0');
         self::assertTrue(
-            $notExists,
+            $charZeroExists,
             'CommonArray DO MUST contain index "0"'
         );
 

@@ -14,7 +14,9 @@ composer require sbwerewolf/language-specific
 - `SbWereWolf\LanguageSpecific\AdvancedArrayFactory`
 - `SbWereWolf\LanguageSpecific\Value\CommonValueFactory`
 
-Use factories to create handlers. This matches the current public API and the project's tests.
+Use factories to create handlers.
+This way to properly create handlers.
+Also you can use `AdvancedArray` and `CommonValue` directly.
 
 ## Quick start
 
@@ -65,7 +67,7 @@ use SbWereWolf\LanguageSpecific\AdvancedArrayFactory;
 $factory = new AdvancedArrayFactory();
 $data = $factory->makeAdvancedArray([0 => 1, 'next' => 2]);
 
-$data->has(); // true
+$data->hasAny(); // true
 $data->has(0); // true
 $data->has('next'); // true
 $data->has('missing'); // false
@@ -187,7 +189,7 @@ last
 
 ## CommonValue examples
 
-### Create values
+### Show (take) values
 
 ```php
 use SbWereWolf\LanguageSpecific\Value\CommonValueFactory;
@@ -262,11 +264,11 @@ for detail examples of class methods working
 ## Run tests
 
 ```bash
-composer test
+composer test --parallel
 ```
 # Контакты
 ```
-Volkhin Nikolay
+Volkhin Nicholas
 e-mail ulfnew@gmail.com
 phone +7-902-272-65-35
 Telegram @sbwerewolf
