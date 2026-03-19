@@ -31,10 +31,10 @@ final class DocumentationExamplesTest extends TestCase
             3 => 'last',
         ]);
 
-        self::assertTrue($data->has());
+        self::assertTrue($data->hasany());
         self::assertTrue($data->has(0));
         self::assertFalse($data->has('missing'));
-        self::assertSame('first', $data->get()->asIs());
+        self::assertSame('first', $data->getAny()->asIs());
         self::assertFalse($data->get('missing')->isReal());
         self::assertSame(20, $data->get('index')->int());
     }
