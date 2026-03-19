@@ -47,6 +47,15 @@
     "normalize-check": "composer normalize --dry-run",
     "normalize-fix": "composer normalize"
   },
+  "archive": {
+    "exclude": [
+      "/tests",
+      "/continuous-integration",
+      "/composer.lock",
+      "/.gitignore",
+      "/.gitattributes"
+    ]
+  },
   "config": {
     "allow-plugins": {
       "phpstan/extension-installer": true,
