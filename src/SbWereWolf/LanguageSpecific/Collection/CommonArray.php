@@ -28,12 +28,11 @@ class CommonArray extends BaseArray implements CommonArrayInterface
 {
     /** @inheritDoc */
     public function get(
-        string|int|float|bool|null $key = null
+        string|int|float|bool|null $key
     ): CommonValueInterface {
         $value = $this->valueFactory::makeCommonValueAsDummy();
-        $payload = (new KeySearcher($this->data))->seek($key);
-        if ($payload->has()) {
-            $key = $payload->key();
+        $has = $this->has($key);
+        if ($has) {
             $value = $this->valueFactory::makeCommonValue(
                 $this->data[$key]
             );
@@ -43,11 +42,31 @@ class CommonArray extends BaseArray implements CommonArrayInterface
     }
 
     /** @inheritDoc */
-    public function has(string|int|float|bool|null $key = null): bool
+    public function getAny(): CommonValueInterface
     {
-        $output = (new KeySearcher($this->data))->seek($key);
-        /** @noinspection PhpUnnecessaryLocalVariableInspection */
-        $result = $output->has();
+        $value = $this->valueFactory::makeCommonValueAsDummy();
+        $has = $this->hasAny();
+        if ($has) {
+            $first = array_key_first($this->data);
+            $value = $this->valueFactory::makeCommonValue(
+                $this->data[$first]
+            );
+        }
+
+        return $value;
+    }
+
+    /** @inheritDoc */
+    public function has(string|int|float|bool|null $key): bool
+    {
+        $result = array_key_exists($key, $this->data);
+
+        return $result;
+    }
+
+    public function hasAny(): bool
+    {
+        $result = count($this->data) > 0;
 
         return $result;
     }

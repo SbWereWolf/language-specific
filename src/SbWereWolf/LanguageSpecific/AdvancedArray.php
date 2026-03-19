@@ -16,7 +16,6 @@ namespace SbWereWolf\LanguageSpecific;
 use Generator;
 use SbWereWolf\LanguageSpecific\Collection\CommonArray;
 use SbWereWolf\LanguageSpecific\Value\CommonValueFactoryInterface;
-use SbWereWolf\LanguageSpecific\Value\CommonValueInterface;
 
 /**
  * Class AdvancedArray
@@ -73,7 +72,6 @@ class AdvancedArray extends CommonArray implements
     public function values(): Generator
     {
         foreach ($this as $key => $val) {
-            /** @var CommonValueInterface $val */
             $isArray = $val->type() === 'array';
             if (!$isArray) {
                 yield $key => $val;
@@ -85,7 +83,7 @@ class AdvancedArray extends CommonArray implements
     public function pull(
         int|bool|string|null|float $key = null
     ): AdvancedArrayInterface {
-        $pulled = $this->arrayFactory::makeDummyAdvancedArray();
+        $pulled = $this->arrayFactory->makeDummyAdvancedArray();
 
         $isNullKey = is_null($key);
         if ($isNullKey && $this->arrays()->valid()) {
@@ -115,7 +113,6 @@ class AdvancedArray extends CommonArray implements
     public function arrays(): Generator
     {
         foreach ($this as $key => $val) {
-            /** @var CommonValueInterface $val */
             $isArray = $val->type() === 'array';
             if ($isArray) {
                 $nextArray = $this->arrayFactory

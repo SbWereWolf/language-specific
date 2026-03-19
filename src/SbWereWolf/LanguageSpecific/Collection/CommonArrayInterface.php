@@ -32,7 +32,14 @@ interface CommonArrayInterface extends ArrayAccess, BaseArrayInterface
      *
      * @return bool
      */
-    public function has(string|int|float|bool|null $key = null): bool;
+    public function has(string|int|float|bool|null $key): bool;
+
+    /**
+     * Проверяет, что массив имеет хотя бы одно значение (не пустой)
+     *
+     * @return bool
+     */
+    public function hasAny(): bool;
 
     /**
      * По индексу получить элемент массива.
@@ -43,6 +50,13 @@ interface CommonArrayInterface extends ArrayAccess, BaseArrayInterface
      * @return CommonValueInterface
      */
     public function get(
-        string|int|float|bool|null $key = null
+        string|int|float|bool|null $key
     ): CommonValueInterface;
+
+    /**
+     * Получить хотя бы первый элемент массива.
+     * Возвращает экземпляр с интерфейсом CommonValueInterface
+     * @return CommonValueInterface
+     */
+    public function getAny(): CommonValueInterface;
 }

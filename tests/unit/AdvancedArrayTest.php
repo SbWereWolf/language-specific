@@ -190,7 +190,7 @@ class AdvancedArrayTest extends TestCase
             $handler->pull(0)->pull(-1)->pull(-2)
                 ->pull(-3)->pull(-4)->pull('over')
                 ->pull('and')->pull('over')->pull('again')
-                ->get()->bool(),
+                ->getAny()->bool(),
             'pull(`again`) MUST contain array with value'
             . ' of true'
         );
@@ -214,7 +214,7 @@ class AdvancedArrayTest extends TestCase
         $handler = $fabric->makeAdvancedArray($data);
 
         $index = 0;
-        $item = $fabric::makeDummyAdvancedArray();
+        $item = $fabric->makeDummyAdvancedArray();
         foreach ($handler->arrays() as $item) {
             /* @var $item AdvancedArrayInterface */
             self::assertFalse(

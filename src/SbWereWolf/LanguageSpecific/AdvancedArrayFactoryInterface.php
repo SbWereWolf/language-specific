@@ -27,7 +27,7 @@ interface AdvancedArrayFactoryInterface
      *
      * @return AdvancedArrayInterface
      */
-    public static function makeDummyAdvancedArray():
+    public function makeDummyAdvancedArray():
     AdvancedArrayInterface;
 
     /**

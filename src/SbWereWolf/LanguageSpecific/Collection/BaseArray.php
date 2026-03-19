@@ -13,8 +13,6 @@ declare(strict_types=1);
 
 namespace SbWereWolf\LanguageSpecific\Collection;
 
-use JetBrains\PhpStorm\Pure;
-use ReturnTypeWillChange;
 use SbWereWolf\LanguageSpecific\Value\CommonValueFactoryInterface;
 use SbWereWolf\LanguageSpecific\Value\CommonValueInterface;
 
@@ -43,7 +41,6 @@ class BaseArray implements BaseArrayInterface
     }
 
     /** @inheritDoc */
-    #[Pure]
     public function jsonSerialize(): array
     {
         return $this->raw();
@@ -64,6 +61,10 @@ class BaseArray implements BaseArrayInterface
     /** @inheritDoc */
     public function current(): CommonValueInterface
     {
+        if (!$this->valid()) {
+            return $this->valueFactory::makeCommonValueAsDummy();
+        }
+
         return $this->valueFactory::makeCommonValue(
             current($this->data)
         );
@@ -76,10 +77,9 @@ class BaseArray implements BaseArrayInterface
     }
 
     /** @inheritDoc */
-    #[ReturnTypeWillChange]
-    public function next()
+    public function next(): void
     {
-        return next($this->data);
+        next($this->data);
     }
 
     /** @inheritDoc */

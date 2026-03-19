@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace SbWereWolf\LanguageSpecific;
 
 use SbWereWolf\LanguageSpecific\Collection\ArrayFactory;
-use SbWereWolf\LanguageSpecific\Value\CommonValueFactory;
 
 /**
  * Class AdvancedArrayFactory
@@ -29,9 +28,9 @@ class AdvancedArrayFactory extends ArrayFactory implements
     AdvancedArrayFactoryInterface
 {
     /** @inheritDoc */
-    public static function makeDummyAdvancedArray(): AdvancedArrayInterface
+    public function makeDummyAdvancedArray(): AdvancedArrayInterface
     {
-        $factory = new CommonValueFactory();
+        $factory = $this->valueFactory;
         /** @noinspection PhpUnnecessaryLocalVariableInspection */
         $handler = new AdvancedArray(
             [],

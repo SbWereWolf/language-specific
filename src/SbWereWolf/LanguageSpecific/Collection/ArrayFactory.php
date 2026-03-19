@@ -60,14 +60,12 @@ class ArrayFactory implements ArrayFactoryInterface
      *
      * @return array
      */
-    protected function makeItProper(mixed $data): array
+    protected function makeItProper(mixed &$data): array
     {
         $isProper = is_array($data);
         if (!$isProper) {
             $data = [$data];
         }
-        /** @noinspection PhpUnnecessaryLocalVariableInspection */
-        $data = array_replace([], $data);
 
         return $data;
     }

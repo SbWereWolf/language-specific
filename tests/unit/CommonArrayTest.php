@@ -106,7 +106,7 @@ class CommonArrayTest extends TestCase
         $fabric = new ArrayFactory();
         $handler = $fabric->makeCommonArray($data);
 
-        $item = $handler->get();
+        $item = $handler->getAny();
         self::assertTrue(
             $item->asIs() === 'first',
             'Return value of simple get'
@@ -165,7 +165,7 @@ class CommonArrayTest extends TestCase
         $handler = $fabric->makeCommonArray($data);
 
         self::assertTrue(
-            $handler->has(),
+            $handler->hasAny(),
             'CommonArray MUST contain any index'
         );
         self::assertTrue(
@@ -205,9 +205,9 @@ class CommonArrayTest extends TestCase
         );
 
         $notExists = $handler->offsetExists('0');
-        self::assertFalse(
+        self::assertTrue(
             $notExists,
-            'CommonArray DO NOT MUST contain index "0"'
+            'CommonArray DO MUST contain index "0"'
         );
 
         $first = $handler->offsetGet(0)->asIs();
@@ -217,10 +217,10 @@ class CommonArrayTest extends TestCase
             'Element with index 0 MUST BE "first"'
         );
 
-        $null = $handler->offsetGet("0")->asIs();
+        $valueAtIndex0 = $handler->offsetGet("0")->asIs();
         self::assertEquals(
-            null,
-            $null,
+            'first',
+            $valueAtIndex0,
             'For not exists index CommonArray MUST return NULL'
         );
 
@@ -244,6 +244,82 @@ class CommonArrayTest extends TestCase
         self::assertTrue(
             $isProper,
             'offsetUnset MUST throw ListIsImmutableException'
+        );
+    }
+
+    /**
+     * Проверяем доступ к краевым типам ключей
+     *
+     * @return void
+     */
+    public function testKeyNormalizationAndEmptyState()
+    {
+        $fabric = new ArrayFactory();
+        $empty = $fabric->makeCommonArray([]);
+
+        self::assertFalse(
+            $empty->hasAny(),
+            'Empty collection MUST NOT report any elements'
+        );
+        self::assertFalse(
+            $empty->getAny()->isReal(),
+            'getAny() for empty collection MUST return dummy value'
+        );
+
+        $handler = $fabric->makeCommonArray([
+            '' => 'empty-string',
+            0 => 'zero',
+            1 => 'one',
+            'nested' => null,
+        ]);
+
+        self::assertTrue(
+            $handler->has(null),
+            'Null key MUST resolve to empty string key'
+        );
+        self::assertSame(
+            'empty-string',
+            $handler->get(null)->str(),
+            'Null key MUST return value of empty string key'
+        );
+        self::assertTrue(
+            $handler->has(false),
+            'False key MUST resolve to integer zero'
+        );
+        self::assertSame(
+            'zero',
+            $handler->get(false)->str(),
+            'False key MUST return value from integer zero key'
+        );
+        self::assertTrue(
+            $handler->has(true),
+            'True key MUST resolve to integer one'
+        );
+        self::assertSame(
+            'one',
+            $handler->get(true)->str(),
+            'True key MUST return value from integer one key'
+        );
+        self::assertTrue(
+            $handler->has(0.9),
+            'Float key MUST resolve using PHP array key conversion rules'
+        );
+        self::assertSame(
+            'zero',
+            $handler->get(0.9)->str(),
+            'Float key MUST return value from converted integer key'
+        );
+        self::assertTrue(
+            $handler->has('nested'),
+            'Existing key with null value MUST still be reported as existing'
+        );
+        self::assertTrue(
+            $handler->get('nested')->isReal(),
+            'Existing key with null value MUST be real value'
+        );
+        self::assertNull(
+            $handler->get('nested')->asIs(),
+            'Existing key with null value MUST return null as stored value'
         );
     }
 }

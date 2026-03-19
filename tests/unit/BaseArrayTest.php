@@ -193,7 +193,9 @@ class BaseArrayTest extends TestCase
 
         $handler->next();
         $handler->next();
-        $hasMore = $handler->next();
+        $handler->next();
+
+        $hasMore = $handler->valid();
 
         self::assertFalse(
             $hasMore,
@@ -214,6 +216,58 @@ class BaseArrayTest extends TestCase
             0,
             $value->asIs(),
             'After rewind current element value should be 0'
+        );
+    }
+
+    /**
+     * Проверяем поведение пустой коллекции и исчерпанного итератора
+     *
+     * @return void
+     */
+    public function testIteratorBoundaryStates()
+    {
+        $fabric = new ArrayFactory();
+        $empty = $fabric->makeBaseArray([]);
+
+        self::assertFalse(
+            $empty->valid(),
+            'Empty collection MUST NOT be valid'
+        );
+        self::assertNull(
+            $empty->key(),
+            'Key of empty collection MUST BE null'
+        );
+        self::assertFalse(
+            $empty->current()->isReal(),
+            'Current item of empty collection MUST BE dummy'
+        );
+
+        $handler = $fabric->makeBaseArray(['first']);
+        $handler->next();
+
+        self::assertFalse(
+            $handler->valid(),
+            'Exhausted iterator MUST NOT be valid'
+        );
+        self::assertNull(
+            $handler->key(),
+            'Key of exhausted iterator MUST BE null'
+        );
+        self::assertFalse(
+            $handler->current()->isReal(),
+            'Current item of exhausted iterator MUST BE dummy'
+        );
+
+        $handler->rewind();
+
+        self::assertTrue(
+            $handler->valid(),
+            'Rewind MUST restore valid iterator state'
+        );
+        self::assertSame(
+            'first',
+            $handler->current()->asIs(),
+            'Rewind MUST restore first element'
         );
     }
 }
