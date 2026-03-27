@@ -6,7 +6,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2026 Volkhin Nikolay
- * 3/19/26, 11:45 PM
+ * 3/27/26, 8:18 PM
  */
 
 declare(strict_types=1);
@@ -30,8 +30,10 @@ class CommonArray extends BaseArray implements CommonArrayInterface
     public function get(
         string|int|float|bool|null $key
     ): CommonValueInterface {
-        $value = $this->valueFactory::makeCommonValueAsDummy();
         $has = $this->has($key);
+        if (!$has) {
+            $value = $this->valueFactory::makeCommonValueAsDummy();
+        }
         if ($has) {
             $value = $this->valueFactory::makeCommonValue(
                 $this->data[$key]
@@ -44,8 +46,10 @@ class CommonArray extends BaseArray implements CommonArrayInterface
     /** @inheritDoc */
     public function getAny(): CommonValueInterface
     {
-        $value = $this->valueFactory::makeCommonValueAsDummy();
         $has = $this->hasAny();
+        if (!$has) {
+            $value = $this->valueFactory::makeCommonValueAsDummy();
+        }
         if ($has) {
             $first = array_key_first($this->data);
             $value = $this->valueFactory::makeCommonValue(

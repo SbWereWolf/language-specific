@@ -5,8 +5,8 @@
  * @author   SbWereWolf <ulfnew@gmail.com>
  * @link     https://github.com/SbWereWolf/language-specific
  *
- * Copyright © 2025 Volkhin Nikolay
- * 1/12/25, 5:14 AM
+ * Copyright © 2026 Volkhin Nikolay
+ * 3/27/26, 8:18 PM
  */
 
 declare(strict_types=1);
@@ -71,10 +71,10 @@ class AdvancedArray extends CommonArray implements
     /** @inheritDoc */
     public function values(): Generator
     {
-        foreach ($this as $key => $val) {
-            $isArray = $val->type() === 'array';
-            if (!$isArray) {
-                yield $key => $val;
+        foreach ($this->data as $key => $value) {
+            if (!is_array($value)) {
+                yield
+                $key => $this->valueFactory::makeCommonValue($value);
             }
         }
     }
@@ -83,42 +83,35 @@ class AdvancedArray extends CommonArray implements
     public function pull(
         int|bool|string|null|float $key = null
     ): AdvancedArrayInterface {
-        $pulled = $this->arrayFactory->makeDummyAdvancedArray();
+        if ($key === null) {
+            foreach ($this->data as $value) {
+                if (is_array($value)) {
+                    return
+                        $this->arrayFactory->makeAdvancedArray($value);
+                }
+            }
 
-        $isNullKey = is_null($key);
-        if ($isNullKey && $this->arrays()->valid()) {
-            $pulled = $this->arrays()->current();
-        }
-
-        $nested = $this->valueFactory::makeCommonValueAsDummy();
-        $isReal = false;
-        if (!$isNullKey) {
-            $nested = $this->get($key);
-            $isReal = $nested->isReal();
-        }
-        $isArray = false;
-        if ($isReal) {
-            $isArray = $nested->type() === 'array';
-        }
-        if ($isArray) {
-            $pulled = $this
-                ->arrayFactory
-                ->makeAdvancedArray($nested->asIs());
+            return $this->arrayFactory->makeDummyAdvancedArray();
         }
 
-        return $pulled;
+        if (
+            !array_key_exists($key, $this->data)
+            || !is_array($this->data[$key])
+        ) {
+            return $this->arrayFactory->makeDummyAdvancedArray();
+        }
+
+        return
+            $this->arrayFactory->makeAdvancedArray($this->data[$key]);
     }
 
     /** @inheritDoc */
     public function arrays(): Generator
     {
-        foreach ($this as $key => $val) {
-            $isArray = $val->type() === 'array';
-            if ($isArray) {
-                $nextArray = $this->arrayFactory
-                    ->makeAdvancedArray($val->asIs());
-
-                yield $key => $nextArray;
+        foreach ($this->data as $key => $value) {
+            if (is_array($value)) {
+                yield
+                $key => $this->arrayFactory->makeAdvancedArray($value);
             }
         }
     }
