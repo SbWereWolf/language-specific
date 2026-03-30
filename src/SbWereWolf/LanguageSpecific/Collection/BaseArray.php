@@ -5,8 +5,8 @@
  * @author   SbWereWolf <ulfnew@gmail.com>
  * @link     https://github.com/SbWereWolf/language-specific
  *
- * Copyright © 2025 Volkhin Nikolay
- * 1/12/25, 5:02 AM
+ * Copyright © 2026 Volkhin Nikolay
+ * 3/30/26, 8:29 PM
  */
 
 declare(strict_types=1);
@@ -28,16 +28,23 @@ use SbWereWolf\LanguageSpecific\Value\CommonValueInterface;
 class BaseArray implements BaseArrayInterface
 {
     /**
+     * @var array<array-key, mixed>
+     */
+    protected array $data;
+
+    /**
      * Конструктор класса BaseArray
      *
-     * @param array $data Массив с элементами для выдачи значений
+     * @param array<array-key, mixed> $data Массив с элементами
+     * для выдачи значений
      * @param CommonValueFactoryInterface $valueFactory фабрика для
      *                                  экземпляров CommonValueInterface
      */
     public function __construct(
-        protected array $data,
+        array $data,
         protected readonly CommonValueFactoryInterface $valueFactory,
     ) {
+        $this->data = $data;
     }
 
     /** @inheritDoc */
@@ -47,6 +54,7 @@ class BaseArray implements BaseArrayInterface
     }
 
     /** @inheritDoc */
+    /** @return array<array-key, mixed> */
     public function raw(): array
     {
         return $this->data;
@@ -61,17 +69,15 @@ class BaseArray implements BaseArrayInterface
     /** @inheritDoc */
     public function current(): CommonValueInterface
     {
-        if (!$this->valid()) {
+        if (key($this->data) === null) {
             return $this->valueFactory::makeCommonValueAsDummy();
         }
 
-        return $this->valueFactory::makeCommonValue(
-            current($this->data)
-        );
+        return $this->valueFactory::makeCommonValue(current($this->data));
     }
 
     /** @inheritDoc */
-    public function key(): int|bool|string|null|float
+    public function key(): int|string|null
     {
         return key($this->data);
     }
@@ -85,9 +91,6 @@ class BaseArray implements BaseArrayInterface
     /** @inheritDoc */
     public function valid(): bool
     {
-        $key = key($this->data);
-        $isValid = !is_null($key);
-
-        return $isValid;
+        return key($this->data) !== null;
     }
 }

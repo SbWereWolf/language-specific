@@ -5,8 +5,8 @@
  * @author   SbWereWolf <ulfnew@gmail.com>
  * @link     https://github.com/SbWereWolf/language-specific
  *
- * Copyright © 2024 Volkhin Nikolay
- * 12/30/24, 11:35 AM
+ * Copyright © 2026 Volkhin Nikolay
+ * 3/30/26, 8:29 PM
  */
 
 declare(strict_types=1);
@@ -58,16 +58,11 @@ class ArrayFactory implements ArrayFactoryInterface
      *
      * @param mixed $data
      *
-     * @return array
+     * @return array<array-key, mixed>
      */
-    protected function makeItProper(mixed &$data): array
+    protected function makeItProper(mixed $data): array
     {
-        $isProper = is_array($data);
-        if (!$isProper) {
-            $data = [$data];
-        }
-
-        return $data;
+        return is_array($data) ? $data : [$data];
     }
 
     /** @inheritDoc */

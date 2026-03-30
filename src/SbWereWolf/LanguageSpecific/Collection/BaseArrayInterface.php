@@ -5,14 +5,15 @@
  * @author   SbWereWolf <ulfnew@gmail.com>
  * @link     https://github.com/SbWereWolf/language-specific
  *
- * Copyright © 2025 Volkhin Nikolay
- * 7/30/25, 11:16 AM
+ * Copyright © 2026 Volkhin Nikolay
+ * 3/30/26, 8:29 PM
  */
 
 namespace SbWereWolf\LanguageSpecific\Collection;
 
 use Iterator;
 use JsonSerializable;
+use SbWereWolf\LanguageSpecific\Value\CommonValueInterface;
 
 /**
  * Interface BaseArrayInterface
@@ -22,13 +23,15 @@ use JsonSerializable;
  * @author   SbWereWolf <ulfnew@gmail.com>
  * @license  MIT license
  * @link     https://github.com/SbWereWolf/language-specific
+ *
+ * @extends Iterator<array-key, CommonValueInterface>
  */
 interface BaseArrayInterface extends Iterator, JsonSerializable
 {
     /**
      * Возвращает исходный массив без обработки
      *
-     * @return array<mixed,mixed>
+     * @return array<array-key, mixed>
      */
     public function raw(): array;
 }

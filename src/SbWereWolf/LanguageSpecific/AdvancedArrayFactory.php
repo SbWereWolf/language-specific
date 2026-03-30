@@ -5,8 +5,8 @@
  * @author   SbWereWolf <ulfnew@gmail.com>
  * @link     https://github.com/SbWereWolf/language-specific
  *
- * Copyright © 2024 Volkhin Nikolay
- * 12/30/24, 11:35 AM
+ * Copyright © 2026 Volkhin Nikolay
+ * 3/30/26, 8:29 PM
  */
 
 declare(strict_types=1);
@@ -30,16 +30,12 @@ class AdvancedArrayFactory extends ArrayFactory implements
     /** @inheritDoc */
     public function makeDummyAdvancedArray(): AdvancedArrayInterface
     {
-        $factory = $this->valueFactory;
-        /** @noinspection PhpUnnecessaryLocalVariableInspection */
-        $handler = new AdvancedArray(
+        return new AdvancedArray(
             [],
-            $factory,
-            new AdvancedArrayFactory($factory),
+            $this->valueFactory,
+            $this,
             true
         );
-
-        return $handler;
     }
 
     /** @inheritDoc */

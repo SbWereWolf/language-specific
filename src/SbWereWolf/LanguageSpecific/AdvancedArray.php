@@ -6,7 +6,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2026 Volkhin Nikolay
- * 3/27/26, 8:18 PM
+ * 3/30/26, 8:29 PM
  */
 
 declare(strict_types=1);
@@ -36,7 +36,7 @@ class AdvancedArray extends CommonArray implements
      * AdvancedArray constructor.
      * Принимает массив,
      *
-     * @param array $data массив
+     * @param array<array-key, mixed> $data массив
      * @param CommonValueFactoryInterface $valueFactory фабрика для
      *                      создания экземпляров CommonValueInterface
      * @param AdvancedArrayFactoryInterface $arrayFactory фабрика для
@@ -53,19 +53,13 @@ class AdvancedArray extends CommonArray implements
         parent::__construct($data, $valueFactory);
 
         $this->arrayFactory = $arrayFactory;
-
-        if ($isDummy) {
-            $this->isDummy = true;
-        }
-        if (!$isDummy) {
-            $this->isDummy = false;
-        }
+        $this->isDummy = $isDummy;
     }
 
     /** @inheritDoc */
     public function isDummy(): bool
     {
-        return $this->isDummy === true;
+        return $this->isDummy;
     }
 
     /** @inheritDoc */

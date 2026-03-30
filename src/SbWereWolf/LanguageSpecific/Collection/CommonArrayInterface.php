@@ -5,8 +5,8 @@
  * @author   SbWereWolf <ulfnew@gmail.com>
  * @link     https://github.com/SbWereWolf/language-specific
  *
- * Copyright © 2025 Volkhin Nikolay
- * 1/3/25, 8:34 AM
+ * Copyright © 2026 Volkhin Nikolay
+ * 3/30/26, 8:29 PM
  */
 
 namespace SbWereWolf\LanguageSpecific\Collection;
@@ -22,6 +22,8 @@ use SbWereWolf\LanguageSpecific\Value\CommonValueInterface;
  * @author   SbWereWolf <ulfnew@gmail.com>
  * @license  MIT license
  * @link     https://github.com/SbWereWolf/language-specific
+ *
+ * @extends ArrayAccess<array-key, CommonValueInterface>
  */
 interface CommonArrayInterface extends ArrayAccess, BaseArrayInterface
 {

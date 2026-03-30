@@ -6,7 +6,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2026 Volkhin Nikolay
- * 3/27/26, 8:18 PM
+ * 3/30/26, 8:29 PM
  */
 
 declare(strict_types=1);
@@ -30,34 +30,22 @@ class CommonArray extends BaseArray implements CommonArrayInterface
     public function get(
         string|int|float|bool|null $key
     ): CommonValueInterface {
-        $has = $this->has($key);
-        if (!$has) {
-            $value = $this->valueFactory::makeCommonValueAsDummy();
-        }
-        if ($has) {
-            $value = $this->valueFactory::makeCommonValue(
-                $this->data[$key]
-            );
+        if (!array_key_exists($key, $this->data)) {
+            return $this->valueFactory::makeCommonValueAsDummy();
         }
 
-        return $value;
+        return $this->valueFactory::makeCommonValue($this->data[$key]);
     }
 
     /** @inheritDoc */
     public function getAny(): CommonValueInterface
     {
-        $has = $this->hasAny();
-        if (!$has) {
-            $value = $this->valueFactory::makeCommonValueAsDummy();
-        }
-        if ($has) {
-            $first = array_key_first($this->data);
-            $value = $this->valueFactory::makeCommonValue(
-                $this->data[$first]
-            );
+        $first = array_key_first($this->data);
+        if ($first === null) {
+            return $this->valueFactory::makeCommonValueAsDummy();
         }
 
-        return $value;
+        return $this->valueFactory::makeCommonValue($this->data[$first]);
     }
 
     /** @inheritDoc */
