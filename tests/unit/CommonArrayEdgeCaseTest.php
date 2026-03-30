@@ -5,7 +5,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2026 Volkhin Nikolay
- * 3/30/26, 8:30 PM
+ * 3/31/26, 3:31 AM
  */
 
 declare(strict_types=1);
@@ -15,13 +15,10 @@ use SbWereWolf\LanguageSpecific\Collection\ArrayFactory;
 
 final class CommonArrayEdgeCaseTest extends TestCase
 {
-    public function testOffsetAccessWithUnsupportedOffsetsReturnsSafeDefaults(): void
+    public function testIndexAccessWithUnsupportedIndexesReturnsSafeDefaults(): void
     {
-        $this->markTestSkipped('Type coercion is not yet implemented');
+        $handler = new ArrayFactory()->makeCommonArray(['value' => 42]);
 
-        $handler = (new ArrayFactory())->makeCommonArray(['value' => 42]);
-
-        // Each check raises a TypeError.
         self::assertFalse(isset($handler[new stdClass()]));
         self::assertFalse(isset($handler[[]]));
         self::assertFalse($handler[new stdClass()]->isReal());
@@ -30,7 +27,7 @@ final class CommonArrayEdgeCaseTest extends TestCase
 
     public function testPhpArrayKeyCoercionBehaviourIsStable(): void
     {
-        $handler = (new ArrayFactory())->makeCommonArray([
+        $handler = new ArrayFactory()->makeCommonArray([
             0 => 'zero',
             1 => 'one',
             '' => 'empty-string',

@@ -6,7 +6,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2026 Volkhin Nikolay
- * 3/30/26, 8:29 PM
+ * 3/31/26, 3:31 AM
  */
 
 declare(strict_types=1);
@@ -63,15 +63,39 @@ class CommonArray extends BaseArray implements CommonArrayInterface
         return $result;
     }
 
+    /**
+     * Проверяет, что индекс допустим для ключа PHP-массива.
+     *
+     * @param mixed $offset
+     *
+     * @return bool
+     */
+    private function isSupportedIndex(mixed $offset): bool
+    {
+        return is_int($offset)
+            || is_string($offset)
+            || is_float($offset)
+            || is_bool($offset)
+            || $offset === null;
+    }
+
     /** @inheritDoc */
     public function offsetExists($offset): bool
     {
+        if (!$this->isSupportedIndex($offset)) {
+            return false;
+        }
+
         return $this->has($offset);
     }
 
     /** @inheritDoc */
     public function offsetGet($offset): CommonValueInterface
     {
+        if (!$this->isSupportedIndex($offset)) {
+            return $this->valueFactory::makeCommonValueAsDummy();
+        }
+
         return $this->get($offset);
     }
 
