@@ -1,22 +1,10 @@
 parameters:
 	ignoreErrors:
 		-
-			message: '#^Method SbWereWolf\\LanguageSpecific\\AdvancedArray\:\:__construct\(\) has parameter \$data with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
+			message: '#^Parameter \#1 \$key of function array_key_exists expects int\|string, bool\|float\|int\|string given\.$#'
+			identifier: argument.type
 			count: 1
 			path: ../../../src/SbWereWolf/LanguageSpecific/AdvancedArray.php
-
-		-
-			message: '#^Method SbWereWolf\\LanguageSpecific\\Collection\\ArrayFactory\:\:makeItProper\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: ../../../src/SbWereWolf/LanguageSpecific/Collection/ArrayFactory.php
-
-		-
-			message: '#^Method SbWereWolf\\LanguageSpecific\\Collection\\BaseArray\:\:__construct\(\) has parameter \$data with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: ../../../src/SbWereWolf/LanguageSpecific/Collection/BaseArray.php
 
 		-
 			message: '#^Method SbWereWolf\\LanguageSpecific\\Collection\\BaseArray\:\:jsonSerialize\(\) return type has no value type specified in iterable type array\.$#'
@@ -25,28 +13,16 @@ parameters:
 			path: ../../../src/SbWereWolf/LanguageSpecific/Collection/BaseArray.php
 
 		-
-			message: '#^Interface SbWereWolf\\LanguageSpecific\\Collection\\BaseArrayInterface extends generic interface Iterator but does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
-			count: 1
-			path: ../../../src/SbWereWolf/LanguageSpecific/Collection/BaseArrayInterface.php
+			message: '#^Return type \(int\|string\|null\) of method SbWereWolf\\LanguageSpecific\\Collection\\BaseArray\:\:key\(\) should be covariant with return type \(\(int\|string\)\) of method Iterator\<\(int\|string\),SbWereWolf\\LanguageSpecific\\Value\\CommonValueInterface\>\:\:key\(\)$#'
+			identifier: method.childReturnType
+			count: 2
+			path: ../../../src/SbWereWolf/LanguageSpecific/Collection/BaseArray.php
 
 		-
-			message: '#^Parameter \#1 \$key of method SbWereWolf\\LanguageSpecific\\Collection\\CommonArray\:\:get\(\) expects bool\|float\|int\|string\|null, mixed given\.$#'
+			message: '#^Parameter \#1 \$key of function array_key_exists expects int\|string, bool\|float\|int\|string\|null given\.$#'
 			identifier: argument.type
-			count: 1
+			count: 2
 			path: ../../../src/SbWereWolf/LanguageSpecific/Collection/CommonArray.php
-
-		-
-			message: '#^Parameter \#1 \$key of method SbWereWolf\\LanguageSpecific\\Collection\\CommonArray\:\:has\(\) expects bool\|float\|int\|string\|null, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: ../../../src/SbWereWolf/LanguageSpecific/Collection/CommonArray.php
-
-		-
-			message: '#^Interface SbWereWolf\\LanguageSpecific\\Collection\\CommonArrayInterface extends generic interface ArrayAccess but does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
-			count: 1
-			path: ../../../src/SbWereWolf/LanguageSpecific/Collection/CommonArrayInterface.php
 
 		-
 			message: '#^Cannot cast mixed to float\.$#'
