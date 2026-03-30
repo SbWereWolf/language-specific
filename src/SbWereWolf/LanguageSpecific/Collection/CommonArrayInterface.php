@@ -6,7 +6,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2026 Volkhin Nikolay
- * 3/30/26, 8:29 PM
+ * 3/31/26, 2:52 AM
  */
 
 namespace SbWereWolf\LanguageSpecific\Collection;
@@ -58,6 +58,7 @@ interface CommonArrayInterface extends ArrayAccess, BaseArrayInterface
     /**
      * Получить хотя бы первый элемент массива.
      * Возвращает экземпляр с интерфейсом CommonValueInterface
+     *
      * @return CommonValueInterface
      */
     public function getAny(): CommonValueInterface;

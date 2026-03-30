@@ -6,7 +6,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2026 Volkhin Nikolay
- * 3/30/26, 8:29 PM
+ * 3/31/26, 2:52 AM
  */
 
 namespace SbWereWolf\LanguageSpecific;
@@ -44,7 +44,7 @@ interface AdvancedArrayInterface extends CommonArrayInterface
     /**
      * Возвращает AdvancedArrayInterface для вложенного массива
      *
-     * @param bool|int|string|null $key индекс элемента с массивом
+     * @param bool|int|string|null|float $key индекс элемента с массивом
      *
      * @return AdvancedArrayInterface
      */
