@@ -6,7 +6,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2026 Volkhin Nikolay
- * 3/30/26, 8:29 PM
+ * 4/1/26, 4:31 AM
  */
 
 declare(strict_types=1);
@@ -24,7 +24,7 @@ use SbWereWolf\LanguageSpecific\Collection\ArrayFactory;
  * @license  MIT license
  * @link     https://github.com/SbWereWolf/language-specific
  */
-class AdvancedArrayFactory extends ArrayFactory implements
+final readonly class AdvancedArrayFactory extends ArrayFactory implements
     AdvancedArrayFactoryInterface
 {
     /** @inheritDoc */

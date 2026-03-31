@@ -5,8 +5,8 @@
  * @author   SbWereWolf <ulfnew@gmail.com>
  * @link     https://github.com/SbWereWolf/language-specific
  *
- * Copyright © 2024 Volkhin Nikolay
- * 12/30/24, 11:35 AM
+ * Copyright © 2026 Volkhin Nikolay
+ * 4/1/26, 4:31 AM
  */
 
 declare(strict_types=1);
@@ -22,7 +22,7 @@ namespace SbWereWolf\LanguageSpecific\Value;
  * @license  MIT license
  * @link     https://github.com/SbWereWolf/language-specific
  */
-class CommonValueFactory implements CommonValueFactoryInterface
+final readonly class CommonValueFactory implements CommonValueFactoryInterface
 {
     /** @inheritDoc */
     public static function makeCommonValue(

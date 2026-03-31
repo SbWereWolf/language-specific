@@ -6,7 +6,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2026 Volkhin Nikolay
- * 3/30/26, 8:29 PM
+ * 4/1/26, 4:31 AM
  */
 
 declare(strict_types=1);
@@ -26,10 +26,10 @@ use SbWereWolf\LanguageSpecific\Value\CommonValueFactoryInterface;
  * @license  MIT license
  * @link     https://github.com/SbWereWolf/language-specific
  */
-class AdvancedArray extends CommonArray implements
+final class AdvancedArray extends CommonArray implements
     AdvancedArrayInterface
 {
-    private bool $isDummy = true;
+    private bool $isDummy;
     private AdvancedArrayFactoryInterface $arrayFactory;
 
     /**

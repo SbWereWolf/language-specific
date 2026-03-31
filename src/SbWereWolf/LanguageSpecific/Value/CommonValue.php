@@ -6,7 +6,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2026 Volkhin Nikolay
- * 3/31/26, 6:43 AM
+ * 4/1/26, 4:31 AM
  */
 
 declare(strict_types=1);
@@ -22,7 +22,7 @@ namespace SbWereWolf\LanguageSpecific\Value;
  * @license  MIT license
  * @link     https://github.com/SbWereWolf/language-specific
  */
-final class CommonValue implements CommonValueInterface
+final readonly class CommonValue implements CommonValueInterface
 {
     /**
      * Создать экземпляр с заданным значением
