@@ -5,7 +5,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2026 Volkhin Nikolay
- * 3/20/26, 1:04 AM
+ * 3/31/26, 6:43 AM
  */
 
 declare(strict_types=1);
@@ -321,5 +321,27 @@ class CommonArrayTest extends TestCase
             $handler->get('nested')->asIs(),
             'Existing key with null value MUST return null as stored value'
         );
+    }
+
+    public function testOffsetSetThrowsExpectedImmutableExceptionCode(): void
+    {
+        $handler = new ArrayFactory()->makeCommonArray([0 => 'first']);
+
+        $this->expectException(ValueIsImmutableException::class);
+        $this->expectExceptionMessage('Value of element is immutable.');
+        $this->expectExceptionCode(-1);
+
+        $handler->offsetSet(0, 0);
+    }
+
+    public function testOffsetUnsetThrowsExpectedImmutableExceptionCode(): void
+    {
+        $handler = new ArrayFactory()->makeCommonArray([0 => 'first']);
+
+        $this->expectException(ListIsImmutableException::class);
+        $this->expectExceptionMessage('List of elements is immutable.');
+        $this->expectExceptionCode(-2);
+
+        $handler->offsetUnset(0);
     }
 }

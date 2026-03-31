@@ -4,8 +4,8 @@
  * @author   SbWereWolf <ulfnew@gmail.com>
  * @link     https://github.com/SbWereWolf/language-specific
  *
- * Copyright © 2025 Volkhin Nikolay
- * 7/30/25, 11:18 AM
+ * Copyright © 2026 Volkhin Nikolay
+ * 3/31/26, 6:43 AM
  */
 
 declare(strict_types=1);
@@ -676,5 +676,13 @@ class CommonValueTest extends TestCase
         );
 
         return $external;
+    }
+
+    public function testConstructorDefaultsToRealValue(): void
+    {
+        $value = new CommonValue();
+
+        self::assertTrue($value->isReal());
+        self::assertNull($value->asIs());
     }
 }

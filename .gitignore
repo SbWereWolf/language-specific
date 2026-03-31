@@ -6,3 +6,9 @@
 /continuous-integration/autotests-coverage-report/**
 /continuous-integration/phpunit/.phpunit.cache/**
 /continuous-integration/phpcs/phpcs.cacheFile
+/continuous-integration/infection/coverage/**
+/continuous-integration/infection/tmp/**
+/continuous-integration/infection/*.log
+/continuous-integration/infection/*.json
+/continuous-integration/infection/*.html
+/continuous-integration/infection/*.md

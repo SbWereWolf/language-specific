@@ -6,7 +6,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2026 Volkhin Nikolay
- * 3/31/26, 3:01 AM
+ * 3/31/26, 6:43 AM
  */
 
 declare(strict_types=1);
@@ -22,7 +22,7 @@ namespace SbWereWolf\LanguageSpecific\Value;
  * @license  MIT license
  * @link     https://github.com/SbWereWolf/language-specific
  */
-class CommonValue implements CommonValueInterface
+final class CommonValue implements CommonValueInterface
 {
     /**
      * Создать экземпляр с заданным значением
@@ -97,7 +97,7 @@ class CommonValue implements CommonValueInterface
             return $this;
         }
 
-        return new static($value, false);
+        return new self($value, false);
     }
 
     public function class(): string

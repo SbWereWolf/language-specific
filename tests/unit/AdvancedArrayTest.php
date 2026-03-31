@@ -4,8 +4,8 @@
  * @author   SbWereWolf <ulfnew@gmail.com>
  * @link     https://github.com/SbWereWolf/language-specific
  *
- * Copyright © 2025 Volkhin Nikolay
- * 2/27/25, 12:36 AM
+ * Copyright © 2026 Volkhin Nikolay
+ * 3/31/26, 6:43 AM
  */
 
 declare(strict_types=1);
@@ -233,5 +233,51 @@ class AdvancedArrayTest extends TestCase
             array_diff($last, $item->raw()),
             'Pulled item MUST BE same as last array element'
         );
+    }
+
+    public function testValuesPreserveOriginalKeys(): void
+    {
+        $data = [
+            'nested' => ['skip me'],
+            'first' => 'A',
+            10 => 'B',
+        ];
+
+        $handler = new AdvancedArrayFactory()->makeAdvancedArray($data);
+
+        $keys = [];
+        $values = [];
+
+        foreach ($handler->values() as $key => $value) {
+            $keys[] = $key;
+            /* @var CommonValueInterface $value */
+            $values[] = $value->asIs();
+        }
+
+        self::assertSame(['first', 10], $keys);
+        self::assertSame(['A', 'B'], $values);
+    }
+
+    public function testArraysPreserveOriginalKeys(): void
+    {
+        $data = [
+            'scalar' => 'ignore me',
+            'left' => ['A'],
+            7 => ['B'],
+        ];
+
+        $handler = new AdvancedArrayFactory()->makeAdvancedArray($data);
+
+        $keys = [];
+        $rows = [];
+
+        foreach ($handler->arrays() as $key => $item) {
+            $keys[] = $key;
+            /* @var AdvancedArrayInterface $item */
+            $rows[] = $item->raw();
+        }
+
+        self::assertSame(['left', 7], $keys);
+        self::assertSame([['A'], ['B']], $rows);
     }
 }
