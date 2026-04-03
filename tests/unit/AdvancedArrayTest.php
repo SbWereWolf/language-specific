@@ -5,7 +5,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2026 Volkhin Nikolay
- * 3/31/26, 6:43 AM
+ * 4/3/26, 8:14 AM
  */
 
 declare(strict_types=1);
@@ -193,6 +193,28 @@ class AdvancedArrayTest extends TestCase
                 ->getAny()->bool(),
             'pull(`again`) MUST contain array with value'
             . ' of true'
+        );
+    }
+
+    public function testPullWithoutKeyReturnsDummyWhenCollectionHasNoNestedArrays(): void
+    {
+        $factory = new AdvancedArrayFactory();
+
+        $data = $factory->makeAdvancedArray([
+            'id' => '42',
+            'enabled' => true,
+            'name' => 'Billing',
+        ]);
+
+        $result = $data->pull();
+
+        self::assertTrue(
+            $result->isDummy(),
+            'pull() without a key must return a dummy array when there are no nested arrays',
+        );
+        self::assertFalse(
+            $result->hasAny(),
+            'dummy array returned by pull() must stay empty',
         );
     }
 
