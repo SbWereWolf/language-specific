@@ -3,8 +3,8 @@
 [![Packagist Version](https://img.shields.io/packagist/v/sbwerewolf/language-specific)](https://packagist.org/packages/sbwerewolf/language-specific)
 [![Packagist Downloads](https://img.shields.io/packagist/dt/sbwerewolf/language-specific)](https://packagist.org/packages/sbwerewolf/language-specific)
 [![License](https://img.shields.io/github/license/SbWereWolf/language-specific)](https://github.com/SbWereWolf/language-specific/blob/master/LICENSE)
-[![CI](https://github.com/SbWereWolf/language-specific/actions/workflows/ci.yml/badge.svg?branch=master&event=push)](https://github.com/SbWereWolf/language-specific/actions/workflows/ci.yml)
-[![Static Analysis](https://github.com/SbWereWolf/language-specific/actions/workflows/static-analysis.yml/badge.svg?branch=master&event=push)](https://github.com/SbWereWolf/language-specific/actions/workflows/static-analysis.yml)
+[![CI](https://github.com/SbWereWolf/language-specific/actions/workflows/ci.yml/badge.svg)](https://github.com/SbWereWolf/language-specific/actions/workflows/ci.yml)
+[![Static Analysis](https://github.com/SbWereWolf/language-specific/actions/workflows/static-analysis.yml/badge.svg)](https://github.com/SbWereWolf/language-specific/actions/workflows/static-analysis.yml)
 [![Test Coverage](https://codecov.io/github/SbWereWolf/language-specific/graph/badge.svg?token=I71W0AFR98)](https://codecov.io/github/SbWereWolf/language-specific)
 
 Read nested arrays safely and cast values predictably in PHP 8.4+
@@ -27,17 +27,21 @@ composer require sbwerewolf/language-specific
 ```php
 use SbWereWolf\LanguageSpecific\AdvancedArrayFactory;
 
-$factory = new AdvancedArrayFactory();
-
-$data = $factory->makeAdvancedArray([
+$payload = [
     'user' => [
         'id' => '42',
         'role' => 'admin',
     ],
-]);
+];
+$data = new AdvancedArrayFactory()->makeAdvancedArray($payload);
 
 $userId = $data->pull('user')->get('id')->int(); // 42
 $timezone = $data->pull('user')->get('timezone')->default('UTC')->str(); // 'UTC'
+// -- OR --
+$user = $data->pull('user');
+
+$userId = $user->get('id')->int(); // 42
+$timezone = $user->get('timezone')->default('UTC')->str(); // 'UTC' 
 ```
 
 ## Code test coverage
