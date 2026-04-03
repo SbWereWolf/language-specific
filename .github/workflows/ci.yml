@@ -9,21 +9,19 @@ on:
 jobs:
   tests:
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        php-version: [ '8.4' ]
+    timeout-minutes: 15
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup PHP
+      - name: Setup PHP 8.4 with PCOV
         uses: shivammathur/setup-php@v2
         with:
-          php-version: ${{ matrix.php-version }}
-          coverage: pcov
+          php-version: '8.4'
           tools: composer:v2
+          coverage: pcov
+          ini-values: pcov.directory=src
 
       - name: Validate composer.json
         run: composer validate --strict
@@ -32,13 +30,23 @@ jobs:
         run: composer install --prefer-dist --no-interaction --no-progress
 
       - name: Run tests
-        run: vendor/bin/phpunit tests/unit
+        run: composer test
 
       - name: Run tests with coverage
-        run: vendor/bin/phpunit tests/unit --coverage-clover coverage.xml
+        run: >-
+          php -d pcov.enabled=1
+          -d pcov.directory=src
+          ./vendor/phpunit/phpunit/phpunit
+          --configuration ./continuous-integration/phpunit/phpunit.xml
+          --colors=always
+          --coverage-clover coverage.xml
+          --coverage-filter ./src
 
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v4
+        uses: codecov/codecov-action@v5
         with:
+          token: ${{ secrets.CODECOV_TOKEN }}
           files: ./coverage.xml
-          fail_ci_if_error: false
+          fail_ci_if_error: true
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
