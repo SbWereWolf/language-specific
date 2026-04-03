@@ -46,7 +46,7 @@
   },
   "autoload": {
     "psr-4": {
-      "": "src/"
+      "SbWereWolf\\LanguageSpecific\\": "src/SbWereWolf/LanguageSpecific/"
     }
   },
   "archive": {
