@@ -49,6 +49,11 @@
       "SbWereWolf\\LanguageSpecific\\": "src/SbWereWolf/LanguageSpecific/"
     }
   },
+  "autoload-dev": {
+    "psr-4": {
+      "SbWereWolf\\LanguageSpecific\\Tests\\": "tests/"
+    }
+  },
   "archive": {
     "exclude": [
       "/tests",
