@@ -7,7 +7,7 @@
 [![Static Analysis](https://github.com/SbWereWolf/language-specific/actions/workflows/static-analysis.yml/badge.svg)](https://github.com/SbWereWolf/language-specific/actions/workflows/static-analysis.yml)
 [![Test Coverage](https://codecov.io/github/SbWereWolf/language-specific/graph/badge.svg?token=I71W0AFR98)](https://codecov.io/github/SbWereWolf/language-specific)
 
-Read nested arrays safely and cast values predictably in PHP 7.3
+Read nested arrays safely and cast values predictably in PHP 7.1
 
 Use it when you need to:
 
@@ -762,7 +762,7 @@ $data = $factory->makeAdvancedArray([
     ],
 ]);
 
-echo json_encode($data, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR);
+echo json_encode($data, JSON_PRETTY_PRINT);
 /*
 {
     "name": "Billing",

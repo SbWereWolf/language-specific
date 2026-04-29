@@ -1,8 +1,7 @@
 {
   "name": "sbwerewolf/language-specific",
-  "description": "Read nested arrays safely and cast values predictably in PHP 7.3",
-  "license": "MIT",
   "type": "library",
+  "description": "Read nested arrays safely and cast values predictably in PHP 7.1",
   "keywords": [
     "php",
     "arrays",
@@ -13,37 +12,39 @@
     "config",
     "composer package"
   ],
+  "homepage": "https://github.com/SbWereWolf/language-specific",
+  "license": "MIT",
   "authors": [
     {
       "name": "Volkhin Nicholas",
       "email": "ulfnew@gmail.com"
     }
   ],
-  "homepage": "https://github.com/SbWereWolf/language-specific",
-  "support": {
-    "issues": "https://github.com/SbWereWolf/language-specific/issues",
-    "chat": "https://t.me/SbWereWolf",
-    "source": "https://github.com/SbWereWolf/language-specific",
-    "docs": "https://github.com/SbWereWolf/language-specific#readme"
-  },
   "require": {
-    "php": ">=7.3 <7.4",
+    "php": ">=7.1 <7.3",
     "ext-json": "*",
+    "symfony/polyfill-php73": "^1.14",
     "symfony/polyfill-php80": "^1.14"
   },
   "require-dev": {
-    "brianium/paratest": "^6.11",
+    "brianium/paratest": "^3.1",
     "composer/package-versions-deprecated": "^1.11",
     "ergebnis/composer-normalize": "^2.0",
-    "infection/infection": "^0.18.2",
-    "phpstan/extension-installer": "^1.4",
-    "phpstan/phpstan": "^1.12",
-    "phpstan/phpstan-deprecation-rules": "^1.2",
-    "phpstan/phpstan-phpunit": "^1.4",
-    "phpstan/phpstan-strict-rules": "^1.6",
-    "phpunit/phpunit": "^9.6",
-    "rector/rector": "^0.19",
-    "squizlabs/php_codesniffer": "^4.0"
+    "infection/infection": "^0.13.4",
+    "phpstan/extension-installer": "^1.1",
+    "phpstan/phpstan": "^0.12.99",
+    "phpstan/phpstan-deprecation-rules": "^0.12",
+    "phpstan/phpstan-phpunit": "^0.12",
+    "phpstan/phpstan-strict-rules": "^0.12",
+    "phpunit/phpunit": "^7.5",
+    "squizlabs/php_codesniffer": "^3.7"
+  },
+  "config": {
+    "allow-plugins": {
+      "ergebnis/composer-normalize": true,
+      "phpstan/extension-installer": true
+    },
+    "sort-packages": true
   },
   "autoload": {
     "psr-4": {
@@ -64,29 +65,27 @@
       "/.gitattributes"
     ]
   },
-  "config": {
-    "allow-plugins": {
-      "ergebnis/composer-normalize": true,
-      "infection/extension-installer": true,
-      "phpstan/extension-installer": true
-    },
-    "sort-packages": true
-  },
   "scripts": {
     "check-style": "php ./vendor/bin/phpcs --standard=continuous-integration/phpcs/phpcs.xml -v",
     "fix-style": "php ./vendor/bin/phpcbf --standard=continuous-integration/phpcs/phpcs.xml -v",
     "mutate": "vendor/bin/infection --configuration=infection.json5 --threads=max",
     "mutate:changed": "vendor/bin/infection --configuration=infection.json5 --git-diff-lines",
-    "mutate:ci": "vendor/bin/infection --configuration=infection.json5 --coverage=continuous-integration/infection/coverage --skip-initial-tests --threads=max",
+    "mutate:ci": "vendor/bin/infection --configuration=infection.json5 --coverage=continuous-integration/infection/coverage --threads=max --min-msi=100 --min-covered-msi=100 --ignore-msi-with-no-mutations",
     "normalize-check": "composer normalize --dry-run",
     "normalize-fix": "composer normalize",
     "phpstan-check": "php ./vendor/bin/phpstan analyse -vvv --configuration continuous-integration/phpstan/phpstan.neon",
     "phpstan-suppress": "php ./vendor/bin/phpstan analyse -vvv --configuration continuous-integration/phpstan/phpstan.neon --generate-baseline continuous-integration/phpstan/ignore-errors/baseline.neon",
     "test": "php ./vendor/phpunit/phpunit/phpunit --configuration ./continuous-integration/phpunit/phpunit.xml --testdox --colors=always",
-    "test:coverage": "php -d xdebug.mode=coverage ./vendor/phpunit/phpunit/phpunit --configuration ./continuous-integration/phpunit/phpunit.xml --testdox --colors=always --coverage-html ./continuous-integration/autotests-coverage-report --coverage-filter ./src",
-    "test:coverage:infection": "php -d xdebug.mode=coverage ./vendor/phpunit/phpunit/phpunit --configuration ./continuous-integration/phpunit/phpunit.xml --coverage-xml continuous-integration/infection/coverage/coverage-xml --log-junit continuous-integration/infection/coverage/junit.xml",
-    "test:coverage:pcov": "php -d pcov.enabled=1 -d pcov.directory=src ./vendor/phpunit/phpunit/phpunit --configuration ./continuous-integration/phpunit/phpunit.xml --colors=always --coverage-clover coverage.xml --coverage-filter ./src",
+    "test:coverage": "php -d xdebug.mode=coverage ./vendor/phpunit/phpunit/phpunit --configuration ./continuous-integration/phpunit/phpunit.xml --testdox --colors=always --coverage-html ./continuous-integration/autotests-coverage-report",
+    "test:coverage:infection": "php -d xdebug.mode=coverage ./vendor/phpunit/phpunit/phpunit --configuration ./continuous-integration/phpunit/phpunit.xml --coverage-xml continuous-integration/infection/coverage/coverage-xml --log-junit continuous-integration/infection/coverage/phpunit.junit.xml",
+    "test:coverage:pcov": "php -d pcov.enabled=1 -d pcov.directory=src ./vendor/phpunit/phpunit/phpunit --configuration ./continuous-integration/phpunit/phpunit.xml --colors=always --coverage-clover coverage.xml",
     "test:parallel": "php ./vendor/bin/paratest --processes=6 --configuration ./continuous-integration/phpunit/phpunit.xml --colors=always",
     "test:parallel:functional": "php ./vendor/bin/paratest --functional --processes=6 --configuration ./continuous-integration/phpunit/phpunit.xml --colors=always"
+  },
+  "support": {
+    "issues": "https://github.com/SbWereWolf/language-specific/issues",
+    "chat": "https://t.me/SbWereWolf",
+    "source": "https://github.com/SbWereWolf/language-specific",
+    "docs": "https://github.com/SbWereWolf/language-specific#readme"
   }
 }

@@ -8,18 +8,13 @@
   "logs": {
     "text": "continuous-integration/infection/infection.log",
     "summary": "continuous-integration/infection/summary.log",
-    "json": "continuous-integration/infection/infection.json",
     "perMutator": "continuous-integration/infection/per-mutator.md"
   },
   "phpUnit": {
     "configDir": "continuous-integration/phpunit"
   },
   "testFramework": "phpunit",
-  "testFrameworkOptions": "--do-not-cache-result",
   "initialTestsPhpOptions": "-d xdebug.mode=coverage",
-  "minMsi": 100,
-  "minCoveredMsi": 100,
-  "ignoreMsiWithNoMutations": true,
   "mutators": {
     "@default": true,
     "@function_signature": false,

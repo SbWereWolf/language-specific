@@ -5,7 +5,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2026 Volkhin Nikolay
- * 4/29/26, 12:53 PM
+ * 4/30/26, 12:38 AM
  */
 
 declare(strict_types=1);
@@ -210,11 +210,11 @@ class AdvancedArrayTest extends TestCase
 
         self::assertTrue(
             $result->isDummy(),
-            'pull() without a key must return a dummy array when there are no nested arrays',
+            'pull() without a key must return a dummy array when there are no nested arrays'
         );
         self::assertFalse(
             $result->hasAny(),
-            'dummy array returned by pull() must stay empty',
+            'dummy array returned by pull() must stay empty'
         );
     }
 

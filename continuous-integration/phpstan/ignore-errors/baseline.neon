@@ -1,43 +1,16 @@
 parameters:
 	ignoreErrors:
-		-
-			message: '#^Parameter \#1 \$key of function array_key_exists expects int\|string, bool\|float\|int\|string given\.$#'
-			identifier: argument.type
-			count: 1
-			path: ../../../src/SbWereWolf/LanguageSpecific/AdvancedArray.php
+			-
+				message: '#^Parameter \#1 \$key of function array_key_exists expects int\|string, bool\|float\|int\|string given\.$#'
+				paths:
+					- ../../../src/SbWereWolf/LanguageSpecific/AdvancedArray.php
 
-		-
-			message: '#^Method SbWereWolf\\LanguageSpecific\\Collection\\BaseArray\:\:jsonSerialize\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: ../../../src/SbWereWolf/LanguageSpecific/Collection/BaseArray.php
+			-
+				message: '#^Method SbWereWolf\\LanguageSpecific\\Collection\\BaseArray\:\:jsonSerialize\(\) return type has no value type specified in iterable type array\.$#'
+				paths:
+					- ../../../src/SbWereWolf/LanguageSpecific/Collection/BaseArray.php
 
-		-
-			message: '#^Return type \(int\|string\|null\) of method SbWereWolf\\LanguageSpecific\\Collection\\BaseArray\:\:key\(\) should be covariant with return type \(\(int\|string\)\) of method Iterator\<\(int\|string\),SbWereWolf\\LanguageSpecific\\Value\\CommonValueInterface\>\:\:key\(\)$#'
-			identifier: method.childReturnType
-			count: 2
-			path: ../../../src/SbWereWolf/LanguageSpecific/Collection/BaseArray.php
-
-		-
-			message: '#^Parameter \#1 \$key of function array_key_exists expects int\|string, bool\|float\|int\|string\|null given\.$#'
-			identifier: argument.type
-			count: 2
-			path: ../../../src/SbWereWolf/LanguageSpecific/Collection/CommonArray.php
-
-		-
-			message: '#^Cannot cast mixed to float\.$#'
-			identifier: cast.double
-			count: 1
-			path: ../../../src/SbWereWolf/LanguageSpecific/Value/CommonValue.php
-
-		-
-			message: '#^Cannot cast mixed to int\.$#'
-			identifier: cast.int
-			count: 1
-			path: ../../../src/SbWereWolf/LanguageSpecific/Value/CommonValue.php
-
-		-
-			message: '#^Cannot cast mixed to string\.$#'
-			identifier: cast.string
-			count: 1
-			path: ../../../src/SbWereWolf/LanguageSpecific/Value/CommonValue.php
+			-
+				message: '#^Parameter \#1 \$key of function array_key_exists expects int\|string, bool\|float\|int\|string\|null given\.$#'
+				paths:
+					- ../../../src/SbWereWolf/LanguageSpecific/Collection/CommonArray.php

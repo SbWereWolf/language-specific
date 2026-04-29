@@ -6,7 +6,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2026 Volkhin Nikolay
- * 4/29/26, 9:17 PM
+ * 4/30/26, 12:38 AM
  */
 
 declare(strict_types=1);
@@ -86,7 +86,7 @@ final class CommonValue implements CommonValueInterface
     }
 
     /** @inheritDoc */
-    public function object(): object
+    public function object()
     {
         return (object)($this->asIs());
     }
@@ -94,7 +94,12 @@ final class CommonValue implements CommonValueInterface
     /** @inheritDoc */
     public function type(): string
     {
-        return gettype($this->asIs());
+        $type = gettype($this->asIs());
+        if ($type !== 'unknown type') {
+            return $type;
+        }
+
+        return get_debug_type($this->asIs()) === 'resource (closed)' ? 'resource (closed)' : $type;
     }
 
     /** @inheritDoc */

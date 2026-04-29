@@ -5,7 +5,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2026 Volkhin Nikolay
- * 4/29/26, 1:15 PM
+ * 4/30/26, 12:38 AM
  */
 
 declare(strict_types=1);
@@ -517,17 +517,18 @@ final class DocumentationExamplesTest extends TestCase
                 'active' => true,
             ],
         ]);
-
-        self::assertSame(
-            <<<'JSON'
+        $expected = <<<'JSON'
 {
     "name": "Billing",
     "flags": {
         "active": true
     }
 }
-JSON,
-            json_encode($data, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR)
+JSON;
+
+        self::assertSame(
+            $expected,
+            json_encode($data, JSON_PRETTY_PRINT)
         );
     }
 }

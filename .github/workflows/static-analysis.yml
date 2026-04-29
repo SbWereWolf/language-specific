@@ -2,9 +2,9 @@ name: Static Analysis
 
 on:
   push:
-    branches: [ master, php-7.3 ]
+    branches: [ master, php-7.1 ]
   pull_request:
-    branches: [ master, php-7.3 ]
+    branches: [ master, php-7.1 ]
 
 jobs:
   phpstan:
@@ -15,10 +15,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup PHP 7.3
+      - name: Setup PHP 7.1
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '7.3'
+          php-version: '7.1'
           tools: composer:v2
           coverage: none
 

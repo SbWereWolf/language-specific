@@ -6,7 +6,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2026 Volkhin Nikolay
- * 4/29/26, 8:46 PM
+ * 4/30/26, 12:38 AM
  */
 
 namespace SbWereWolf\LanguageSpecific\Value;
@@ -76,7 +76,7 @@ interface CommonValueInterface
      *
      * @return object
      */
-    public function object(): object;
+    public function object();
 
     /**
      * Возвращает тип значения, одно из:
