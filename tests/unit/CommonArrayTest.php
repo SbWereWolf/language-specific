@@ -5,7 +5,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2026 Volkhin Nikolay
- * 4/29/26, 12:53 PM
+ * 4/29/26, 8:46 PM
  */
 
 declare(strict_types=1);
@@ -282,32 +282,29 @@ class CommonArrayTest extends TestCase
             $handler->get(null)->str(),
             'Null key MUST return value of empty string key'
         );
-        self::assertTrue(
+        self::assertFalse(
             $handler->has(false),
-            'False key MUST resolve to integer zero'
+            'False key MUST NOT resolve to integer zero in PHP 7.4 array_key_exists()'
         );
-        self::assertSame(
-            'zero',
-            $handler->get(false)->str(),
-            'False key MUST return value from integer zero key'
+        self::assertFalse(
+            $handler->get(false)->isReal(),
+            'False key MUST return dummy value in PHP 7.4 array_key_exists()'
         );
-        self::assertTrue(
+        self::assertFalse(
             $handler->has(true),
-            'True key MUST resolve to integer one'
+            'True key MUST NOT resolve to integer one in PHP 7.4 array_key_exists()'
         );
-        self::assertSame(
-            'one',
-            $handler->get(true)->str(),
-            'True key MUST return value from integer one key'
+        self::assertFalse(
+            $handler->get(true)->isReal(),
+            'True key MUST return dummy value in PHP 7.4 array_key_exists()'
         );
-        self::assertTrue(
+        self::assertFalse(
             $handler->has(0.9),
-            'Float key MUST resolve using PHP array key conversion rules'
+            'Float key MUST NOT resolve using PHP array key conversion rules in PHP 7.4 array_key_exists()'
         );
-        self::assertSame(
-            'zero',
-            $handler->get(0.9)->str(),
-            'Float key MUST return value from converted integer key'
+        self::assertFalse(
+            $handler->get(0.9)->isReal(),
+            'Float key MUST return dummy value in PHP 7.4 array_key_exists()'
         );
         self::assertTrue(
             $handler->has('nested'),

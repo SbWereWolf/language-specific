@@ -6,7 +6,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2026 Volkhin Nikolay
- * 4/29/26, 1:15 PM
+ * 4/29/26, 8:46 PM
  */
 
 declare(strict_types=1);
@@ -31,6 +31,7 @@ class BaseArray implements BaseArrayInterface
      * @var array<array-key, mixed>
      */
     protected array $data;
+    protected CommonValueFactoryInterface $valueFactory;
 
     /**
      * Конструктор класса BaseArray
@@ -42,9 +43,10 @@ class BaseArray implements BaseArrayInterface
      */
     public function __construct(
         array $data,
-        protected CommonValueFactoryInterface $valueFactory,
+        CommonValueFactoryInterface $valueFactory
     ) {
         $this->data = $data;
+        $this->valueFactory = $valueFactory;
     }
 
     /** @inheritDoc */
@@ -76,8 +78,12 @@ class BaseArray implements BaseArrayInterface
         return $this->valueFactory::makeCommonValue(current($this->data));
     }
 
-    /** @inheritDoc */
-    public function key(): int|string|null
+    /**
+     * @inheritDoc
+     *
+     * @return int|string|null
+     */
+    public function key()
     {
         return key($this->data);
     }

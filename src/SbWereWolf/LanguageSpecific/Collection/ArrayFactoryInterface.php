@@ -5,8 +5,8 @@
  * @author   SbWereWolf <ulfnew@gmail.com>
  * @link     https://github.com/SbWereWolf/language-specific
  *
- * Copyright © 2024 Volkhin Nikolay
- * 12/30/24, 11:35 AM
+ * Copyright © 2026 Volkhin Nikolay
+ * 4/29/26, 8:46 PM
  */
 
 namespace SbWereWolf\LanguageSpecific\Collection;
@@ -29,7 +29,7 @@ interface ArrayFactoryInterface
      *
      * @return BaseArrayInterface
      */
-    public function makeBaseArray(mixed $data): BaseArrayInterface;
+    public function makeBaseArray($data): BaseArrayInterface;
 
     /**
      * Возвращает CommonArrayInterface
@@ -38,5 +38,5 @@ interface ArrayFactoryInterface
      *
      * @return CommonArrayInterface
      */
-    public function makeCommonArray(mixed $data): CommonArrayInterface;
+    public function makeCommonArray($data): CommonArrayInterface;
 }

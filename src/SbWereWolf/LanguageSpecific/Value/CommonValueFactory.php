@@ -6,7 +6,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2026 Volkhin Nikolay
- * 4/29/26, 12:53 PM
+ * 4/29/26, 8:46 PM
  */
 
 declare(strict_types=1);
@@ -26,7 +26,7 @@ final class CommonValueFactory implements CommonValueFactoryInterface
 {
     /** @inheritDoc */
     public static function makeCommonValue(
-        mixed $value = null
+        $value = null
     ): CommonValueInterface {
         /** @noinspection PhpUnnecessaryLocalVariableInspection */
         $result = new CommonValue($value, true);

@@ -6,7 +6,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2026 Volkhin Nikolay
- * 4/1/26, 4:31 AM
+ * 4/29/26, 8:46 PM
  */
 
 declare(strict_types=1);
@@ -48,7 +48,7 @@ final class AdvancedArray extends CommonArray implements
         array $data,
         CommonValueFactoryInterface $valueFactory,
         AdvancedArrayFactoryInterface $arrayFactory,
-        bool $isDummy,
+        bool $isDummy
     ) {
         parent::__construct($data, $valueFactory);
 
@@ -75,7 +75,7 @@ final class AdvancedArray extends CommonArray implements
 
     /** @inheritDoc */
     public function pull(
-        int|bool|string|null|float $key = null
+        $key = null
     ): AdvancedArrayInterface {
         if ($key === null) {
             foreach ($this->data as $value) {

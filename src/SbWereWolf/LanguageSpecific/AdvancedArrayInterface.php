@@ -6,7 +6,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2026 Volkhin Nikolay
- * 3/31/26, 2:52 AM
+ * 4/29/26, 8:46 PM
  */
 
 namespace SbWereWolf\LanguageSpecific;
@@ -49,7 +49,7 @@ interface AdvancedArrayInterface extends CommonArrayInterface
      * @return AdvancedArrayInterface
      */
     public function pull(
-        int|bool|string|null|float $key = null
+        $key = null
     ): AdvancedArrayInterface;
 
     /**

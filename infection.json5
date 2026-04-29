@@ -1,28 +1,27 @@
 {
-  source: {
-    directories: [
+  "source": {
+    "directories": [
       "src"
     ]
   },
-  timeout: 10,
-  logs: {
-    text: "continuous-integration/infection/infection.log",
-    summary: "continuous-integration/infection/summary.log",
-    json: "continuous-integration/infection/infection.json",
-    summaryJson: "continuous-integration/infection/summary.json",
-    html: "continuous-integration/infection/infection.html",
-    perMutator: "continuous-integration/infection/per-mutator.md"
+  "timeout": 10,
+  "logs": {
+    "text": "continuous-integration/infection/infection.log",
+    "summary": "continuous-integration/infection/summary.log",
+    "json": "continuous-integration/infection/infection.json",
+    "html": "continuous-integration/infection/infection.html",
+    "perMutator": "continuous-integration/infection/per-mutator.md"
   },
-  phpUnit: {
-    configDir: "continuous-integration/phpunit"
+  "phpUnit": {
+    "configDir": "continuous-integration/phpunit"
   },
-  testFramework: "phpunit",
-  testFrameworkOptions: "--do-not-cache-result",
-  initialTestsPhpOptions: "-d xdebug.mode=coverage",
-  minMsi: 100,
-  minCoveredMsi: 100,
-  ignoreMsiWithNoMutations: true,
-  mutators: {
+  "testFramework": "phpunit",
+  "testFrameworkOptions": "--do-not-cache-result",
+  "initialTestsPhpOptions": "-d xdebug.mode=coverage",
+  "minMsi": 100,
+  "minCoveredMsi": 100,
+  "ignoreMsiWithNoMutations": true,
+  "mutators": {
     "@default": true,
     "@function_signature": false,
     "@regex": false

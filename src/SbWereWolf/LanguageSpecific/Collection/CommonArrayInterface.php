@@ -6,7 +6,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2026 Volkhin Nikolay
- * 3/31/26, 2:52 AM
+ * 4/29/26, 8:46 PM
  */
 
 namespace SbWereWolf\LanguageSpecific\Collection;
@@ -34,7 +34,7 @@ interface CommonArrayInterface extends ArrayAccess, BaseArrayInterface
      *
      * @return bool
      */
-    public function has(string|int|float|bool|null $key): bool;
+    public function has($key): bool;
 
     /**
      * Проверяет, что массив имеет хотя бы одно значение (не пустой)
@@ -52,7 +52,7 @@ interface CommonArrayInterface extends ArrayAccess, BaseArrayInterface
      * @return CommonValueInterface
      */
     public function get(
-        string|int|float|bool|null $key
+        $key
     ): CommonValueInterface;
 
     /**

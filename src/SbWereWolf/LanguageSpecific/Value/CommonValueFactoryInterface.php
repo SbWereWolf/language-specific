@@ -5,8 +5,8 @@
  * @author   SbWereWolf <ulfnew@gmail.com>
  * @link     https://github.com/SbWereWolf/language-specific
  *
- * Copyright © 2024 Volkhin Nikolay
- * 12/30/24, 11:35 AM
+ * Copyright © 2026 Volkhin Nikolay
+ * 4/29/26, 8:46 PM
  */
 
 namespace SbWereWolf\LanguageSpecific\Value;
@@ -30,7 +30,7 @@ interface CommonValueFactoryInterface
      * @return CommonValueInterface
      */
     public static function makeCommonValue(
-        mixed $value = null
+        $value = null
     ): CommonValueInterface;
 
     /**

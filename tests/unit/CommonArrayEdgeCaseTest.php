@@ -5,7 +5,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2026 Volkhin Nikolay
- * 4/29/26, 12:53 PM
+ * 4/29/26, 8:46 PM
  */
 
 declare(strict_types=1);
@@ -37,13 +37,13 @@ final class CommonArrayEdgeCaseTest extends TestCase
 
         // Check cast to zero
         self::assertSame('zero', $handler->get(0)->str());
-        self::assertSame('zero', $handler->get(-0.9)->str());
         self::assertSame('zero', $handler->get('0')->str());
-        self::assertSame('zero', $handler->get(false)->str());
 
-        // Check cast to one
-        self::assertSame('one', $handler->get(true)->str());
-        self::assertSame('one', $handler->get(1.9)->str());
+        // Check unsupported keys in PHP 7.4 array_key_exists()
+        self::assertFalse($handler->get(-0.9)->isReal());
+        self::assertFalse($handler->get(false)->isReal());
+        self::assertFalse($handler->get(true)->isReal());
+        self::assertFalse($handler->get(1.9)->isReal());
 
         // Check cast to empty string
         self::assertSame('empty-string', $handler->get(null)->str());

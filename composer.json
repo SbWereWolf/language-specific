@@ -1,6 +1,6 @@
 {
   "name": "sbwerewolf/language-specific",
-  "description": "Read nested arrays safely and cast values predictably in PHP 8.0",
+  "description": "Read nested arrays safely and cast values predictably in PHP 7.4",
   "license": "MIT",
   "type": "library",
   "keywords": [
@@ -27,7 +27,7 @@
     "docs": "https://github.com/SbWereWolf/language-specific#readme"
   },
   "require": {
-    "php": ">=8.0 <8.1",
+    "php": ">=7.4 <8.0",
     "ext-json": "*"
   },
   "require-dev": {

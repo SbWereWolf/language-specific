@@ -5,8 +5,8 @@
  * @author   SbWereWolf <ulfnew@gmail.com>
  * @link     https://github.com/SbWereWolf/language-specific
  *
- * Copyright © 2025 Volkhin Nikolay
- * 7/30/25, 11:18 AM
+ * Copyright © 2026 Volkhin Nikolay
+ * 4/29/26, 8:46 PM
  */
 
 namespace SbWereWolf\LanguageSpecific\Value;
@@ -34,7 +34,7 @@ interface CommonValueInterface
      *
      * @return mixed
      */
-    public function asIs(): mixed;
+    public function asIs();
 
     /**
      * Возвращает значение приведённое к int
@@ -102,10 +102,10 @@ interface CommonValueInterface
     /**
      * Использовать заданное значение в качестве значения по умолчанию
      *
-     * @param $value mixed|null значение по умолчанию, будет присвоено
+     * @param mixed|null $value значение по умолчанию, будет присвоено
      *               если значение незаданное
      *
      * @return CommonValueInterface
      */
-    public function default(mixed $value = null): CommonValueInterface;
+    public function default($value = null): CommonValueInterface;
 }

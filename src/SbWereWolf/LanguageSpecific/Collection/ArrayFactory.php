@@ -6,7 +6,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2026 Volkhin Nikolay
- * 4/29/26, 1:15 PM
+ * 4/29/26, 8:46 PM
  */
 
 declare(strict_types=1);
@@ -36,7 +36,7 @@ class ArrayFactory implements ArrayFactoryInterface
      *                                  экземпляров CommonValueInterface
      */
     public function __construct(
-        CommonValueFactoryInterface|null $factory = null
+        ?CommonValueFactoryInterface $factory = null
     ) {
         if (is_null($factory)) {
             $factory = new CommonValueFactory();
@@ -46,7 +46,7 @@ class ArrayFactory implements ArrayFactoryInterface
     }
 
     /** @inheritDoc */
-    public function makeBaseArray(mixed $data): BaseArrayInterface
+    public function makeBaseArray($data): BaseArrayInterface
     {
         $data = $this->makeItProper($data);
 
@@ -60,13 +60,13 @@ class ArrayFactory implements ArrayFactoryInterface
      *
      * @return array<array-key, mixed>
      */
-    protected function makeItProper(mixed $data): array
+    protected function makeItProper($data): array
     {
         return is_array($data) ? $data : [$data];
     }
 
     /** @inheritDoc */
-    public function makeCommonArray(mixed $data): CommonArrayInterface
+    public function makeCommonArray($data): CommonArrayInterface
     {
         $data = $this->makeItProper($data);
 

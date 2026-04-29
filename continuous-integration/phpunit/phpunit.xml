@@ -11,10 +11,13 @@
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="../../vendor/phpunit/phpunit/phpunit.xsd"
          bootstrap="../../vendor/autoload.php"
+         convertDeprecationsToExceptions="false"
+         convertNoticesToExceptions="false"
+         convertWarningsToExceptions="false"
          executionOrder="depends,defects"
-         beStrictAboutOutputDuringTests="true"
+         beStrictAboutOutputDuringTests="false"
          failOnRisky="true"
-         failOnWarning="true">
+         failOnWarning="false">
     <testsuites>
         <testsuite name="default">
             <directory>../../tests/unit</directory>

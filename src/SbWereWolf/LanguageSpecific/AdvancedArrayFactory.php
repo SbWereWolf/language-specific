@@ -6,7 +6,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2026 Volkhin Nikolay
- * 4/29/26, 12:53 PM
+ * 4/29/26, 8:46 PM
  */
 
 declare(strict_types=1);
@@ -40,7 +40,7 @@ final class AdvancedArrayFactory extends ArrayFactory implements
 
     /** @inheritDoc */
     public function makeAdvancedArray(
-        mixed $data,
+        $data
     ): AdvancedArrayInterface {
         $data = $this->makeItProper($data);
         /** @noinspection PhpUnnecessaryLocalVariableInspection */

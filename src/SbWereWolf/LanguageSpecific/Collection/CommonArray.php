@@ -6,7 +6,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2026 Volkhin Nikolay
- * 3/31/26, 3:31 AM
+ * 4/29/26, 8:46 PM
  */
 
 declare(strict_types=1);
@@ -28,7 +28,7 @@ class CommonArray extends BaseArray implements CommonArrayInterface
 {
     /** @inheritDoc */
     public function get(
-        string|int|float|bool|null $key
+        $key
     ): CommonValueInterface {
         if (!array_key_exists($key, $this->data)) {
             return $this->valueFactory::makeCommonValueAsDummy();
@@ -49,7 +49,7 @@ class CommonArray extends BaseArray implements CommonArrayInterface
     }
 
     /** @inheritDoc */
-    public function has(string|int|float|bool|null $key): bool
+    public function has($key): bool
     {
         $result = array_key_exists($key, $this->data);
 
@@ -70,7 +70,7 @@ class CommonArray extends BaseArray implements CommonArrayInterface
      *
      * @return bool
      */
-    private function isSupportedIndex(mixed $offset): bool
+    private function isSupportedIndex($offset): bool
     {
         return is_int($offset)
             || is_string($offset)

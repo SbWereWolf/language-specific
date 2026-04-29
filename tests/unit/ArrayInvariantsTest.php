@@ -5,7 +5,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2026 Volkhin Nikolay
- * 3/30/26, 8:30 PM
+ * 4/29/26, 8:46 PM
  */
 
 declare(strict_types=1);
@@ -24,13 +24,23 @@ final class ArrayInvariantsTest extends TestCase
             $data = [];
             for ($j = 0; $j < 20; $j++) {
                 $selector = mt_rand(0, 4);
-                $value = match ($selector) {
-                    0 => mt_rand(0, 1000),
-                    1 => (string)mt_rand(0, 1000),
-                    2 => (bool)mt_rand(0, 1),
-                    3 => null,
-                    default => [mt_rand(0, 10), mt_rand(0, 10)],
-                };
+                switch ($selector) {
+                    case 0:
+                        $value = mt_rand(0, 1000);
+                        break;
+                    case 1:
+                        $value = (string)mt_rand(0, 1000);
+                        break;
+                    case 2:
+                        $value = (bool)mt_rand(0, 1);
+                        break;
+                    case 3:
+                        $value = null;
+                        break;
+                    default:
+                        $value = [mt_rand(0, 10), mt_rand(0, 10)];
+                        break;
+                }
                 $data['k' . $j] = $value;
             }
 

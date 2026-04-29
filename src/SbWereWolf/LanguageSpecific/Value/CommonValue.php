@@ -6,7 +6,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2026 Volkhin Nikolay
- * 4/29/26, 1:15 PM
+ * 4/29/26, 8:46 PM
  */
 
 declare(strict_types=1);
@@ -24,6 +24,10 @@ namespace SbWereWolf\LanguageSpecific\Value;
  */
 final class CommonValue implements CommonValueInterface
 {
+    /** @var mixed */
+    private $value;
+    private bool $isReal;
+
     /**
      * Создать экземпляр с заданным значением
      *
@@ -31,9 +35,11 @@ final class CommonValue implements CommonValueInterface
      * @param bool $isReal Значение является действительным
      */
     public function __construct(
-        private mixed $value = null,
-        private bool $isReal = true
+        $value = null,
+        bool $isReal = true
     ) {
+        $this->value = $value;
+        $this->isReal = $isReal;
     }
 
     /** @inheritDoc */
@@ -43,7 +49,7 @@ final class CommonValue implements CommonValueInterface
     }
 
     /** @inheritDoc */
-    public function asIs(): mixed
+    public function asIs()
     {
         return $this->value;
     }
@@ -91,7 +97,7 @@ final class CommonValue implements CommonValueInterface
     }
 
     /** @inheritDoc */
-    public function default(mixed $value = null): CommonValueInterface
+    public function default($value = null): CommonValueInterface
     {
         if ($this->isReal()) {
             return $this;
