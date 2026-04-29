@@ -5,7 +5,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2026 Volkhin Nikolay
- * 3/20/26, 2:53 AM
+ * 4/29/26, 1:15 PM
  */
 
 declare(strict_types=1);
@@ -488,6 +488,11 @@ final class DocumentationExamplesTest extends TestCase
             'name' => 'Billing',
             'active' => true,
         ]);
+
+        self::assertSame('name', $data->key());
+        $data->next();
+        self::assertSame('active', $data->key());
+        $data->rewind();
 
         $result = [];
         foreach ($data as $key => $value) {

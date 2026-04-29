@@ -6,7 +6,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2026 Volkhin Nikolay
- * 3/30/26, 8:29 PM
+ * 4/29/26, 1:15 PM
  */
 
 declare(strict_types=1);
@@ -42,7 +42,7 @@ class BaseArray implements BaseArrayInterface
      */
     public function __construct(
         array $data,
-        protected readonly CommonValueFactoryInterface $valueFactory,
+        protected CommonValueFactoryInterface $valueFactory,
     ) {
         $this->data = $data;
     }

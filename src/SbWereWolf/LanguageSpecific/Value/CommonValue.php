@@ -6,7 +6,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2026 Volkhin Nikolay
- * 4/29/26, 12:53 PM
+ * 4/29/26, 1:15 PM
  */
 
 declare(strict_types=1);
@@ -31,8 +31,8 @@ final class CommonValue implements CommonValueInterface
      * @param bool $isReal Значение является действительным
      */
     public function __construct(
-        private readonly mixed $value = null,
-        private readonly bool $isReal = true
+        private mixed $value = null,
+        private bool $isReal = true
     ) {
     }
 

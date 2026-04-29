@@ -1,6 +1,6 @@
 {
   "name": "sbwerewolf/language-specific",
-  "description": "Read nested arrays safely and cast values predictably in PHP 8.1",
+  "description": "Read nested arrays safely and cast values predictably in PHP 8.0",
   "license": "MIT",
   "type": "library",
   "keywords": [
@@ -27,20 +27,19 @@
     "docs": "https://github.com/SbWereWolf/language-specific#readme"
   },
   "require": {
-    "php": ">=8.1 <8.2",
+    "php": ">=8.0 <8.1",
     "ext-json": "*"
   },
   "require-dev": {
-    "brianium/paratest": "^7.0",
-    "buggregator/trap": "^1.15",
+    "brianium/paratest": "^6.11",
     "ergebnis/composer-normalize": "^2.0",
-    "infection/infection": "^0.29",
+    "infection/infection": "^0.26",
     "phpstan/extension-installer": "^1.4",
     "phpstan/phpstan": "^2.1",
     "phpstan/phpstan-deprecation-rules": "^2.0",
     "phpstan/phpstan-phpunit": "^2.0",
     "phpstan/phpstan-strict-rules": "^2.0",
-    "phpunit/phpunit": "^10.5",
+    "phpunit/phpunit": "^9.6",
     "rector/rector": "^2.0",
     "squizlabs/php_codesniffer": "^4.0"
   },
@@ -76,13 +75,11 @@
     "fix-style": "php ./vendor/bin/phpcbf --standard=continuous-integration/phpcs/phpcs.xml -v",
     "mutate": "vendor/bin/infection --configuration=infection.json5 --threads=max",
     "mutate:changed": "vendor/bin/infection --configuration=infection.json5 --git-diff-lines",
-    "mutate:ci": "vendor/bin/infection --configuration=infection.json5 --coverage=coverage --skip-initial-tests --only-covering-test-cases --threads=max",
+    "mutate:ci": "vendor/bin/infection --configuration=infection.json5 --coverage=continuous-integration/infection/coverage --skip-initial-tests --only-covering-test-cases --threads=max",
     "normalize-check": "composer normalize --dry-run",
     "normalize-fix": "composer normalize",
     "phpstan-check": "php ./vendor/bin/phpstan analyse -vvv --configuration continuous-integration/phpstan/phpstan.neon",
     "phpstan-suppress": "php ./vendor/bin/phpstan analyse -vvv --configuration continuous-integration/phpstan/phpstan.neon --generate-baseline continuous-integration/phpstan/ignore-errors/baseline.neon",
-    "rector-check": "php ./vendor/bin/rector -c continuous-integration/rector/rector.php process src tests --dry-run",
-    "rector-fix": "php ./vendor/bin/rector -c continuous-integration/rector/rector.php process src tests",
     "test": "php ./vendor/phpunit/phpunit/phpunit --configuration ./continuous-integration/phpunit/phpunit.xml --testdox --colors=always",
     "test:coverage": "php -d xdebug.mode=coverage ./vendor/phpunit/phpunit/phpunit --configuration ./continuous-integration/phpunit/phpunit.xml --testdox --colors=always --coverage-html ./continuous-integration/autotests-coverage-report --coverage-filter ./src",
     "test:coverage:infection": "php -d xdebug.mode=coverage ./vendor/phpunit/phpunit/phpunit --configuration ./continuous-integration/phpunit/phpunit.xml --coverage-xml continuous-integration/infection/coverage/coverage-xml --log-junit continuous-integration/infection/coverage/junit.xml",
