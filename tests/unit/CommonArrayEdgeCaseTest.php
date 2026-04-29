@@ -5,7 +5,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2026 Volkhin Nikolay
- * 3/31/26, 3:31 AM
+ * 4/29/26, 12:53 PM
  */
 
 declare(strict_types=1);
@@ -17,7 +17,8 @@ final class CommonArrayEdgeCaseTest extends TestCase
 {
     public function testIndexAccessWithUnsupportedIndexesReturnsSafeDefaults(): void
     {
-        $handler = new ArrayFactory()->makeCommonArray(['value' => 42]);
+        $factory = new ArrayFactory();
+        $handler = $factory->makeCommonArray(['value' => 42]);
 
         self::assertFalse(isset($handler[new stdClass()]));
         self::assertFalse(isset($handler[[]]));
@@ -27,7 +28,8 @@ final class CommonArrayEdgeCaseTest extends TestCase
 
     public function testPhpArrayKeyCoercionBehaviourIsStable(): void
     {
-        $handler = new ArrayFactory()->makeCommonArray([
+        $factory = new ArrayFactory();
+        $handler = $factory->makeCommonArray([
             0 => 'zero',
             1 => 'one',
             '' => 'empty-string',

@@ -5,8 +5,6 @@
     ]
   },
   timeout: 10,
-  threads: "max",
-  tmpDir: "continuous-integration/infection/tmp",
   logs: {
     text: "continuous-integration/infection/infection.log",
     summary: "continuous-integration/infection/summary.log",
@@ -18,19 +16,12 @@
   phpUnit: {
     configDir: "continuous-integration/phpunit"
   },
-  phpStan: {
-    configDir: "continuous-integration/phpstan"
-  },
   testFramework: "phpunit",
   testFrameworkOptions: "--do-not-cache-result",
-  staticAnalysisTool: "phpstan",
-  staticAnalysisToolOptions: "--memory-limit=1G",
   initialTestsPhpOptions: "-d xdebug.mode=coverage",
   minMsi: 100,
   minCoveredMsi: 100,
   ignoreMsiWithNoMutations: true,
-  timeoutsAsEscaped: true,
-  maxTimeouts: 0,
   mutators: {
     "@default": true,
     "@function_signature": false,

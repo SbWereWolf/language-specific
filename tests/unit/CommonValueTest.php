@@ -5,7 +5,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2026 Volkhin Nikolay
- * 3/31/26, 6:43 AM
+ * 4/29/26, 12:53 PM
  */
 
 declare(strict_types=1);
@@ -444,6 +444,19 @@ class CommonValueTest extends TestCase
         self::assertTrue(
             $sample->asIs() === 1,
             'Value of asIs() MUST BE zero'
+        );
+
+        $scalar = CommonValueFactory::makeCommonValue(7)->object();
+
+        self::assertInstanceOf(
+            stdClass::class,
+            $scalar,
+            'Scalar value MUST be cast to stdClass'
+        );
+        self::assertSame(
+            ['scalar' => 7],
+            (array)$scalar,
+            'Scalar object cast MUST preserve scalar value'
         );
     }
 

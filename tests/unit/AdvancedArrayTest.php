@@ -5,7 +5,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2026 Volkhin Nikolay
- * 4/3/26, 8:14 AM
+ * 4/29/26, 12:53 PM
  */
 
 declare(strict_types=1);
@@ -265,7 +265,8 @@ class AdvancedArrayTest extends TestCase
             10 => 'B',
         ];
 
-        $handler = new AdvancedArrayFactory()->makeAdvancedArray($data);
+        $factory = new AdvancedArrayFactory();
+        $handler = $factory->makeAdvancedArray($data);
 
         $keys = [];
         $values = [];
@@ -288,7 +289,8 @@ class AdvancedArrayTest extends TestCase
             7 => ['B'],
         ];
 
-        $handler = new AdvancedArrayFactory()->makeAdvancedArray($data);
+        $factory = new AdvancedArrayFactory();
+        $handler = $factory->makeAdvancedArray($data);
 
         $keys = [];
         $rows = [];

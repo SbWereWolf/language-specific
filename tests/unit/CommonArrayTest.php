@@ -5,7 +5,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2026 Volkhin Nikolay
- * 3/31/26, 6:43 AM
+ * 4/29/26, 12:53 PM
  */
 
 declare(strict_types=1);
@@ -325,7 +325,8 @@ class CommonArrayTest extends TestCase
 
     public function testOffsetSetThrowsExpectedImmutableExceptionCode(): void
     {
-        $handler = new ArrayFactory()->makeCommonArray([0 => 'first']);
+        $factory = new ArrayFactory();
+        $handler = $factory->makeCommonArray([0 => 'first']);
 
         $this->expectException(ValueIsImmutableException::class);
         $this->expectExceptionMessage('Value of element is immutable.');
@@ -336,7 +337,8 @@ class CommonArrayTest extends TestCase
 
     public function testOffsetUnsetThrowsExpectedImmutableExceptionCode(): void
     {
-        $handler = new ArrayFactory()->makeCommonArray([0 => 'first']);
+        $factory = new ArrayFactory();
+        $handler = $factory->makeCommonArray([0 => 'first']);
 
         $this->expectException(ListIsImmutableException::class);
         $this->expectExceptionMessage('List of elements is immutable.');

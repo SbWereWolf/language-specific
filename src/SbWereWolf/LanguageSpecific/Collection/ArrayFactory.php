@@ -6,7 +6,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2026 Volkhin Nikolay
- * 4/1/26, 4:31 AM
+ * 4/29/26, 12:53 PM
  */
 
 declare(strict_types=1);
@@ -25,7 +25,7 @@ use SbWereWolf\LanguageSpecific\Value\CommonValueFactoryInterface;
  * @license  MIT license
  * @link     https://github.com/SbWereWolf/language-specific
  */
-readonly class ArrayFactory implements ArrayFactoryInterface
+class ArrayFactory implements ArrayFactoryInterface
 {
     protected readonly CommonValueFactoryInterface $valueFactory;
 
