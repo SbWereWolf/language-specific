@@ -1,7 +1,4 @@
 includes:
     - ignore-errors/baseline.neon
 parameters:
-    level: 8
     tmpDir: tmp/
-    paths:
-        - ../../src

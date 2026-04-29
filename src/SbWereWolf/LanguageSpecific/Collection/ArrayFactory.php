@@ -6,7 +6,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2026 Volkhin Nikolay
- * 4/29/26, 9:17 PM
+ * 4/30/26, 1:00 AM
  */
 
 declare(strict_types=1);
@@ -37,7 +37,7 @@ class ArrayFactory implements ArrayFactoryInterface
      *                                  экземпляров CommonValueInterface
      */
     public function __construct(
-        ?CommonValueFactoryInterface $factory = null
+        CommonValueFactoryInterface $factory = null
     ) {
         if (is_null($factory)) {
             $factory = new CommonValueFactory();

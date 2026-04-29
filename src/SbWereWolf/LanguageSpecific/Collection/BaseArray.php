@@ -6,7 +6,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2026 Volkhin Nikolay
- * 4/29/26, 9:17 PM
+ * 4/30/26, 1:00 AM
  */
 
 declare(strict_types=1);
@@ -64,7 +64,7 @@ class BaseArray implements BaseArrayInterface
     }
 
     /** @inheritDoc */
-    public function rewind(): void
+    public function rewind()
     {
         reset($this->data);
     }
@@ -90,7 +90,7 @@ class BaseArray implements BaseArrayInterface
     }
 
     /** @inheritDoc */
-    public function next(): void
+    public function next()
     {
         next($this->data);
     }

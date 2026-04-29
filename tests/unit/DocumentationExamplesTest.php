@@ -5,7 +5,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2026 Volkhin Nikolay
- * 4/30/26, 12:38 AM
+ * 4/30/26, 1:00 AM
  */
 
 declare(strict_types=1);
@@ -22,7 +22,7 @@ final class DocumentationNamedExampleClass
 
 final class DocumentationExamplesTest extends TestCase
 {
-    public function testKillerFeatureSafeNestedConfigAccess(): void
+    public function testKillerFeatureSafeNestedConfigAccess()
     {
         $factory = new AdvancedArrayFactory();
         $config = $factory->makeAdvancedArray([
@@ -51,7 +51,7 @@ final class DocumentationExamplesTest extends TestCase
         self::assertSame('sync', $fallback);
     }
 
-    public function testKillerFeatureHttpPayloadParsing(): void
+    public function testKillerFeatureHttpPayloadParsing()
     {
         $factory = new AdvancedArrayFactory();
         $payload = $factory->makeAdvancedArray([
@@ -70,7 +70,7 @@ final class DocumentationExamplesTest extends TestCase
         self::assertSame('UTC', $timezone);
     }
 
-    public function testKillerFeatureLegacyArraysNormalization(): void
+    public function testKillerFeatureLegacyArraysNormalization()
     {
         $factory = new ArrayFactory();
         $legacy = $factory->makeCommonArray('legacy-value');
@@ -80,7 +80,7 @@ final class DocumentationExamplesTest extends TestCase
         self::assertSame('legacy-value', $legacy->get(0)->str());
     }
 
-    public function testAdvancedArrayFactoryCreationExample(): void
+    public function testAdvancedArrayFactoryCreationExample()
     {
         $factory = new AdvancedArrayFactory();
         $data = $factory->makeAdvancedArray([
@@ -93,7 +93,7 @@ final class DocumentationExamplesTest extends TestCase
         self::assertSame('Billing', $data->pull('service')->get('name')->str());
     }
 
-    public function testAdvancedArrayPullExample(): void
+    public function testAdvancedArrayPullExample()
     {
         $factory = new AdvancedArrayFactory();
         $data = $factory->makeAdvancedArray([
@@ -116,7 +116,7 @@ final class DocumentationExamplesTest extends TestCase
         self::assertSame('eu', $data->pull('meta')->get('region')->str());
     }
 
-    public function testAdvancedArrayIsDummyExample(): void
+    public function testAdvancedArrayIsDummyExample()
     {
         $factory = new AdvancedArrayFactory();
         $data = $factory->makeAdvancedArray([
@@ -129,7 +129,7 @@ final class DocumentationExamplesTest extends TestCase
         self::assertTrue($data->pull('missing')->isDummy());
     }
 
-    public function testAdvancedArrayGetExample(): void
+    public function testAdvancedArrayGetExample()
     {
         $factory = new AdvancedArrayFactory();
         $data = $factory->makeAdvancedArray([
@@ -143,7 +143,7 @@ final class DocumentationExamplesTest extends TestCase
         self::assertFalse($data->get('missing')->isReal());
     }
 
-    public function testAdvancedArrayGetAnyExample(): void
+    public function testAdvancedArrayGetAnyExample()
     {
         $factory = new AdvancedArrayFactory();
         $filled = $factory->makeAdvancedArray([
@@ -158,7 +158,7 @@ final class DocumentationExamplesTest extends TestCase
         self::assertFalse($empty->getAny()->isReal());
     }
 
-    public function testAdvancedArrayHasExample(): void
+    public function testAdvancedArrayHasExample()
     {
         $factory = new AdvancedArrayFactory();
         $data = $factory->makeAdvancedArray([
@@ -171,7 +171,7 @@ final class DocumentationExamplesTest extends TestCase
         self::assertFalse($data->has('missing'));
     }
 
-    public function testAdvancedArrayHasAnyExample(): void
+    public function testAdvancedArrayHasAnyExample()
     {
         $factory = new AdvancedArrayFactory();
         $filled = $factory->makeAdvancedArray([
@@ -183,7 +183,7 @@ final class DocumentationExamplesTest extends TestCase
         self::assertFalse($empty->hasAny());
     }
 
-    public function testAdvancedArrayArraysExample(): void
+    public function testAdvancedArrayArraysExample()
     {
         $factory = new AdvancedArrayFactory();
         $data = $factory->makeAdvancedArray([
@@ -204,7 +204,7 @@ final class DocumentationExamplesTest extends TestCase
         self::assertSame(['first', 'second'], $names);
     }
 
-    public function testAdvancedArrayValuesExample(): void
+    public function testAdvancedArrayValuesExample()
     {
         $factory = new AdvancedArrayFactory();
         $data = $factory->makeAdvancedArray([
@@ -224,7 +224,7 @@ final class DocumentationExamplesTest extends TestCase
         self::assertSame(['first', 'next', 'last'], $values);
     }
 
-    public function testCommonValueAsIsExample(): void
+    public function testCommonValueAsIsExample()
     {
         $value = CommonValueFactory::makeCommonValue([
             'env' => 'prod',
@@ -233,7 +233,7 @@ final class DocumentationExamplesTest extends TestCase
         self::assertSame(['env' => 'prod'], $value->asIs());
     }
 
-    public function testCommonValueIsRealAndDefaultExample(): void
+    public function testCommonValueIsRealAndDefaultExample()
     {
         $dummy = CommonValueFactory::makeCommonValueAsDummy();
         $real = CommonValueFactory::makeCommonValue('real value');
@@ -246,7 +246,7 @@ final class DocumentationExamplesTest extends TestCase
         self::assertSame('real value', $real->default('fallback')->str());
     }
 
-    public function testCommonValueScalarCastExample(): void
+    public function testCommonValueScalarCastExample()
     {
         $value = CommonValueFactory::makeCommonValue('1.1');
 
@@ -256,7 +256,7 @@ final class DocumentationExamplesTest extends TestCase
         self::assertTrue($value->bool());
     }
 
-    public function testCommonValueArrayExample(): void
+    public function testCommonValueArrayExample()
     {
         $stringValue = CommonValueFactory::makeCommonValue('release');
         $arrayValue = CommonValueFactory::makeCommonValue([
@@ -267,7 +267,7 @@ final class DocumentationExamplesTest extends TestCase
         self::assertSame(['env' => 'prod'], $arrayValue->array());
     }
 
-    public function testCommonValueObjectExample(): void
+    public function testCommonValueObjectExample()
     {
         $inner = CommonValueFactory::makeCommonValue(1);
         $outer = CommonValueFactory::makeCommonValue($inner);
@@ -277,7 +277,7 @@ final class DocumentationExamplesTest extends TestCase
         self::assertSame(1, $object->asIs());
     }
 
-    public function testCommonValueTypeExample(): void
+    public function testCommonValueTypeExample()
     {
         $stream = fopen('php://memory', 'r');
 
@@ -312,7 +312,7 @@ final class DocumentationExamplesTest extends TestCase
         );
     }
 
-    public function testCommonValueClassExample(): void
+    public function testCommonValueClassExample()
     {
         $stream = fopen('php://memory', 'r');
         $anonymous = new class () {
@@ -353,7 +353,7 @@ final class DocumentationExamplesTest extends TestCase
         );
     }
 
-    public function testArrayFactoryMakeBaseArrayExample(): void
+    public function testArrayFactoryMakeBaseArrayExample()
     {
         $factory = new ArrayFactory();
         $data = $factory->makeBaseArray('legacy-value');
@@ -361,7 +361,7 @@ final class DocumentationExamplesTest extends TestCase
         self::assertSame(['legacy-value'], $data->raw());
     }
 
-    public function testArrayFactoryMakeCommonArrayExample(): void
+    public function testArrayFactoryMakeCommonArrayExample()
     {
         $factory = new ArrayFactory();
         $data = $factory->makeCommonArray([
@@ -373,7 +373,7 @@ final class DocumentationExamplesTest extends TestCase
         self::assertTrue($data->get('enabled')->bool());
     }
 
-    public function testCommonArrayGetExample(): void
+    public function testCommonArrayGetExample()
     {
         $factory = new ArrayFactory();
         $data = $factory->makeCommonArray([
@@ -386,7 +386,7 @@ final class DocumentationExamplesTest extends TestCase
         self::assertFalse($data->get('missing')->isReal());
     }
 
-    public function testCommonArrayGetAnyExample(): void
+    public function testCommonArrayGetAnyExample()
     {
         $factory = new ArrayFactory();
         $filled = $factory->makeCommonArray([
@@ -399,7 +399,7 @@ final class DocumentationExamplesTest extends TestCase
         self::assertFalse($empty->getAny()->isReal());
     }
 
-    public function testCommonArrayHasExample(): void
+    public function testCommonArrayHasExample()
     {
         $factory = new ArrayFactory();
         $data = $factory->makeCommonArray([
@@ -412,7 +412,7 @@ final class DocumentationExamplesTest extends TestCase
         self::assertFalse($data->has('missing'));
     }
 
-    public function testCommonArrayHasAnyExample(): void
+    public function testCommonArrayHasAnyExample()
     {
         $factory = new ArrayFactory();
         $filled = $factory->makeCommonArray([
@@ -424,7 +424,7 @@ final class DocumentationExamplesTest extends TestCase
         self::assertFalse($empty->hasAny());
     }
 
-    public function testBaseArrayRawExample(): void
+    public function testBaseArrayRawExample()
     {
         $factory = new ArrayFactory();
         $data = $factory->makeBaseArray([
@@ -443,7 +443,7 @@ final class DocumentationExamplesTest extends TestCase
         );
     }
 
-    public function testFactoryHelpersMakeDummyAdvancedArrayExample(): void
+    public function testFactoryHelpersMakeDummyAdvancedArrayExample()
     {
         $factory = new AdvancedArrayFactory();
         $dummy = $factory->makeDummyAdvancedArray();
@@ -452,7 +452,7 @@ final class DocumentationExamplesTest extends TestCase
         self::assertFalse($dummy->hasAny());
     }
 
-    public function testFactoryHelpersMakeCommonValueExample(): void
+    public function testFactoryHelpersMakeCommonValueExample()
     {
         $value = CommonValueFactory::makeCommonValue([
             'region' => 'eu',
@@ -461,7 +461,7 @@ final class DocumentationExamplesTest extends TestCase
         self::assertSame('eu', $value->array()['region']);
     }
 
-    public function testFactoryHelpersMakeCommonValueAsDummyExample(): void
+    public function testFactoryHelpersMakeCommonValueAsDummyExample()
     {
         $dummy = CommonValueFactory::makeCommonValueAsDummy();
 
@@ -469,7 +469,7 @@ final class DocumentationExamplesTest extends TestCase
         self::assertSame('fallback', $dummy->default('fallback')->str());
     }
 
-    public function testNativePhpInterfacesArrayAccessExample(): void
+    public function testNativePhpInterfacesArrayAccessExample()
     {
         $factory = new AdvancedArrayFactory();
         $data = $factory->makeAdvancedArray([
@@ -481,7 +481,7 @@ final class DocumentationExamplesTest extends TestCase
         self::assertTrue($data['active']->bool());
     }
 
-    public function testNativePhpInterfacesForeachExample(): void
+    public function testNativePhpInterfacesForeachExample()
     {
         $factory = new AdvancedArrayFactory();
         $data = $factory->makeAdvancedArray([
@@ -508,7 +508,7 @@ final class DocumentationExamplesTest extends TestCase
         );
     }
 
-    public function testNativePhpInterfacesJsonEncodeExample(): void
+    public function testNativePhpInterfacesJsonEncodeExample()
     {
         $factory = new AdvancedArrayFactory();
         $data = $factory->makeAdvancedArray([

@@ -5,7 +5,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2026 Volkhin Nikolay
- * 4/29/26, 8:46 PM
+ * 4/30/26, 1:00 AM
  */
 
 declare(strict_types=1);
@@ -15,7 +15,7 @@ use SbWereWolf\LanguageSpecific\AdvancedArrayFactory;
 
 final class ArrayInvariantsTest extends TestCase
 {
-    public function testDeterministicRandomizedInvariants(): void
+    public function testDeterministicRandomizedInvariants()
     {
         mt_srand(12345);
         $factory = new AdvancedArrayFactory();

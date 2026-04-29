@@ -6,7 +6,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2026 Volkhin Nikolay
- * 4/29/26, 8:46 PM
+ * 4/30/26, 1:00 AM
  */
 
 declare(strict_types=1);
@@ -104,7 +104,7 @@ class CommonArray extends BaseArray implements CommonArrayInterface
      *
      * @throws ValueIsImmutableException
      */
-    public function offsetSet($offset, $value): void
+    public function offsetSet($offset, $value)
     {
         throw new ValueIsImmutableException(
             'Value of element is immutable.',
@@ -117,7 +117,7 @@ class CommonArray extends BaseArray implements CommonArrayInterface
      *
      * @throws ListIsImmutableException
      */
-    public function offsetUnset($offset): void
+    public function offsetUnset($offset)
     {
         throw new ListIsImmutableException(
             'List of elements is immutable.',

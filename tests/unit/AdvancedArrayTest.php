@@ -5,7 +5,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2026 Volkhin Nikolay
- * 4/30/26, 12:38 AM
+ * 4/30/26, 1:00 AM
  */
 
 declare(strict_types=1);
@@ -196,7 +196,7 @@ class AdvancedArrayTest extends TestCase
         );
     }
 
-    public function testPullWithoutKeyReturnsDummyWhenCollectionHasNoNestedArrays(): void
+    public function testPullWithoutKeyReturnsDummyWhenCollectionHasNoNestedArrays()
     {
         $factory = new AdvancedArrayFactory();
 
@@ -257,7 +257,7 @@ class AdvancedArrayTest extends TestCase
         );
     }
 
-    public function testValuesPreserveOriginalKeys(): void
+    public function testValuesPreserveOriginalKeys()
     {
         $data = [
             'nested' => ['skip me'],
@@ -281,7 +281,7 @@ class AdvancedArrayTest extends TestCase
         self::assertSame(['A', 'B'], $values);
     }
 
-    public function testArraysPreserveOriginalKeys(): void
+    public function testArraysPreserveOriginalKeys()
     {
         $data = [
             'scalar' => 'ignore me',

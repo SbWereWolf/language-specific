@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [ master, php-7.1 ]
+    branches: [ master, php-7.0 ]
   pull_request:
-    branches: [ master, php-7.1 ]
+    branches: [ master, php-7.0 ]
 
 jobs:
   tests:
@@ -15,10 +15,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup PHP 7.1 with PCOV
+      - name: Setup PHP 7.0 with PCOV
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '7.1'
+          php-version: '7.0'
           tools: composer:v2
           coverage: pcov
           ini-values: pcov.directory=src

@@ -14,10 +14,5 @@
     "configDir": "continuous-integration/phpunit"
   },
   "testFramework": "phpunit",
-  "initialTestsPhpOptions": "-d xdebug.mode=coverage",
-  "mutators": {
-    "@default": true,
-    "@function_signature": false,
-    "@regex": false
-  }
+  "initialTestsPhpOptions": "-d xdebug.mode=coverage"
 }

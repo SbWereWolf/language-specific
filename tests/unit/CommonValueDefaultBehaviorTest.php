@@ -5,7 +5,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2026 Volkhin Nikolay
- * 3/31/26, 3:01 AM
+ * 4/30/26, 1:00 AM
  */
 
 declare(strict_types=1);
@@ -15,7 +15,7 @@ use SbWereWolf\LanguageSpecific\Value\CommonValueFactory;
 
 final class CommonValueDefaultBehaviorTest extends TestCase
 {
-    public function testDefaultReturnsNewDummyInstanceAndDoesNotMutateOriginal(): void
+    public function testDefaultReturnsNewDummyInstanceAndDoesNotMutateOriginal()
     {
         $value = CommonValueFactory::makeCommonValueAsDummy();
         $withDefault = $value->default('fallback');
@@ -29,7 +29,7 @@ final class CommonValueDefaultBehaviorTest extends TestCase
         self::assertSame('fallback', $withDefault->str());
     }
 
-    public function testDefaultOnRealValueKeepsOriginalValue(): void
+    public function testDefaultOnRealValueKeepsOriginalValue()
     {
         $value = CommonValueFactory::makeCommonValue('real');
         $withDefault = $value->default('fallback');

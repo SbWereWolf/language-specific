@@ -1,16 +1,3 @@
 parameters:
 	ignoreErrors:
-			-
-				message: '#^Parameter \#1 \$key of function array_key_exists expects int\|string, bool\|float\|int\|string given\.$#'
-				paths:
-					- ../../../src/SbWereWolf/LanguageSpecific/AdvancedArray.php
-
-			-
-				message: '#^Method SbWereWolf\\LanguageSpecific\\Collection\\BaseArray\:\:jsonSerialize\(\) return type has no value type specified in iterable type array\.$#'
-				paths:
-					- ../../../src/SbWereWolf/LanguageSpecific/Collection/BaseArray.php
-
-			-
-				message: '#^Parameter \#1 \$key of function array_key_exists expects int\|string, bool\|float\|int\|string\|null given\.$#'
-				paths:
-					- ../../../src/SbWereWolf/LanguageSpecific/Collection/CommonArray.php
+		- '#^PHPDoc tag @(param|return|var) has invalid value .*array-key.*#'

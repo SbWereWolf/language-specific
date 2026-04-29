@@ -1,7 +1,7 @@
 {
   "name": "sbwerewolf/language-specific",
   "type": "library",
-  "description": "Read nested arrays safely and cast values predictably in PHP 7.1",
+  "description": "Read nested arrays safely and cast values predictably in PHP 7.0",
   "keywords": [
     "php",
     "arrays",
@@ -21,29 +21,21 @@
     }
   ],
   "require": {
-    "php": ">=7.1 <7.3",
+    "php": ">=7.0 <7.1",
     "ext-json": "*",
     "symfony/polyfill-php73": "^1.14",
     "symfony/polyfill-php80": "^1.14"
   },
   "require-dev": {
-    "brianium/paratest": "^3.1",
+    "brianium/paratest": "^1.1",
     "composer/package-versions-deprecated": "^1.11",
-    "ergebnis/composer-normalize": "^2.0",
-    "infection/infection": "^0.13.4",
-    "phpstan/extension-installer": "^1.1",
-    "phpstan/phpstan": "^0.12.99",
-    "phpstan/phpstan-deprecation-rules": "^0.12",
-    "phpstan/phpstan-phpunit": "^0.12",
-    "phpstan/phpstan-strict-rules": "^0.12",
-    "phpunit/phpunit": "^7.5",
+    "infection/infection": "^0.8.2",
+    "phpstan/phpstan": "^0.9.3",
+    "phpunit/phpunit": "^6.5",
     "squizlabs/php_codesniffer": "^3.7"
   },
   "config": {
-    "allow-plugins": {
-      "ergebnis/composer-normalize": true,
-      "phpstan/extension-installer": true
-    },
+    "allow-plugins": {},
     "sort-packages": true
   },
   "autoload": {
@@ -68,13 +60,11 @@
   "scripts": {
     "check-style": "php ./vendor/bin/phpcs --standard=continuous-integration/phpcs/phpcs.xml -v",
     "fix-style": "php ./vendor/bin/phpcbf --standard=continuous-integration/phpcs/phpcs.xml -v",
-    "mutate": "vendor/bin/infection --configuration=infection.json5 --threads=max",
-    "mutate:changed": "vendor/bin/infection --configuration=infection.json5 --git-diff-lines",
-    "mutate:ci": "vendor/bin/infection --configuration=infection.json5 --coverage=continuous-integration/infection/coverage --threads=max --min-msi=100 --min-covered-msi=100 --ignore-msi-with-no-mutations",
-    "normalize-check": "composer normalize --dry-run",
-    "normalize-fix": "composer normalize",
-    "phpstan-check": "php ./vendor/bin/phpstan analyse -vvv --configuration continuous-integration/phpstan/phpstan.neon",
-    "phpstan-suppress": "php ./vendor/bin/phpstan analyse -vvv --configuration continuous-integration/phpstan/phpstan.neon --generate-baseline continuous-integration/phpstan/ignore-errors/baseline.neon",
+    "mutate": "vendor/bin/infection --configuration=infection.json5 --threads=max --mutators=BitwiseAnd,BitwiseNot,BitwiseOr,BitwiseXor,Decrement,DivEqual,Division,Exponentiation,Increment,Minus,MinusEqual,ModEqual,Modulus,MulEqual,Multiplication,Plus,PlusEqual,PowEqual,ShiftLeft,ShiftRight,FalseValue,LogicalAnd,LogicalLowerAnd,LogicalLowerOr,LogicalNot,LogicalOr,TrueValue,GreaterThan,GreaterThanOrEqualTo,LessThan,LessThanOrEqualTo,Equal,GreaterThanNegotiation,GreaterThanOrEqualToNegotiation,Identical,LessThanNegotiation,LessThanOrEqualToNegotiation,NotEqual,NotIdentical,DecrementInteger,IncrementInteger,OneZeroInteger,OneZeroFloat,FloatNegation,FunctionCall,IntegerNegation,NewObject,This,ProtectedVisibility,Spaceship,Break_,Continue_,Throw_,Foreach_",
+    "mutate:changed": "vendor/bin/infection --configuration=infection.json5 --git-diff-lines --mutators=BitwiseAnd,BitwiseNot,BitwiseOr,BitwiseXor,Decrement,DivEqual,Division,Exponentiation,Increment,Minus,MinusEqual,ModEqual,Modulus,MulEqual,Multiplication,Plus,PlusEqual,PowEqual,ShiftLeft,ShiftRight,FalseValue,LogicalAnd,LogicalLowerAnd,LogicalLowerOr,LogicalNot,LogicalOr,TrueValue,GreaterThan,GreaterThanOrEqualTo,LessThan,LessThanOrEqualTo,Equal,GreaterThanNegotiation,GreaterThanOrEqualToNegotiation,Identical,LessThanNegotiation,LessThanOrEqualToNegotiation,NotEqual,NotIdentical,DecrementInteger,IncrementInteger,OneZeroInteger,OneZeroFloat,FloatNegation,FunctionCall,IntegerNegation,NewObject,This,ProtectedVisibility,Spaceship,Break_,Continue_,Throw_,Foreach_",
+    "mutate:ci": "vendor/bin/infection --configuration=infection.json5 --coverage=continuous-integration/infection/coverage --threads=max --min-msi=100 --min-covered-msi=100 --mutators=BitwiseAnd,BitwiseNot,BitwiseOr,BitwiseXor,Decrement,DivEqual,Division,Exponentiation,Increment,Minus,MinusEqual,ModEqual,Modulus,MulEqual,Multiplication,Plus,PlusEqual,PowEqual,ShiftLeft,ShiftRight,FalseValue,LogicalAnd,LogicalLowerAnd,LogicalLowerOr,LogicalNot,LogicalOr,TrueValue,GreaterThan,GreaterThanOrEqualTo,LessThan,LessThanOrEqualTo,Equal,GreaterThanNegotiation,GreaterThanOrEqualToNegotiation,Identical,LessThanNegotiation,LessThanOrEqualToNegotiation,NotEqual,NotIdentical,DecrementInteger,IncrementInteger,OneZeroInteger,OneZeroFloat,FloatNegation,FunctionCall,IntegerNegation,NewObject,This,ProtectedVisibility,Spaceship,Break_,Continue_,Throw_,Foreach_",
+    "phpstan-check": "php ./vendor/bin/phpstan analyse -vvv --level=max --configuration continuous-integration/phpstan/phpstan.neon src",
+    "phpstan-suppress": "php ./vendor/bin/phpstan analyse -vvv --level=max --configuration continuous-integration/phpstan/phpstan.neon --generate-baseline continuous-integration/phpstan/ignore-errors/baseline.neon src",
     "test": "php ./vendor/phpunit/phpunit/phpunit --configuration ./continuous-integration/phpunit/phpunit.xml --testdox --colors=always",
     "test:coverage": "php -d xdebug.mode=coverage ./vendor/phpunit/phpunit/phpunit --configuration ./continuous-integration/phpunit/phpunit.xml --testdox --colors=always --coverage-html ./continuous-integration/autotests-coverage-report",
     "test:coverage:infection": "php -d xdebug.mode=coverage ./vendor/phpunit/phpunit/phpunit --configuration ./continuous-integration/phpunit/phpunit.xml --coverage-xml continuous-integration/infection/coverage/coverage-xml --log-junit continuous-integration/infection/coverage/phpunit.junit.xml",

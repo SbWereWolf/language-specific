@@ -5,7 +5,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2026 Volkhin Nikolay
- * 3/30/26, 8:30 PM
+ * 4/30/26, 1:00 AM
  */
 
 declare(strict_types=1);
@@ -15,7 +15,7 @@ use SbWereWolf\LanguageSpecific\AdvancedArrayFactory;
 
 final class AdvancedArrayEdgeCaseTest extends TestCase
 {
-    public function testPullReturnsDummyForExistingButNonArrayValues(): void
+    public function testPullReturnsDummyForExistingButNonArrayValues()
     {
         $handler = (new AdvancedArrayFactory())->makeAdvancedArray([
             'null' => null,

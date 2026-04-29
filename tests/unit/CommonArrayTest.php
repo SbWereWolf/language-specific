@@ -5,7 +5,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2026 Volkhin Nikolay
- * 4/29/26, 8:46 PM
+ * 4/30/26, 1:00 AM
  */
 
 declare(strict_types=1);
@@ -320,7 +320,7 @@ class CommonArrayTest extends TestCase
         );
     }
 
-    public function testOffsetSetThrowsExpectedImmutableExceptionCode(): void
+    public function testOffsetSetThrowsExpectedImmutableExceptionCode()
     {
         $factory = new ArrayFactory();
         $handler = $factory->makeCommonArray([0 => 'first']);
@@ -332,7 +332,7 @@ class CommonArrayTest extends TestCase
         $handler->offsetSet(0, 0);
     }
 
-    public function testOffsetUnsetThrowsExpectedImmutableExceptionCode(): void
+    public function testOffsetUnsetThrowsExpectedImmutableExceptionCode()
     {
         $factory = new ArrayFactory();
         $handler = $factory->makeCommonArray([0 => 'first']);
