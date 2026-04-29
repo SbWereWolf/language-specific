@@ -9,7 +9,6 @@
     "text": "continuous-integration/infection/infection.log",
     "summary": "continuous-integration/infection/summary.log",
     "json": "continuous-integration/infection/infection.json",
-    "html": "continuous-integration/infection/infection.html",
     "perMutator": "continuous-integration/infection/per-mutator.md"
   },
   "phpUnit": {

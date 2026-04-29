@@ -6,7 +6,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2026 Volkhin Nikolay
- * 4/29/26, 8:46 PM
+ * 4/29/26, 9:17 PM
  */
 
 declare(strict_types=1);
@@ -30,8 +30,9 @@ class BaseArray implements BaseArrayInterface
     /**
      * @var array<array-key, mixed>
      */
-    protected array $data;
-    protected CommonValueFactoryInterface $valueFactory;
+    protected $data;
+    /** @var CommonValueFactoryInterface */
+    protected $valueFactory;
 
     /**
      * Конструктор класса BaseArray

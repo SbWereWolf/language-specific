@@ -1,6 +1,6 @@
 {
   "name": "sbwerewolf/language-specific",
-  "description": "Read nested arrays safely and cast values predictably in PHP 7.4",
+  "description": "Read nested arrays safely and cast values predictably in PHP 7.3",
   "license": "MIT",
   "type": "library",
   "keywords": [
@@ -27,20 +27,22 @@
     "docs": "https://github.com/SbWereWolf/language-specific#readme"
   },
   "require": {
-    "php": ">=7.4 <8.0",
-    "ext-json": "*"
+    "php": ">=7.3 <7.4",
+    "ext-json": "*",
+    "symfony/polyfill-php80": "^1.14"
   },
   "require-dev": {
     "brianium/paratest": "^6.11",
+    "composer/package-versions-deprecated": "^1.11",
     "ergebnis/composer-normalize": "^2.0",
-    "infection/infection": "^0.26",
+    "infection/infection": "^0.18.2",
     "phpstan/extension-installer": "^1.4",
-    "phpstan/phpstan": "^2.1",
-    "phpstan/phpstan-deprecation-rules": "^2.0",
-    "phpstan/phpstan-phpunit": "^2.0",
-    "phpstan/phpstan-strict-rules": "^2.0",
+    "phpstan/phpstan": "^1.12",
+    "phpstan/phpstan-deprecation-rules": "^1.2",
+    "phpstan/phpstan-phpunit": "^1.4",
+    "phpstan/phpstan-strict-rules": "^1.6",
     "phpunit/phpunit": "^9.6",
-    "rector/rector": "^2.0",
+    "rector/rector": "^0.19",
     "squizlabs/php_codesniffer": "^4.0"
   },
   "autoload": {
@@ -75,7 +77,7 @@
     "fix-style": "php ./vendor/bin/phpcbf --standard=continuous-integration/phpcs/phpcs.xml -v",
     "mutate": "vendor/bin/infection --configuration=infection.json5 --threads=max",
     "mutate:changed": "vendor/bin/infection --configuration=infection.json5 --git-diff-lines",
-    "mutate:ci": "vendor/bin/infection --configuration=infection.json5 --coverage=continuous-integration/infection/coverage --skip-initial-tests --only-covering-test-cases --threads=max",
+    "mutate:ci": "vendor/bin/infection --configuration=infection.json5 --coverage=continuous-integration/infection/coverage --skip-initial-tests --threads=max",
     "normalize-check": "composer normalize --dry-run",
     "normalize-fix": "composer normalize",
     "phpstan-check": "php ./vendor/bin/phpstan analyse -vvv --configuration continuous-integration/phpstan/phpstan.neon",

@@ -7,7 +7,7 @@
 [![Static Analysis](https://github.com/SbWereWolf/language-specific/actions/workflows/static-analysis.yml/badge.svg)](https://github.com/SbWereWolf/language-specific/actions/workflows/static-analysis.yml)
 [![Test Coverage](https://codecov.io/github/SbWereWolf/language-specific/graph/badge.svg?token=I71W0AFR98)](https://codecov.io/github/SbWereWolf/language-specific)
 
-Read nested arrays safely and cast values predictably in PHP 7.4
+Read nested arrays safely and cast values predictably in PHP 7.3
 
 Use it when you need to:
 
