@@ -11,6 +11,11 @@ parameters:
 					- ../../../src/SbWereWolf/LanguageSpecific/Collection/BaseArray.php
 
 			-
+				message: '#^Return type \(int\|string\|null\) of method SbWereWolf\\LanguageSpecific\\Collection\\BaseArray\:\:key\(\) should be covariant with return type \(\(int\|string\)\) of method Iterator<\(int\|string\),SbWereWolf\\LanguageSpecific\\Value\\CommonValueInterface>\:\:key\(\)$#'
+				paths:
+					- ../../../src/SbWereWolf/LanguageSpecific/Collection/BaseArray.php
+
+			-
 				message: '#^Parameter \#1 \$key of function array_key_exists expects int\|string, bool\|float\|int\|string\|null given\.$#'
 				paths:
 					- ../../../src/SbWereWolf/LanguageSpecific/Collection/CommonArray.php

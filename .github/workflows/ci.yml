@@ -40,7 +40,6 @@ jobs:
           --configuration ./continuous-integration/phpunit/phpunit.xml
           --colors=always
           --coverage-clover coverage.xml
-          --coverage-filter ./src
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v5
