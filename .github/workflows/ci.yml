@@ -15,13 +15,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup PHP 7.0 with PCOV
+      - name: Setup PHP 7.0 with Xdebug
         uses: shivammathur/setup-php@v2
         with:
           php-version: '7.0'
           tools: composer:v2
-          coverage: pcov
-          ini-values: pcov.directory=src
+          coverage: xdebug
 
       - name: Validate composer.json
         run: composer validate --strict
@@ -34,13 +33,10 @@ jobs:
 
       - name: Run tests with coverage
         run: >-
-          php -d pcov.enabled=1
-          -d pcov.directory=src
-          ./vendor/phpunit/phpunit/phpunit
+          php ./vendor/phpunit/phpunit/phpunit
           --configuration ./continuous-integration/phpunit/phpunit.xml
           --colors=always
           --coverage-clover coverage.xml
-          --coverage-filter ./src
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v5
