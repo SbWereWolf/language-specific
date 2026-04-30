@@ -6,7 +6,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2026 Volkhin Nikolay
- * 4/29/26, 8:46 PM
+ * 5/1/26, 1:08 AM
  */
 
 namespace SbWereWolf\LanguageSpecific\Collection;
@@ -29,7 +29,7 @@ interface ArrayFactoryInterface
      *
      * @return BaseArrayInterface
      */
-    public function makeBaseArray($data): BaseArrayInterface;
+    public function makeBaseArray($data);
 
     /**
      * Возвращает CommonArrayInterface
@@ -38,5 +38,5 @@ interface ArrayFactoryInterface
      *
      * @return CommonArrayInterface
      */
-    public function makeCommonArray($data): CommonArrayInterface;
+    public function makeCommonArray($data);
 }

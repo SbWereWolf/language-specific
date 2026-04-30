@@ -4,10 +4,9 @@
 [![Packagist Downloads](https://img.shields.io/packagist/dt/sbwerewolf/language-specific)](https://packagist.org/packages/sbwerewolf/language-specific)
 [![License](https://img.shields.io/github/license/SbWereWolf/language-specific)](https://github.com/SbWereWolf/language-specific/blob/master/LICENSE)
 [![CI](https://github.com/SbWereWolf/language-specific/actions/workflows/ci.yml/badge.svg)](https://github.com/SbWereWolf/language-specific/actions/workflows/ci.yml)
-[![Static Analysis](https://github.com/SbWereWolf/language-specific/actions/workflows/static-analysis.yml/badge.svg)](https://github.com/SbWereWolf/language-specific/actions/workflows/static-analysis.yml)
 [![Test Coverage](https://codecov.io/github/SbWereWolf/language-specific/graph/badge.svg?token=I71W0AFR98)](https://codecov.io/github/SbWereWolf/language-specific)
 
-Read nested arrays safely and cast values predictably in PHP 7.0
+Read nested arrays safely and cast values predictably in PHP 5.6
 
 Use it when you need to:
 
@@ -36,12 +35,12 @@ $payload = [
 $data = new AdvancedArrayFactory()->makeAdvancedArray($payload);
 
 $userId = $data->pull('user')->get('id')->int(); // 42
-$timezone = $data->pull('user')->get('timezone')->default('UTC')->str(); // 'UTC'
+$timezone = $data->pull('user')->get('timezone')->setDefault('UTC')->str(); // 'UTC'
 // -- OR --
 $user = $data->pull('user');
 
 $userId = $user->get('id')->int(); // 42
-$timezone = $user->get('timezone')->default('UTC')->str(); // 'UTC' 
+$timezone = $user->get('timezone')->setDefault('UTC')->str(); // 'UTC'
 ```
 
 ## Code test coverage
@@ -83,7 +82,7 @@ $driver = $config
     ->pull('app')
     ->pull('cache')
     ->get('driver')
-    ->default('file')
+    ->setDefault('file')
     ->str();
     
 $driver; // 'redis'
@@ -92,7 +91,7 @@ $fallback = $config
     ->pull('app')
     ->pull('queue')
     ->get('driver')
-    ->default('sync')
+    ->setDefault('sync')
     ->str();
 
 $fallback; // 'sync'
@@ -119,7 +118,7 @@ $payload = $factory->makeAdvancedArray([
 $userId = $payload->pull('user')->get('id')->int(); // 42
 $isAdmin = $payload->pull('user')->get('is_admin')->bool(); // true
 
-$timezone = $payload->pull('user')->get('timezone')->default('UTC')->str();
+$timezone = $payload->pull('user')->get('timezone')->setDefault('UTC')->str();
 // 'UTC'
 ```
 
@@ -357,9 +356,9 @@ $value = CommonValueFactory::makeCommonValue([
 $value->asIs(); // ['env' => 'prod']
 ```
 
-### `isReal()` and `default()` make missing-state explicit
+### `isReal()` and `setDefault()` make missing-state explicit
 
-Use `default()` only for missing values; real values stay untouched.
+Use `setDefault()` only for missing values; real values stay untouched.
 
 ```php
 use SbWereWolf\LanguageSpecific\Value\CommonValueFactory;
@@ -368,12 +367,12 @@ $dummy = CommonValueFactory::makeCommonValueAsDummy();
 
 $dummy->isReal(); // false
 $dummy->asIs(); // null
-$dummy->default('fallback')->str(); // 'fallback'
+$dummy->setDefault('fallback')->str(); // 'fallback'
 
 $real = CommonValueFactory::makeCommonValue('real value');
 
 $real->isReal(); // true
-$real->default('fallback')->str(); // 'real value'
+$real->setDefault('fallback')->str(); // 'real value'
 ```
 
 ### Scalar casts stay close to native PHP casting rules
@@ -391,7 +390,7 @@ $value->double(); // 1.1
 $value->bool(); // true
 ```
 
-### `array()` turns the current value into an array
+### `asArray()` turns the current value into an array
 
 This is especially useful when you want one array-shaped read path.
 
@@ -399,12 +398,12 @@ This is especially useful when you want one array-shaped read path.
 use SbWereWolf\LanguageSpecific\Value\CommonValueFactory;
 
 $stringValue = CommonValueFactory::makeCommonValue('release');
-$stringValue->array(); // ['release']
+$stringValue->asArray(); // ['release']
 
 $arrayValue = CommonValueFactory::makeCommonValue([
     'env' => 'prod',
 ]);
-$arrayValue->array(); // ['env' => 'prod']
+$arrayValue->asArray(); // ['env' => 'prod']
 ```
 
 ### `object()` returns the stored object value
@@ -466,7 +465,7 @@ $results;
 */
 ```
 
-### `class()` shows all native `get_debug_type()` results used by this library
+### `getClass()` shows the native debug type names used by this library
 
 This example includes scalars, arrays, named classes,
 anonymous classes, resources, and closed resources.
@@ -483,24 +482,24 @@ $anonymous = new class () {
 };
 
 $results = [
-    CommonValueFactory::makeCommonValue(null)->class(), // null
-    CommonValueFactory::makeCommonValue(false)->class(), // bool
-    CommonValueFactory::makeCommonValue(0)->class(), // int
-    CommonValueFactory::makeCommonValue(0.1)->class(), // float
-    CommonValueFactory::makeCommonValue('a')->class(), // string
-    CommonValueFactory::makeCommonValue([])->class(), // array
-    CommonValueFactory::makeCommonValue((object) null)->class(), // stdClass
+    CommonValueFactory::makeCommonValue(null)->getClass(), // null
+    CommonValueFactory::makeCommonValue(false)->getClass(), // bool
+    CommonValueFactory::makeCommonValue(0)->getClass(), // int
+    CommonValueFactory::makeCommonValue(0.1)->getClass(), // float
+    CommonValueFactory::makeCommonValue('a')->getClass(), // string
+    CommonValueFactory::makeCommonValue([])->getClass(), // array
+    CommonValueFactory::makeCommonValue((object) null)->getClass(), // stdClass
     
-    CommonValueFactory::makeCommonValue(new DocumentationNamedExampleClass())->class(), 
+    CommonValueFactory::makeCommonValue(new DocumentationNamedExampleClass())->getClass(),
     // DocumentationNamedExampleClass
     
-    CommonValueFactory::makeCommonValue($anonymous)->class(), // class@anonymous
-    CommonValueFactory::makeCommonValue($stream)->class(), // resource (stream)
+    CommonValueFactory::makeCommonValue($anonymous)->getClass(), // class@anonymous
+    CommonValueFactory::makeCommonValue($stream)->getClass(), // resource (stream)
 ];
 
 fclose($stream);
 
-$results[] = CommonValueFactory::makeCommonValue($stream)->class(); 
+$results[] = CommonValueFactory::makeCommonValue($stream)->getClass();
 // resource (closed)
 
 $results;
@@ -692,7 +691,7 @@ $value = CommonValueFactory::makeCommonValue([
     'region' => 'eu',
 ]);
 
-$value->array()['region']; // 'eu'
+$value->asArray()['region']; // 'eu'
 ```
 
 ### `makeCommonValueAsDummy()` creates a missing-value placeholder
@@ -705,7 +704,7 @@ use SbWereWolf\LanguageSpecific\Value\CommonValueFactory;
 $dummy = CommonValueFactory::makeCommonValueAsDummy();
 
 $dummy->isReal(); // false
-$dummy->default('fallback')->str(); // 'fallback'
+$dummy->setDefault('fallback')->str(); // 'fallback'
 ```
 
 ## Native PHP interfaces

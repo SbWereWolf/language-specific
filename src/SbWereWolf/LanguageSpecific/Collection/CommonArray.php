@@ -6,10 +6,9 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2026 Volkhin Nikolay
- * 4/30/26, 1:00 AM
+ * 5/1/26, 1:08 AM
  */
 
-declare(strict_types=1);
 
 namespace SbWereWolf\LanguageSpecific\Collection;
 
@@ -29,34 +28,37 @@ class CommonArray extends BaseArray implements CommonArrayInterface
     /** @inheritDoc */
     public function get(
         $key
-    ): CommonValueInterface {
+    ) {
+        $valueFactory = get_class($this->valueFactory);
+
         if (!array_key_exists($key, $this->data)) {
-            return $this->valueFactory::makeCommonValueAsDummy();
+            return $valueFactory::makeCommonValueAsDummy();
         }
 
-        return $this->valueFactory::makeCommonValue($this->data[$key]);
+        return $valueFactory::makeCommonValue($this->data[$key]);
     }
 
     /** @inheritDoc */
-    public function getAny(): CommonValueInterface
+    public function getAny()
     {
+        $valueFactory = get_class($this->valueFactory);
         $first = array_key_first($this->data);
         if ($first === null) {
-            return $this->valueFactory::makeCommonValueAsDummy();
+            return $valueFactory::makeCommonValueAsDummy();
         }
 
-        return $this->valueFactory::makeCommonValue($this->data[$first]);
+        return $valueFactory::makeCommonValue($this->data[$first]);
     }
 
     /** @inheritDoc */
-    public function has($key): bool
+    public function has($key)
     {
         $result = array_key_exists($key, $this->data);
 
         return $result;
     }
 
-    public function hasAny(): bool
+    public function hasAny()
     {
         $result = count($this->data) > 0;
 
@@ -70,7 +72,7 @@ class CommonArray extends BaseArray implements CommonArrayInterface
      *
      * @return bool
      */
-    private function isSupportedIndex($offset): bool
+    private function isSupportedIndex($offset)
     {
         return is_int($offset)
             || is_string($offset)
@@ -80,7 +82,7 @@ class CommonArray extends BaseArray implements CommonArrayInterface
     }
 
     /** @inheritDoc */
-    public function offsetExists($offset): bool
+    public function offsetExists($offset)
     {
         if (!$this->isSupportedIndex($offset)) {
             return false;
@@ -90,10 +92,12 @@ class CommonArray extends BaseArray implements CommonArrayInterface
     }
 
     /** @inheritDoc */
-    public function offsetGet($offset): CommonValueInterface
+    public function offsetGet($offset)
     {
         if (!$this->isSupportedIndex($offset)) {
-            return $this->valueFactory::makeCommonValueAsDummy();
+            $valueFactory = get_class($this->valueFactory);
+
+            return $valueFactory::makeCommonValueAsDummy();
         }
 
         return $this->get($offset);

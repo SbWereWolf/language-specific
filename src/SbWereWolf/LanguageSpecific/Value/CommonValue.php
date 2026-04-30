@@ -6,10 +6,9 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2026 Volkhin Nikolay
- * 4/30/26, 12:38 AM
+ * 5/1/26, 1:08 AM
  */
 
-declare(strict_types=1);
 
 namespace SbWereWolf\LanguageSpecific\Value;
 
@@ -37,14 +36,14 @@ final class CommonValue implements CommonValueInterface
      */
     public function __construct(
         $value = null,
-        bool $isReal = true
+        $isReal = true
     ) {
         $this->value = $value;
         $this->isReal = $isReal;
     }
 
     /** @inheritDoc */
-    public function isReal(): bool
+    public function isReal()
     {
         return $this->isReal === true;
     }
@@ -56,31 +55,31 @@ final class CommonValue implements CommonValueInterface
     }
 
     /** @inheritDoc */
-    public function int(): int
+    public function int()
     {
         return (int)($this->asIs());
     }
 
     /** @inheritDoc */
-    public function str(): string
+    public function str()
     {
         return (string)($this->asIs());
     }
 
     /** @inheritDoc */
-    public function bool(): bool
+    public function bool()
     {
         return (bool)($this->asIs());
     }
 
     /** @inheritDoc */
-    public function double(): float
+    public function double()
     {
         return (float)($this->asIs());
     }
 
     /** @inheritDoc */
-    public function array(): array
+    public function asArray()
     {
         return (array)($this->asIs());
     }
@@ -92,18 +91,18 @@ final class CommonValue implements CommonValueInterface
     }
 
     /** @inheritDoc */
-    public function type(): string
+    public function type()
     {
         $type = gettype($this->asIs());
         if ($type !== 'unknown type') {
             return $type;
         }
 
-        return get_debug_type($this->asIs()) === 'resource (closed)' ? 'resource (closed)' : $type;
+        return $this->debugType($this->asIs()) === 'resource (closed)' ? 'resource (closed)' : $type;
     }
 
     /** @inheritDoc */
-    public function default($value = null): CommonValueInterface
+    public function setDefault($value = null)
     {
         if ($this->isReal()) {
             return $this;
@@ -112,8 +111,51 @@ final class CommonValue implements CommonValueInterface
         return new self($value, false);
     }
 
-    public function class(): string
+    /** @inheritDoc */
+    public function getClass()
     {
-        return get_debug_type($this->asIs());
+        return $this->debugType($this->asIs());
+    }
+
+    /**
+     * Возвращает имя типа для вывода пользователю.
+     *
+     * @param mixed $value
+     *
+     * @return string
+     */
+    private function debugType($value)
+    {
+        $type = gettype($value);
+
+        if ($type === 'NULL') {
+            return 'null';
+        }
+
+        if ($type === 'boolean') {
+            return 'bool';
+        }
+
+        if ($type === 'integer') {
+            return 'int';
+        }
+
+        if ($type === 'double') {
+            return 'float';
+        }
+
+        if ($type === 'object') {
+            return get_class($value);
+        }
+
+        if ($type === 'resource') {
+            return 'resource (' . get_resource_type($value) . ')';
+        }
+
+        if ($type === 'unknown type') {
+            return 'resource (closed)';
+        }
+
+        return $type;
     }
 }

@@ -5,10 +5,9 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2026 Volkhin Nikolay
- * 4/30/26, 1:00 AM
+ * 5/1/26, 1:08 AM
  */
 
-declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
 use SbWereWolf\LanguageSpecific\Collection\ArrayFactory;

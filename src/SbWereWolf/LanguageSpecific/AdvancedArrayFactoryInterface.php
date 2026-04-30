@@ -6,7 +6,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2026 Volkhin Nikolay
- * 4/29/26, 8:46 PM
+ * 5/1/26, 1:08 AM
  */
 
 namespace SbWereWolf\LanguageSpecific;
@@ -27,8 +27,7 @@ interface AdvancedArrayFactoryInterface
      *
      * @return AdvancedArrayInterface
      */
-    public function makeDummyAdvancedArray():
-    AdvancedArrayInterface;
+    public function makeDummyAdvancedArray();
 
     /**
      * Возвращает AdvancedArrayInterface
@@ -39,5 +38,5 @@ interface AdvancedArrayFactoryInterface
      */
     public function makeAdvancedArray(
         $data
-    ): AdvancedArrayInterface;
+    );
 }

@@ -5,18 +5,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2026 Volkhin Nikolay
- * 4/30/26, 1:00 AM
- */
-
-declare(strict_types=1);
-
-/*
- * @package  LanguageSpecific
- * @author   SbWereWolf <ulfnew@gmail.com>
- * @link     https://github.com/SbWereWolf/language-specific
- *
- * Copyright © 2024 Volkhin Nikolay
- * 12/27/24, 5:16 AM
+ * 5/1/26, 1:08 AM
  */
 
 use PHPUnit\Framework\TestCase;
@@ -245,7 +234,7 @@ class CommonValueTest extends TestCase
     }
 
     /**
-     * Проверяем метод CommonValue::array()
+     * Проверяем метод CommonValue::asArray()
      *
      * @return void
      */
@@ -253,8 +242,8 @@ class CommonValueTest extends TestCase
     {
         $value = CommonValueFactory::makeCommonValue();
         self::assertEmpty(
-            array_diff($value->array(), []),
-            'For NULL value array() MUST BE []'
+            array_diff($value->asArray(), []),
+            'For NULL value asArray() MUST BE []'
         );
         self::assertTrue(
             $value->isReal(),
@@ -263,7 +252,7 @@ class CommonValueTest extends TestCase
 
         $value = CommonValueFactory::makeCommonValue([false, 1, 'a']);
         self::assertEmpty(
-            array_diff($value->array(), [false, 1, 'a']),
+            array_diff($value->asArray(), [false, 1, 'a']),
             'MUST BE exact [false,1,`a`]'
         );
         self::assertTrue(
@@ -339,77 +328,77 @@ class CommonValueTest extends TestCase
     }
 
     /**
-     * Проверяем метод CommonValue::class()
+     * Проверяем метод CommonValue::getClass()
      *
      * @return void
      */
     public function testClass()
     {
         $value = CommonValueFactory::makeCommonValue();
-        $type = $value->class();
+        $type = $value->getClass();
         self::assertEquals(
             'null',
             $type,
-            'For NULL value class() MUST BE `null`'
+            'For NULL value getClass() MUST BE `null`'
         );
 
         $value = CommonValueFactory::makeCommonValue(false);
-        $type = $value->class();
+        $type = $value->getClass();
         self::assertEquals(
             'bool',
             $type,
-            'For false value class() MUST BE `bool`'
+            'For false value getClass() MUST BE `bool`'
         );
 
         $value = CommonValueFactory::makeCommonValue(1);
-        $type = $value->class();
+        $type = $value->getClass();
         self::assertEquals(
             'int',
             $type,
-            'For 0 value class() MUST BE `int`'
+            'For 0 value getClass() MUST BE `int`'
         );
 
         $value = CommonValueFactory::makeCommonValue(0.1);
-        $type = $value->class();
+        $type = $value->getClass();
         self::assertEquals(
             'float',
             $type,
-            'For 0.1 value class() MUST BE `float`'
+            'For 0.1 value getClass() MUST BE `float`'
         );
 
         $value = CommonValueFactory::makeCommonValue('a');
-        $type = $value->class();
+        $type = $value->getClass();
         self::assertEquals(
             'string',
             $type,
-            'For `a` value class() MUST BE `string`'
+            'For `a` value getClass() MUST BE `string`'
         );
 
         $value = CommonValueFactory::makeCommonValue([]);
-        $type = $value->class();
+        $type = $value->getClass();
         self::assertEquals(
             'array',
             $type,
-            'For [] value class() MUST BE `array`'
+            'For [] value getClass() MUST BE `array`'
         );
 
         $object = (object)null;
         $value = CommonValueFactory::makeCommonValue($object);
-        $type = $value->class();
+        $type = $value->getClass();
         self::assertEquals(
             'stdClass',
             $type,
-            'For ((object)null) value class() MUST BE `stdClass`'
+            'For ((object)null) value getClass() MUST BE `stdClass`'
         );
 
         $value = CommonValueFactory::makeCommonValue(
             CommonValueFactory::makeCommonValue()
         );
-        $type = $value->class();
+        $type = $value->getClass();
         self::assertEquals(
             'SbWereWolf\LanguageSpecific\Value\CommonValue',
             $type,
-            'For (new CommonValue()) value class() MUST BE'
+            'For (new CommonValue()) value getClass() MUST BE'
             . ' `SbWereWolf\LanguageSpecific\Value\CommonValue`'
         );
     }
@@ -506,7 +495,7 @@ class CommonValueTest extends TestCase
     private function checkDefaultInt()
     {
         $value = CommonValueFactory::makeCommonValueAsDummy()
-            ->default(1);
+            ->setDefault(1);
         self::assertTrue(
             $value->int() === 1,
             'For dummy with default(1) value of int() MUST BE exact 1'
@@ -517,7 +506,7 @@ class CommonValueTest extends TestCase
         );
 
         $value = CommonValueFactory::makeCommonValue(3);
-        $value = $value->default(1);
+        $value = $value->setDefault(1);
         self::assertTrue(
             $value->int() === 3,
             'For value(3) with default(1) int() MUST BE exact 3'
@@ -536,7 +525,7 @@ class CommonValueTest extends TestCase
     private function checkDefaultDouble()
     {
         $value = CommonValueFactory::makeCommonValueAsDummy()
-            ->default(0.9);
+            ->setDefault(0.9);
         self::assertTrue(
             $value->double() === 0.9,
             'For dummy with default(0.9) value of double()'
@@ -547,7 +536,7 @@ class CommonValueTest extends TestCase
             'For dummy with default(0.9) isReal() MUST BE false'
         );
         $value = CommonValueFactory::makeCommonValue(1.1)
-            ->default(0.9);
+            ->setDefault(0.9);
         self::assertTrue(
             $value->double() === 1.1,
             'For value(1.1) with default(0.9) value of double()'
@@ -567,7 +556,7 @@ class CommonValueTest extends TestCase
     private function checkDefaultBool()
     {
         $value = CommonValueFactory::makeCommonValueAsDummy()
-            ->default(true);
+            ->setDefault(true);
         self::assertTrue(
             $value->bool() === true,
             'For dummy with default(true) value of bool()'
@@ -578,7 +567,7 @@ class CommonValueTest extends TestCase
             'For dummy with default(true) isReal() MUST BE false'
         );
         $value = CommonValueFactory::makeCommonValue(false)
-            ->default(true);
+            ->setDefault(true);
         self::assertTrue(
             $value->bool() === false,
             'For value(false) with default(true) value of bool()'
@@ -598,7 +587,7 @@ class CommonValueTest extends TestCase
     private function checkDefaultStr()
     {
         $value = CommonValueFactory::makeCommonValueAsDummy()
-            ->default('a');
+            ->setDefault('a');
         self::assertTrue(
             $value->str() === 'a',
             'For dummy with default(`a`) value of str()'
@@ -609,7 +598,7 @@ class CommonValueTest extends TestCase
             'For dummy with default(`a`) isReal() MUST BE false'
         );
         $value = CommonValueFactory::makeCommonValue('b')
-            ->default('a');
+            ->setDefault('a');
         self::assertTrue(
             $value->str() === 'b',
             'For value(`b`) with default(`a`) value of str()'
@@ -629,10 +618,10 @@ class CommonValueTest extends TestCase
     private function checkDefaultArray()
     {
         $value = CommonValueFactory::makeCommonValueAsDummy()
-            ->default([0 => 1]);
+            ->setDefault([0 => 1]);
         self::assertTrue(
-            $value->array()[0] === 1,
-            'For dummy with default([0 => 1]) value of array()[0]'
+            $value->asArray()[0] === 1,
+            'For dummy with default([0 => 1]) value of asArray()[0]'
             . ' MUST BE exact 1'
         );
         self::assertFalse(
@@ -640,11 +629,11 @@ class CommonValueTest extends TestCase
             'For dummy with default([0 => 1]) isReal() MUST BE false'
         );
         $value = CommonValueFactory::makeCommonValue([2 => 3])
-            ->default([0 => 1]);
+            ->setDefault([0 => 1]);
         self::assertTrue(
-            $value->array()[2] === 3,
+            $value->asArray()[2] === 3,
             'For value([2 => 3]) with default([0 => 1])'
-            . 'value of array()[2] MUST BE exact 3'
+            . 'value of asArray()[2] MUST BE exact 3'
         );
         self::assertTrue(
             $value->isReal(),
@@ -661,7 +650,7 @@ class CommonValueTest extends TestCase
     private function checkDefaultObject()
     {
         $value = CommonValueFactory::makeCommonValueAsDummy()
-            ->default(CommonValueFactory::makeCommonValue(1));
+            ->setDefault(CommonValueFactory::makeCommonValue(1));
         self::assertTrue(
             $value->object()->int() === 1,
             'For dummy with default(new CommonValue(1))'
@@ -676,7 +665,7 @@ class CommonValueTest extends TestCase
         $external = CommonValueFactory::makeCommonValue($internal);
         $default = CommonValueFactory::makeCommonValue(1);
 
-        $external->default($default);
+        $external->setDefault($default);
         self::assertTrue(
             $external->object()->int() === 2,
             'For value(CommonValue(2)) with default(CommonValue(1))'

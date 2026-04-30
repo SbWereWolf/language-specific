@@ -6,7 +6,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2026 Volkhin Nikolay
- * 4/29/26, 8:46 PM
+ * 5/1/26, 1:08 AM
  */
 
 namespace SbWereWolf\LanguageSpecific\Value;
@@ -31,13 +31,12 @@ interface CommonValueFactoryInterface
      */
     public static function makeCommonValue(
         $value = null
-    ): CommonValueInterface;
+    );
 
     /**
      * Возвращает CommonValueInterface с незаданным значением
      *
      * @return CommonValueInterface
      */
-    public static function makeCommonValueAsDummy():
-    CommonValueInterface;
+    public static function makeCommonValueAsDummy();
 }

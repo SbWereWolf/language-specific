@@ -6,10 +6,9 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2026 Volkhin Nikolay
- * 4/30/26, 1:00 AM
+ * 5/1/26, 1:08 AM
  */
 
-declare(strict_types=1);
 
 namespace SbWereWolf\LanguageSpecific\Collection;
 
@@ -47,7 +46,7 @@ class ArrayFactory implements ArrayFactoryInterface
     }
 
     /** @inheritDoc */
-    public function makeBaseArray($data): BaseArrayInterface
+    public function makeBaseArray($data)
     {
         $data = $this->makeItProper($data);
 
@@ -61,13 +60,13 @@ class ArrayFactory implements ArrayFactoryInterface
      *
      * @return array<array-key, mixed>
      */
-    protected function makeItProper($data): array
+    protected function makeItProper($data)
     {
         return is_array($data) ? $data : [$data];
     }
 
     /** @inheritDoc */
-    public function makeCommonArray($data): CommonArrayInterface
+    public function makeCommonArray($data)
     {
         $data = $this->makeItProper($data);
 

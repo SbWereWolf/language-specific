@@ -4,19 +4,8 @@
  * @author   SbWereWolf <ulfnew@gmail.com>
  * @link     https://github.com/SbWereWolf/language-specific
  *
- * Copyright © 2024 Volkhin Nikolay
- * 12/29/24, 8:05 AM
- */
-
-declare(strict_types=1);
-
-/*
- * @package  LanguageSpecific
- * @author   SbWereWolf <ulfnew@gmail.com>
- * @link     https://github.com/SbWereWolf/language-specific
- *
- * Copyright © 2024 Volkhin Nikolay
- * 12/27/24, 5:16 AM
+ * Copyright © 2026 Volkhin Nikolay
+ * 5/1/26, 1:08 AM
  */
 
 use PHPUnit\Framework\TestCase;

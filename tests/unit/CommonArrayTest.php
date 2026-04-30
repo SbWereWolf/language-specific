@@ -5,18 +5,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2026 Volkhin Nikolay
- * 4/30/26, 1:00 AM
- */
-
-declare(strict_types=1);
-
-/*
- * @package  LanguageSpecific
- * @author   SbWereWolf <ulfnew@gmail.com>
- * @link     https://github.com/SbWereWolf/language-specific
- *
- * Copyright © 2024 Volkhin Nikolay
- * 12/27/24, 5:16 AM
+ * 5/1/26, 1:08 AM
  */
 
 use PHPUnit\Framework\TestCase;
@@ -227,7 +216,7 @@ class CommonArrayTest extends TestCase
         $isProper = false;
         try {
             $handler->offsetSet(0, 0);
-        } catch (Throwable $e) {
+        } catch (Exception $e) {
             $isProper = $e instanceof ValueIsImmutableException;
         }
         self::assertTrue(
@@ -238,7 +227,7 @@ class CommonArrayTest extends TestCase
         $isProper = false;
         try {
             $handler->offsetUnset(0);
-        } catch (Throwable $e) {
+        } catch (Exception $e) {
             $isProper = $e instanceof ListIsImmutableException;
         }
         self::assertTrue(

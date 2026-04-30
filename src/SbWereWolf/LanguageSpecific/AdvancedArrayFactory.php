@@ -6,10 +6,9 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2026 Volkhin Nikolay
- * 4/29/26, 8:46 PM
+ * 5/1/26, 1:08 AM
  */
 
-declare(strict_types=1);
 
 namespace SbWereWolf\LanguageSpecific;
 
@@ -28,7 +27,7 @@ final class AdvancedArrayFactory extends ArrayFactory implements
     AdvancedArrayFactoryInterface
 {
     /** @inheritDoc */
-    public function makeDummyAdvancedArray(): AdvancedArrayInterface
+    public function makeDummyAdvancedArray()
     {
         return new AdvancedArray(
             [],
@@ -41,7 +40,7 @@ final class AdvancedArrayFactory extends ArrayFactory implements
     /** @inheritDoc */
     public function makeAdvancedArray(
         $data
-    ): AdvancedArrayInterface {
+    ) {
         $data = $this->makeItProper($data);
         /** @noinspection PhpUnnecessaryLocalVariableInspection */
         $handler = new AdvancedArray(

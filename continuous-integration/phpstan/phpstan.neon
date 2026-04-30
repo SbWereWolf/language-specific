@@ -1,4 +1,0 @@
-includes:
-    - ignore-errors/baseline.neon
-parameters:
-    tmpDir: tmp/

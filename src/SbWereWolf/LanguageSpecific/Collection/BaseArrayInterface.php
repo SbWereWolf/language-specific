@@ -6,7 +6,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2026 Volkhin Nikolay
- * 3/30/26, 8:29 PM
+ * 5/1/26, 1:08 AM
  */
 
 namespace SbWereWolf\LanguageSpecific\Collection;
@@ -33,5 +33,5 @@ interface BaseArrayInterface extends Iterator, JsonSerializable
      *
      * @return array<array-key, mixed>
      */
-    public function raw(): array;
+    public function raw();
 }

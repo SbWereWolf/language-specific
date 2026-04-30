@@ -6,10 +6,9 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2026 Volkhin Nikolay
- * 4/30/26, 1:00 AM
+ * 5/1/26, 1:08 AM
  */
 
-declare(strict_types=1);
 
 namespace SbWereWolf\LanguageSpecific\Collection;
 
@@ -51,14 +50,14 @@ class BaseArray implements BaseArrayInterface
     }
 
     /** @inheritDoc */
-    public function jsonSerialize(): array
+    public function jsonSerialize()
     {
         return $this->raw();
     }
 
     /** @inheritDoc */
     /** @return array<array-key, mixed> */
-    public function raw(): array
+    public function raw()
     {
         return $this->data;
     }
@@ -70,13 +69,15 @@ class BaseArray implements BaseArrayInterface
     }
 
     /** @inheritDoc */
-    public function current(): CommonValueInterface
+    public function current()
     {
+        $valueFactory = get_class($this->valueFactory);
+
         if (key($this->data) === null) {
-            return $this->valueFactory::makeCommonValueAsDummy();
+            return $valueFactory::makeCommonValueAsDummy();
         }
 
-        return $this->valueFactory::makeCommonValue(current($this->data));
+        return $valueFactory::makeCommonValue(current($this->data));
     }
 
     /**
@@ -96,7 +97,7 @@ class BaseArray implements BaseArrayInterface
     }
 
     /** @inheritDoc */
-    public function valid(): bool
+    public function valid()
     {
         return key($this->data) !== null;
     }

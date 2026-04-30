@@ -6,10 +6,9 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2026 Volkhin Nikolay
- * 4/29/26, 8:46 PM
+ * 5/1/26, 1:08 AM
  */
 
-declare(strict_types=1);
 
 namespace SbWereWolf\LanguageSpecific\Value;
 
@@ -27,7 +26,7 @@ final class CommonValueFactory implements CommonValueFactoryInterface
     /** @inheritDoc */
     public static function makeCommonValue(
         $value = null
-    ): CommonValueInterface {
+    ) {
         /** @noinspection PhpUnnecessaryLocalVariableInspection */
         $result = new CommonValue($value, true);
 
@@ -35,8 +34,7 @@ final class CommonValueFactory implements CommonValueFactoryInterface
     }
 
     /** @inheritDoc */
-    public static function makeCommonValueAsDummy():
-    CommonValueInterface
+    public static function makeCommonValueAsDummy()
     {
         /** @noinspection PhpUnnecessaryLocalVariableInspection */
         $result = new CommonValue(null, false);

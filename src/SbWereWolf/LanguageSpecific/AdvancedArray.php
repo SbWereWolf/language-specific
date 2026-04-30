@@ -6,10 +6,9 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2026 Volkhin Nikolay
- * 4/29/26, 9:17 PM
+ * 5/1/26, 1:08 AM
  */
 
-declare(strict_types=1);
 
 namespace SbWereWolf\LanguageSpecific;
 
@@ -50,7 +49,7 @@ final class AdvancedArray extends CommonArray implements
         array $data,
         CommonValueFactoryInterface $valueFactory,
         AdvancedArrayFactoryInterface $arrayFactory,
-        bool $isDummy
+        $isDummy
     ) {
         parent::__construct($data, $valueFactory);
 
@@ -59,18 +58,20 @@ final class AdvancedArray extends CommonArray implements
     }
 
     /** @inheritDoc */
-    public function isDummy(): bool
+    public function isDummy()
     {
         return $this->isDummy;
     }
 
     /** @inheritDoc */
-    public function values(): Generator
+    public function values()
     {
+        $valueFactory = get_class($this->valueFactory);
+
         foreach ($this->data as $key => $value) {
             if (!is_array($value)) {
                 yield
-                $key => $this->valueFactory::makeCommonValue($value);
+                $key => $valueFactory::makeCommonValue($value);
             }
         }
     }
@@ -78,7 +79,7 @@ final class AdvancedArray extends CommonArray implements
     /** @inheritDoc */
     public function pull(
         $key = null
-    ): AdvancedArrayInterface {
+    ) {
         if ($key === null) {
             foreach ($this->data as $value) {
                 if (is_array($value)) {
@@ -102,7 +103,7 @@ final class AdvancedArray extends CommonArray implements
     }
 
     /** @inheritDoc */
-    public function arrays(): Generator
+    public function arrays()
     {
         foreach ($this->data as $key => $value) {
             if (is_array($value)) {

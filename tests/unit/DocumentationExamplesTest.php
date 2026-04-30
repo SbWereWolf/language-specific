@@ -5,10 +5,9 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2026 Volkhin Nikolay
- * 4/30/26, 1:00 AM
+ * 5/1/26, 1:08 AM
  */
 
-declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
 use SbWereWolf\LanguageSpecific\AdvancedArrayFactory;
@@ -17,6 +16,10 @@ use SbWereWolf\LanguageSpecific\Value\CommonValue;
 use SbWereWolf\LanguageSpecific\Value\CommonValueFactory;
 
 final class DocumentationNamedExampleClass
+{
+}
+
+final class DocumentationSecondExampleClass
 {
 }
 
@@ -37,14 +40,14 @@ final class DocumentationExamplesTest extends TestCase
             ->pull('app')
             ->pull('cache')
             ->get('driver')
-            ->default('file')
+            ->setDefault('file')
             ->str();
 
         $fallback = $config
             ->pull('app')
             ->pull('queue')
             ->get('driver')
-            ->default('sync')
+            ->setDefault('sync')
             ->str();
 
         self::assertSame('redis', $driver);
@@ -63,7 +66,7 @@ final class DocumentationExamplesTest extends TestCase
 
         $userId = $payload->pull('user')->get('id')->int();
         $isAdmin = $payload->pull('user')->get('is_admin')->bool();
-        $timezone = $payload->pull('user')->get('timezone')->default('UTC')->str();
+        $timezone = $payload->pull('user')->get('timezone')->setDefault('UTC')->str();
 
         self::assertSame(42, $userId);
         self::assertTrue($isAdmin);
@@ -240,10 +243,10 @@ final class DocumentationExamplesTest extends TestCase
 
         self::assertFalse($dummy->isReal());
         self::assertNull($dummy->asIs());
-        self::assertSame('fallback', $dummy->default('fallback')->str());
+        self::assertSame('fallback', $dummy->setDefault('fallback')->str());
 
         self::assertTrue($real->isReal());
-        self::assertSame('real value', $real->default('fallback')->str());
+        self::assertSame('real value', $real->setDefault('fallback')->str());
     }
 
     public function testCommonValueScalarCastExample()
@@ -263,8 +266,8 @@ final class DocumentationExamplesTest extends TestCase
             'env' => 'prod',
         ]);
 
-        self::assertSame(['release'], $stringValue->array());
-        self::assertSame(['env' => 'prod'], $arrayValue->array());
+        self::assertSame(['release'], $stringValue->asArray());
+        self::assertSame(['env' => 'prod'], $arrayValue->asArray());
     }
 
     public function testCommonValueObjectExample()
@@ -315,25 +318,23 @@ final class DocumentationExamplesTest extends TestCase
     public function testCommonValueClassExample()
     {
         $stream = fopen('php://memory', 'r');
-        $anonymous = new class () {
-        };
 
         $results = [
-            CommonValueFactory::makeCommonValue(null)->class(),
-            CommonValueFactory::makeCommonValue(false)->class(),
-            CommonValueFactory::makeCommonValue(0)->class(),
-            CommonValueFactory::makeCommonValue(0.1)->class(),
-            CommonValueFactory::makeCommonValue('a')->class(),
-            CommonValueFactory::makeCommonValue([])->class(),
-            CommonValueFactory::makeCommonValue((object)null)->class(),
-            CommonValueFactory::makeCommonValue(new DocumentationNamedExampleClass())->class(),
-            CommonValueFactory::makeCommonValue($anonymous)->class(),
-            CommonValueFactory::makeCommonValue($stream)->class(),
+            CommonValueFactory::makeCommonValue(null)->getClass(),
+            CommonValueFactory::makeCommonValue(false)->getClass(),
+            CommonValueFactory::makeCommonValue(0)->getClass(),
+            CommonValueFactory::makeCommonValue(0.1)->getClass(),
+            CommonValueFactory::makeCommonValue('a')->getClass(),
+            CommonValueFactory::makeCommonValue([])->getClass(),
+            CommonValueFactory::makeCommonValue((object)null)->getClass(),
+            CommonValueFactory::makeCommonValue(new DocumentationNamedExampleClass())->getClass(),
+            CommonValueFactory::makeCommonValue(new DocumentationSecondExampleClass())->getClass(),
+            CommonValueFactory::makeCommonValue($stream)->getClass(),
         ];
 
         fclose($stream);
 
-        $results[] = CommonValueFactory::makeCommonValue($stream)->class();
+        $results[] = CommonValueFactory::makeCommonValue($stream)->getClass();
 
         self::assertSame(
             [
@@ -345,7 +346,7 @@ final class DocumentationExamplesTest extends TestCase
                 'array',
                 'stdClass',
                 DocumentationNamedExampleClass::class,
-                'class@anonymous',
+                DocumentationSecondExampleClass::class,
                 'resource (stream)',
                 'resource (closed)',
             ],
@@ -458,7 +459,7 @@ final class DocumentationExamplesTest extends TestCase
             'region' => 'eu',
         ]);
 
-        self::assertSame('eu', $value->array()['region']);
+        self::assertSame('eu', $value->asArray()['region']);
     }
 
     public function testFactoryHelpersMakeCommonValueAsDummyExample()
@@ -466,7 +467,7 @@ final class DocumentationExamplesTest extends TestCase
         $dummy = CommonValueFactory::makeCommonValueAsDummy();
 
         self::assertFalse($dummy->isReal());
-        self::assertSame('fallback', $dummy->default('fallback')->str());
+        self::assertSame('fallback', $dummy->setDefault('fallback')->str());
     }
 
     public function testNativePhpInterfacesArrayAccessExample()

@@ -6,7 +6,7 @@
  * @link     https://github.com/SbWereWolf/language-specific
  *
  * Copyright © 2026 Volkhin Nikolay
- * 4/30/26, 12:38 AM
+ * 5/1/26, 1:08 AM
  */
 
 namespace SbWereWolf\LanguageSpecific\Value;
@@ -27,7 +27,7 @@ interface CommonValueInterface
      *
      * @return bool
      */
-    public function isReal(): bool;
+    public function isReal();
 
     /**
      * Возвращает значение как есть
@@ -41,35 +41,35 @@ interface CommonValueInterface
      *
      * @return int
      */
-    public function int(): int;
+    public function int();
 
     /**
      * Возвращает значение приведённое к string
      *
      * @return string
      */
-    public function str(): string;
+    public function str();
 
     /**
      * Возвращает значение приведённое к boolean
      *
      * @return bool
      */
-    public function bool(): bool;
+    public function bool();
 
     /**
      * Возвращает значение приведённое к double (float)
      *
      * @return float
      */
-    public function double(): float;
+    public function double();
 
     /**
-     * Возвращает значение приведённое к массиву
+     * Возвращает значение приведённое к array
      *
      * @return array<mixed,mixed>
      */
-    public function array(): array;
+    public function asArray();
 
     /**
      * Возвращает значение приведённое к объекту
@@ -85,27 +85,21 @@ interface CommonValueInterface
      *
      * @return string
      */
-    public function type(): string;
+    public function type();
 
     /**
-     * Возвращает тип значения или имя класса, одно из:
-     * "int" "float" "bool" "string" "array" "null"
-     * A class name for named classes
-     * "class@anonymous" for an anonymous classes
-     * "resource (xxx)" for resources where "xxx" is a name of resource
-     * "resource (closed)" for closed resources
+     * Возвращает имя класса или тип значения
      *
      * @return string
      */
-    public function class(): string;
+    public function getClass();
 
     /**
-     * Использовать заданное значение в качестве значения по умолчанию
+     * Возвращает текущее значение или значение по умолчанию
      *
-     * @param mixed|null $value значение по умолчанию, будет присвоено
-     *               если значение незаданное
+     * @param mixed $value
      *
      * @return CommonValueInterface
      */
-    public function default($value = null): CommonValueInterface;
+    public function setDefault($value = null);
 }
